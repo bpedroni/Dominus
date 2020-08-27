@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dominusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TipoFluxo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Icone" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planejamento">
+          <Key>
+            <PropertyRef Name="IdPlanejamento" />
+          </Key>
+          <Property Name="IdPlanejamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="Mes" Type="int" Nullable="false" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="RepetirMes" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relatorio">
+          <Key>
+            <PropertyRef Name="IdRelatorio" />
+          </Key>
+          <Property Name="IdRelatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoRelatorio" Type="int" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InfoLinha" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InfoColuna" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TipoRelatorio">
+          <Key>
+            <PropertyRef Name="IdTipoRelatorio" />
+          </Key>
+          <Property Name="IdTipoRelatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transacao">
+          <Key>
+            <PropertyRef Name="IdTransacao" />
+          </Key>
+          <Property Name="IdTransacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" />
+          <Property Name="Identificacao" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="0" Nullable="false" />
+          <Property Name="Comentario" Type="varchar" MaxLength="255" />
+          <Property Name="RepetirMes" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PerfilAdministrador" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Planejamento_IdCategoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Planejamento" Type="Self.Planejamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Planejamento">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planejamento_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Planejamento" Type="Self.Planejamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Planejamento">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relatorio_IdTipoRelatorio">
+          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="0..1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRelatorio">
+              <PropertyRef Name="IdTipoRelatorio" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="IdTipoRelatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relatorio_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transacao_IdCategoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Transacao">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transacao_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Transacao">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dominusModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planejamento" EntityType="Self.Planejamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relatorio" EntityType="Self.Relatorio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoRelatorio" EntityType="Self.TipoRelatorio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transacao" EntityType="Self.Transacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Planejamento_IdCategoria" Association="Self.FK_Planejamento_IdCategoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Planejamento" EntitySet="Planejamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planejamento_IdUsuario" Association="Self.FK_Planejamento_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Planejamento" EntitySet="Planejamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relatorio_IdTipoRelatorio" Association="Self.FK_Relatorio_IdTipoRelatorio">
+            <End Role="TipoRelatorio" EntitySet="TipoRelatorio" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relatorio_IdUsuario" Association="Self.FK_Relatorio_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transacao_IdCategoria" Association="Self.FK_Transacao_IdCategoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Transacao" EntitySet="Transacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transacao_IdUsuario" Association="Self.FK_Transacao_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Transacao" EntitySet="Transacao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dominusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoFluxo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Icone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planejamentos" Relationship="Self.FK_Planejamento_IdCategoria" FromRole="Categoria" ToRole="Planejamento" />
+          <NavigationProperty Name="Transacoes" Relationship="Self.FK_Transacao_IdCategoria" FromRole="Categoria" ToRole="Transacao" />
+        </EntityType>
+        <EntityType Name="Planejamento">
+          <Key>
+            <PropertyRef Name="IdPlanejamento" />
+          </Key>
+          <Property Name="IdPlanejamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Mes" Type="Int32" Nullable="false" />
+          <Property Name="Ano" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="RepetirMes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Planejamento_IdCategoria" FromRole="Planejamento" ToRole="Categoria" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Planejamento_IdUsuario" FromRole="Planejamento" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Relatorio">
+          <Key>
+            <PropertyRef Name="IdRelatorio" />
+          </Key>
+          <Property Name="IdRelatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoRelatorio" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InfoLinha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InfoColuna" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoRelatorio" Relationship="Self.FK_Relatorio_IdTipoRelatorio" FromRole="Relatorio" ToRole="TipoRelatorio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Relatorio_IdUsuario" FromRole="Relatorio" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="TipoRelatorio">
+          <Key>
+            <PropertyRef Name="IdTipoRelatorio" />
+          </Key>
+          <Property Name="IdTipoRelatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Relatorios" Relationship="Self.FK_Relatorio_IdTipoRelatorio" FromRole="TipoRelatorio" ToRole="Relatorio" />
+        </EntityType>
+        <EntityType Name="Transacao">
+          <Key>
+            <PropertyRef Name="IdTransacao" />
+          </Key>
+          <Property Name="IdTransacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" />
+          <Property Name="Identificacao" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Valor" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="Comentario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RepetirMes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Transacao_IdCategoria" FromRole="Transacao" ToRole="Categoria" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Transacao_IdUsuario" FromRole="Transacao" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PerfilAdministrador" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Planejamentos" Relationship="Self.FK_Planejamento_IdUsuario" FromRole="Usuario" ToRole="Planejamento" />
+          <NavigationProperty Name="Relatorios" Relationship="Self.FK_Relatorio_IdUsuario" FromRole="Usuario" ToRole="Relatorio" />
+          <NavigationProperty Name="Transacoes" Relationship="Self.FK_Transacao_IdUsuario" FromRole="Usuario" ToRole="Transacao" />
+        </EntityType>
+        <Association Name="FK_Planejamento_IdCategoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Planejamento" Type="Self.Planejamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Planejamento">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transacao_IdCategoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Transacao">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planejamento_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Planejamento" Type="Self.Planejamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Planejamento">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relatorio_IdTipoRelatorio">
+          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="0..1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRelatorio">
+              <PropertyRef Name="IdTipoRelatorio" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="IdTipoRelatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relatorio_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transacao_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Transacao">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dominusConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Planejamentoes" EntityType="Self.Planejamento" />
+          <EntitySet Name="Relatorios" EntityType="Self.Relatorio" />
+          <EntitySet Name="TipoRelatorios" EntityType="Self.TipoRelatorio" />
+          <EntitySet Name="Transacaos" EntityType="Self.Transacao" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Planejamento_IdCategoria" Association="Self.FK_Planejamento_IdCategoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Planejamento" EntitySet="Planejamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transacao_IdCategoria" Association="Self.FK_Transacao_IdCategoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Transacao" EntitySet="Transacaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planejamento_IdUsuario" Association="Self.FK_Planejamento_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Planejamento" EntitySet="Planejamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relatorio_IdTipoRelatorio" Association="Self.FK_Relatorio_IdTipoRelatorio">
+            <End Role="TipoRelatorio" EntitySet="TipoRelatorios" />
+            <End Role="Relatorio" EntitySet="Relatorios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relatorio_IdUsuario" Association="Self.FK_Relatorio_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Relatorio" EntitySet="Relatorios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transacao_IdUsuario" Association="Self.FK_Transacao_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Transacao" EntitySet="Transacaos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dominusModelStoreContainer" CdmEntityContainer="dominusConnection">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="dominusModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="TipoFluxo" ColumnName="TipoFluxo" />
+                <ScalarProperty Name="Icone" ColumnName="Icone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planejamentoes">
+            <EntityTypeMapping TypeName="dominusModel.Planejamento">
+              <MappingFragment StoreEntitySet="Planejamento">
+                <ScalarProperty Name="IdPlanejamento" ColumnName="IdPlanejamento" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="RepetirMes" ColumnName="RepetirMes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relatorios">
+            <EntityTypeMapping TypeName="dominusModel.Relatorio">
+              <MappingFragment StoreEntitySet="Relatorio">
+                <ScalarProperty Name="IdRelatorio" ColumnName="IdRelatorio" />
+                <ScalarProperty Name="IdTipoRelatorio" ColumnName="IdTipoRelatorio" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="InfoLinha" ColumnName="InfoLinha" />
+                <ScalarProperty Name="InfoColuna" ColumnName="InfoColuna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoRelatorios">
+            <EntityTypeMapping TypeName="dominusModel.TipoRelatorio">
+              <MappingFragment StoreEntitySet="TipoRelatorio">
+                <ScalarProperty Name="IdTipoRelatorio" ColumnName="IdTipoRelatorio" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transacaos">
+            <EntityTypeMapping TypeName="dominusModel.Transacao">
+              <MappingFragment StoreEntitySet="Transacao">
+                <ScalarProperty Name="IdTransacao" ColumnName="IdTransacao" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Identificacao" ColumnName="Identificacao" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="RepetirMes" ColumnName="RepetirMes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="dominusModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="PerfilAdministrador" ColumnName="PerfilAdministrador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
