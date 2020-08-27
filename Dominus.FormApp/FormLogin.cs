@@ -41,7 +41,11 @@ namespace Dominus.FormApp
             }
 
             LoginInfo.Login(usuario);
-            MessageBox.Show("FALTA IMPLEMENTAR!!!");
+
+            Hide();
+            FormPrincipal form = new FormPrincipal();
+            form.Closed += (s, args) => Close();
+            form.Show();
         }
 
         private void LinkRecuperarSenha_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

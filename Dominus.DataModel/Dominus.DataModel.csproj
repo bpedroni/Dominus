@@ -56,6 +56,7 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>DominusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Core\CategoriaManager.cs" />
     <Compile Include="Core\UsuarioManager.cs" />
     <Compile Include="DominusModel.Context.cs">
       <AutoGen>True</AutoGen>
