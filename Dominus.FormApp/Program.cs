@@ -16,7 +16,7 @@ namespace Dominus.FormApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormTeste());
+            Application.Run(new FormLogin());
         }
     }
 }
