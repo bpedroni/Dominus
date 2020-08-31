@@ -9,13 +9,11 @@ namespace Dominus.DataModel.Core
 {
     public class CategoriaManager
     {
-        public static DominusConnection connection = new DominusConnection();
-
         public static List<Categoria> GetCategorias()
         {
             try
             {
-                return connection.Categorias.ToList();
+                return ConnectionManager.connection.Categorias.ToList();
             }
             catch (Exception ex)
             {
@@ -27,8 +25,8 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                connection.Categorias.Add(categoria);
-                connection.SaveChanges();
+                ConnectionManager.connection.Categorias.Add(categoria);
+                ConnectionManager.connection.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -40,8 +38,8 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                connection.Entry(categoria).State = EntityState.Modified;
-                connection.SaveChanges();
+                ConnectionManager.connection.Entry(categoria).State = EntityState.Modified;
+                ConnectionManager.connection.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -53,8 +51,8 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                connection.Entry(categoria).State = EntityState.Deleted;
-                connection.SaveChanges();
+                ConnectionManager.connection.Entry(categoria).State = EntityState.Deleted;
+                ConnectionManager.connection.SaveChanges();
             }
             catch (Exception ex)
             {

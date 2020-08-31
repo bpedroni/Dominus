@@ -91,6 +91,20 @@ namespace Dominus.FormApp
             }
         }
 
+        private void GridCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
+                Form form = new FormGerenciarCategoria(categoria);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    CarregarGridCategorias();
+                    MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void BtnSair_Click(object sender, EventArgs e)
         {
             Close();

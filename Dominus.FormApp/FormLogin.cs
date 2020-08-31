@@ -9,7 +9,16 @@ namespace Dominus.FormApp
     {
         public FormLogin()
         {
-            InitializeComponent();
+            try
+            {
+                ConnectionManager.TestaConexao();
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro ao iniciar a aplicação!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)

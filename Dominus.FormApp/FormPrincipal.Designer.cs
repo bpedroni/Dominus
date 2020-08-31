@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPerfisUsuario = new System.Windows.Forms.TabPage();
             this.gridPerfisUsuario = new System.Windows.Forms.DataGridView();
@@ -68,8 +69,8 @@
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPerfisUsuario);
             this.tabControl.Controls.Add(this.tabCategorias);
@@ -83,7 +84,6 @@
             // 
             this.tabPerfisUsuario.Controls.Add(this.gridPerfisUsuario);
             this.tabPerfisUsuario.Controls.Add(this.btnAtualizarPerfis);
-            this.tabPerfisUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPerfisUsuario.Location = new System.Drawing.Point(4, 27);
             this.tabPerfisUsuario.Name = "tabPerfisUsuario";
             this.tabPerfisUsuario.Padding = new System.Windows.Forms.Padding(3);
@@ -98,14 +98,6 @@
             this.gridPerfisUsuario.AllowUserToDeleteRows = false;
             this.gridPerfisUsuario.BackgroundColor = System.Drawing.Color.White;
             this.gridPerfisUsuario.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridPerfisUsuario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridPerfisUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridPerfisUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdUsuario,
@@ -118,19 +110,28 @@
             this.Relatorios,
             this.Transacoes,
             this.Usuario_Salvar});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridPerfisUsuario.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridPerfisUsuario.DefaultCellStyle = dataGridViewCellStyle1;
             this.gridPerfisUsuario.EnableHeadersVisualStyles = false;
             this.gridPerfisUsuario.Location = new System.Drawing.Point(20, 75);
             this.gridPerfisUsuario.MultiSelect = false;
             this.gridPerfisUsuario.Name = "gridPerfisUsuario";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridPerfisUsuario.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gridPerfisUsuario.RowHeadersVisible = false;
+            this.gridPerfisUsuario.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gridPerfisUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridPerfisUsuario.Size = new System.Drawing.Size(707, 340);
             this.gridPerfisUsuario.TabIndex = 6;
@@ -159,7 +160,7 @@
             this.Login.HeaderText = "Login";
             this.Login.Name = "Login";
             this.Login.ReadOnly = true;
-            this.Login.Width = 68;
+            this.Login.Width = 77;
             // 
             // Email
             // 
@@ -187,7 +188,7 @@
             this.PerfilAdministrador.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.PerfilAdministrador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.PerfilAdministrador.TrueValue = "1";
-            this.PerfilAdministrador.Width = 123;
+            this.PerfilAdministrador.Width = 144;
             // 
             // Planejamentos
             // 
@@ -221,11 +222,11 @@
             this.Usuario_Salvar.Text = "Salvar";
             this.Usuario_Salvar.ToolTipText = "Salvar perfil de usuário";
             this.Usuario_Salvar.UseColumnTextForButtonValue = true;
-            this.Usuario_Salvar.Width = 69;
+            this.Usuario_Salvar.Width = 85;
             // 
             // btnAtualizarPerfis
             // 
-            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizarPerfis.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAtualizarPerfis.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -256,7 +257,7 @@
             // 
             // btnExcluirCategoria
             // 
-            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcluirCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnExcluirCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -273,7 +274,7 @@
             // 
             // btnEditarCategoria
             // 
-            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnEditarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -290,7 +291,7 @@
             // 
             // btnAdicionarCategoria
             // 
-            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdicionarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAdicionarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -309,10 +310,18 @@
             // 
             this.gridCategorias.AllowUserToAddRows = false;
             this.gridCategorias.AllowUserToDeleteRows = false;
-            this.gridCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gridCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCategorias.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gridCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdCategoria,
@@ -322,22 +331,24 @@
             this.Icone,
             this.PlanejamentosCategoria,
             this.TransacoesCategoria});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle4;
             this.gridCategorias.EnableHeadersVisualStyles = false;
             this.gridCategorias.Location = new System.Drawing.Point(20, 75);
             this.gridCategorias.MultiSelect = false;
             this.gridCategorias.Name = "gridCategorias";
             this.gridCategorias.RowHeadersVisible = false;
+            this.gridCategorias.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gridCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridCategorias.Size = new System.Drawing.Size(707, 340);
             this.gridCategorias.TabIndex = 7;
+            this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
             // 
             // IdCategoria
             // 
@@ -354,7 +365,7 @@
             this.NomeCategoria.HeaderText = "Nome";
             this.NomeCategoria.Name = "NomeCategoria";
             this.NomeCategoria.ReadOnly = true;
-            this.NomeCategoria.Width = 74;
+            this.NomeCategoria.Width = 80;
             // 
             // Descricao
             // 
@@ -371,7 +382,7 @@
             this.TipoFluxo.HeaderText = "Tipo de Fluxo";
             this.TipoFluxo.Name = "TipoFluxo";
             this.TipoFluxo.ReadOnly = true;
-            this.TipoFluxo.Width = 122;
+            this.TipoFluxo.Width = 141;
             // 
             // Icone
             // 
@@ -412,7 +423,7 @@
             // 
             // btnUsuario
             // 
-            this.btnUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsuario.Location = new System.Drawing.Point(382, 12);

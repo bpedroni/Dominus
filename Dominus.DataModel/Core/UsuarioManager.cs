@@ -7,13 +7,11 @@ namespace Dominus.DataModel.Core
 {
     public class UsuarioManager
     {
-        public static DominusConnection connection = new DominusConnection();
-
         public static List<Usuario> GetUsuarios()
         {
             try
             {
-                return connection.Usuarios.ToList();
+                return ConnectionManager.connection.Usuarios.ToList();
             }
             catch (Exception ex)
             {
@@ -26,11 +24,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com login e senha fornecidos:
-                Usuario usuario = connection.Usuarios.FirstOrDefault(x => x.Login.ToLower() == login.ToLower() && x.Senha == senha);
+                Usuario usuario = ConnectionManager.connection.Usuarios.FirstOrDefault(x => x.Login.ToLower() == login.ToLower() && x.Senha == senha);
                 if (usuario == null)
                 {
                     // Verifica se existe um usuário com e-mail e senha fornecidos:
-                    usuario = connection.Usuarios.FirstOrDefault(x => x.Email.ToLower() == login.ToLower() && x.Senha == senha);
+                    usuario = ConnectionManager.connection.Usuarios.FirstOrDefault(x => x.Email.ToLower() == login.ToLower() && x.Senha == senha);
                 }
                 return usuario;
             }
@@ -44,7 +42,7 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                Usuario usuario = connection.Usuarios.FirstOrDefault(x => x.IdUsuario == idUsuario);
+                Usuario usuario = ConnectionManager.connection.Usuarios.FirstOrDefault(x => x.IdUsuario == idUsuario);
                 return usuario;
             }
             catch (Exception ex)
@@ -58,7 +56,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com o e-mail fornecido:
-                Usuario usuario = connection.Usuarios.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
+                Usuario usuario = ConnectionManager.connection.Usuarios.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
                 return usuario;
             }
             catch (Exception ex)
@@ -71,8 +69,8 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                connection.Usuarios.Add(usuario);
-                connection.SaveChanges();
+                ConnectionManager.connection.Usuarios.Add(usuario);
+                ConnectionManager.connection.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -84,8 +82,8 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                connection.Entry(usuario).State = EntityState.Modified;
-                connection.SaveChanges();
+                ConnectionManager.connection.Entry(usuario).State = EntityState.Modified;
+                ConnectionManager.connection.SaveChanges();
             }
             catch (Exception ex)
             {
