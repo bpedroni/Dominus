@@ -7,9 +7,14 @@ namespace Dominus.FormApp
 {
     public partial class FormRecuperarSenha : Form
     {
-        public FormRecuperarSenha()
+        public FormRecuperarSenha(String email)
         {
             InitializeComponent();
+            
+            if (ValidarEmail(email))
+            {
+                txtEmail.Text = email;
+            }
         }
 
         private void BtnEnviar_Click(object sender, EventArgs e)
@@ -22,8 +27,12 @@ namespace Dominus.FormApp
             }
             try
             {
-                // Verifica se o e-mail digitado é válido:
-                new System.Net.Mail.MailAddress(txtEmail.Text);
+                if (!ValidarEmail(txtEmail.Text))
+                {
+                    MessageBox.Show("Digite um endereço de e-mail válido.", "E-mail inválido!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtEmail.Focus();
+                    return;
+                }
                 Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Text);
                 if (usuario == null)
                 {
@@ -33,16 +42,29 @@ namespace Dominus.FormApp
                 }
                 MessageBox.Show("FALTA IMPLEMENTAR!!!");
             }
-            catch (FormatException)
+            catch (Exception ex)
             {
-                MessageBox.Show("Digite um endereço de e-mail válido.", "E-mail inválido!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEmail.Focus();
+                MessageBox.Show(ex.Message, "Erro ao tentar enviar senha por e-mail. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private bool ValidarEmail(String email)
+        {
+            // Verifica se o e-mail digitado é válido:
+            try
+            {
+                new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

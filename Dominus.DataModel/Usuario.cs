@@ -17,18 +17,27 @@ namespace Dominus.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
+            this.Chamados = new HashSet<Chamado>();
+            this.ChamadosAtendidos = new HashSet<Chamado>();
             this.Planejamentos = new HashSet<Planejamento>();
             this.Relatorios = new HashSet<Relatorio>();
             this.Transacoes = new HashSet<Transacao>();
         }
     
-        public int IdUsuario { get; set; }
+        public System.Guid IdUsuario { get; set; }
         public string Nome { get; set; }
         public string Login { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PerfilAdministrador { get; set; }
+        public System.DateTime DataCriacao { get; set; }
+        public Nullable<System.DateTime> DataExclusao { get; set; }
+        public int Ativo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chamado> Chamados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chamado> ChamadosAtendidos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Planejamento> Planejamentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

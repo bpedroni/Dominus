@@ -20,7 +20,7 @@ namespace Dominus.DataModel
             this.Relatorios = new HashSet<Relatorio>();
         }
     
-        public int IdTipoRelatorio { get; set; }
+        public System.Guid IdTipoRelatorio { get; set; }
         public string Tipo { get; set; }
         public string Descricao { get; set; }
     

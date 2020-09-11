@@ -4,19 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="008531aaadaa44148da5a095b3e775ee" Name="Diagram1">
-        <EntityTypeShape EntityType="dominusModel.Categoria" Width="1.5" PointX="7.625" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dominusModel.Planejamento" Width="1.5" PointX="5.125" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dominusModel.Relatorio" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dominusModel.TipoRelatorio" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dominusModel.Transacao" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dominusModel.Usuario" Width="1.5" PointX="0.5" PointY="2" IsExpanded="true" />
-        <AssociationConnector Association="dominusModel.FK_Planejamento_IdCategoria" ManuallyRouted="false" />
-        <AssociationConnector Association="dominusModel.FK_Transacao_IdCategoria" ManuallyRouted="false" />
-        <AssociationConnector Association="dominusModel.FK_Planejamento_IdUsuario" ManuallyRouted="false" />
-        <AssociationConnector Association="dominusModel.FK_Relatorio_IdTipoRelatorio" ManuallyRouted="false" />
-        <AssociationConnector Association="dominusModel.FK_Relatorio_IdUsuario" ManuallyRouted="false" />
-        <AssociationConnector Association="dominusModel.FK_Transacao_IdUsuario" ManuallyRouted="false" />
+      <Diagram DiagramId="feabf2b9f9c74345b177dede4d72e61d" Name="Diagram1">
+        <EntityTypeShape EntityType="DominusModel.Categoria" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.Chamado" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.Planejamento" Width="1.5" PointX="5.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.Relatorio" Width="1.5" PointX="2.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.TipoRelatorio" Width="1.5" PointX="4.875" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.Transacao" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominusModel.Usuario" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="DominusModel.FK_Planejamento_IdCategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Transacao_IdCategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Chamado_IdChamadoAssociado" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Chamado_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Chamado_IdUsuarioSuporte" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Planejamento_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Relatorio_IdTipoRelatorio" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Relatorio_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="DominusModel.FK_Transacao_IdUsuario" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

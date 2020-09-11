@@ -14,13 +14,13 @@ namespace Dominus.DataModel
     
     public partial class Planejamento
     {
-        public int IdPlanejamento { get; set; }
-        public int IdUsuario { get; set; }
-        public int IdCategoria { get; set; }
+        public System.Guid IdPlanejamento { get; set; }
+        public System.Guid IdUsuario { get; set; }
+        public System.Guid IdCategoria { get; set; }
         public int Mes { get; set; }
         public int Ano { get; set; }
         public decimal Valor { get; set; }
-        public int RepetirMes { get; set; }
+        public System.DateTime DataAtualizacao { get; set; }
     
         public virtual Categoria Categoria { get; set; }
         public virtual Usuario Usuario { get; set; }

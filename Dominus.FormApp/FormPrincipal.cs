@@ -11,20 +11,28 @@ namespace Dominus.FormApp
     {
         public FormPrincipal()
         {
-            InitializeComponent();
-            btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
-            CarregarGridPerfisUsuario();
-            CarregarGridCategorias();
+            try
+            {
+                InitializeComponent();
+                btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
+                CarregarGridPerfisUsuario();
+                CarregarGridCategorias();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro ao iniciar o formulário principal!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
         }
 
         private void CarregarGridPerfisUsuario()
         {
-            gridPerfisUsuario.DataSource = UsuarioManager.GetUsuarios().Where(x => x.IdUsuario != LoginInfo.Usuario.IdUsuario).ToList();
+            gridPerfisUsuario.DataSource = UsuarioManager.GetUsuariosAtivos().Where(x => x.IdUsuario != LoginInfo.Usuario.IdUsuario).ToList();
         }
 
         private void CarregarGridCategorias()
         {
-            gridCategorias.DataSource = CategoriaManager.GetCategorias().ToList();
+            gridCategorias.DataSource = CategoriaManager.GetCategoriasAtivas().ToList();
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,12 +77,8 @@ namespace Dominus.FormApp
             DataGridViewRow row = gridCategorias.SelectedRows[0];
             if (row != null)
             {
-                Form form = new FormGerenciarCategoria((Categoria)row.DataBoundItem);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    CarregarGridCategorias();
-                    MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                Categoria categoria = (Categoria)row.DataBoundItem;
+                EditarCategoria(categoria);
             }
         }
 
@@ -96,18 +100,23 @@ namespace Dominus.FormApp
             if (e.RowIndex >= 0)
             {
                 Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
-                Form form = new FormGerenciarCategoria(categoria);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    CarregarGridCategorias();
-                    MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                EditarCategoria(categoria);
             }
         }
 
         private void BtnSair_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void EditarCategoria(Categoria categoria)
+        {
+            Form form = new FormGerenciarCategoria(categoria);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                CarregarGridCategorias();
+                MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

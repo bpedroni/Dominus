@@ -12,27 +12,29 @@ namespace Dominus.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Categoria
+    public partial class Chamado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categoria()
+        public Chamado()
         {
-            this.Planejamentos = new HashSet<Planejamento>();
-            this.Transacoes = new HashSet<Transacao>();
+            this.ChamadoAssociado = new HashSet<Chamado>();
         }
     
-        public System.Guid IdCategoria { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public string TipoFluxo { get; set; }
-        public string Icone { get; set; }
+        public System.Guid IdChamado { get; set; }
+        public System.Guid IdUsuario { get; set; }
+        public string Titulo { get; set; }
+        public string Mensagem { get; set; }
         public System.DateTime DataCriacao { get; set; }
-        public Nullable<System.DateTime> DataExclusao { get; set; }
-        public int Ativo { get; set; }
+        public Nullable<System.Guid> IdUsuarioSuporte { get; set; }
+        public string MensagemResposta { get; set; }
+        public Nullable<System.DateTime> DataResposta { get; set; }
+        public int Validado { get; set; }
+        public Nullable<System.Guid> IdChamadoAssociado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Planejamento> Planejamentos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transacao> Transacoes { get; set; }
+        public virtual ICollection<Chamado> ChamadoAssociado { get; set; }
+        public virtual Chamado ChamadoPrincipal { get; set; }
+        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario UsuarioSuporte { get; set; }
     }
 }

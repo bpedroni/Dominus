@@ -40,6 +40,7 @@
             this.btnEncontrarIcone = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.openFileDialogIcone = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // labelNome
@@ -116,10 +117,15 @@
             // 
             // txtIcone
             // 
+            this.txtIcone.AllowDrop = true;
             this.txtIcone.Location = new System.Drawing.Point(124, 126);
             this.txtIcone.Name = "txtIcone";
+            this.txtIcone.ReadOnly = true;
             this.txtIcone.Size = new System.Drawing.Size(247, 24);
             this.txtIcone.TabIndex = 9;
+            this.txtIcone.TabStop = false;
+            this.txtIcone.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtIcone_DragDrop);
+            this.txtIcone.DragOver += new System.Windows.Forms.DragEventHandler(this.TxtIcone_DragOver);
             // 
             // btnEncontrarIcone
             // 
@@ -161,6 +167,11 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
+            // 
+            // openFileDialogIcone
+            // 
+            this.openFileDialogIcone.Filter = "Image files (*.png) | *.png";
+            this.openFileDialogIcone.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogIcone_FileOk);
             // 
             // FormGerenciarCategoria
             // 
@@ -210,5 +221,6 @@
         private System.Windows.Forms.Button btnEncontrarIcone;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.OpenFileDialog openFileDialogIcone;
     }
 }

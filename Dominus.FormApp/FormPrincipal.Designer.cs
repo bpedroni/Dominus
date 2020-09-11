@@ -30,36 +30,42 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPerfisUsuario = new System.Windows.Forms.TabPage();
             this.gridPerfisUsuario = new System.Windows.Forms.DataGridView();
-            this.IdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Senha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PerfilAdministrador = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Planejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relatorios = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Transacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario_Salvar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnAtualizarPerfis = new System.Windows.Forms.Button();
             this.tabCategorias = new System.Windows.Forms.TabPage();
             this.btnExcluirCategoria = new System.Windows.Forms.Button();
             this.btnEditarCategoria = new System.Windows.Forms.Button();
             this.btnAdicionarCategoria = new System.Windows.Forms.Button();
             this.gridCategorias = new System.Windows.Forms.DataGridView();
-            this.IdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomeCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Icone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlanejamentosCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TransacoesCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnUsuario = new System.Windows.Forms.Button();
+            this.UsuarioIdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioLogin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioPerfilAdministrador = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UsuarioDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UsuarioTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioRelatorios = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioChamados = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioChamadosAtendidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usuario_Salvar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CategoriaIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaIcone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPerfisUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).BeginInit();
@@ -69,8 +75,8 @@
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPerfisUsuario);
             this.tabControl.Controls.Add(this.tabCategorias);
@@ -100,19 +106,24 @@
             this.gridPerfisUsuario.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.gridPerfisUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridPerfisUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IdUsuario,
-            this.Nome,
-            this.Login,
-            this.Email,
-            this.Senha,
-            this.PerfilAdministrador,
-            this.Planejamentos,
-            this.Relatorios,
-            this.Transacoes,
+            this.UsuarioIdUsuario,
+            this.UsuarioNome,
+            this.UsuarioLogin,
+            this.UsuarioEmail,
+            this.UsuarioSenha,
+            this.UsuarioPerfilAdministrador,
+            this.UsuarioDataCriacao,
+            this.UsuarioDataExclusao,
+            this.UsuarioAtivo,
+            this.UsuarioTransacoes,
+            this.UsuarioPlanejamentos,
+            this.UsuarioRelatorios,
+            this.UsuarioChamados,
+            this.UsuarioChamadosAtendidos,
             this.Usuario_Salvar});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
@@ -122,14 +133,6 @@
             this.gridPerfisUsuario.Location = new System.Drawing.Point(20, 75);
             this.gridPerfisUsuario.MultiSelect = false;
             this.gridPerfisUsuario.Name = "gridPerfisUsuario";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridPerfisUsuario.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gridPerfisUsuario.RowHeadersVisible = false;
             this.gridPerfisUsuario.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gridPerfisUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -137,96 +140,9 @@
             this.gridPerfisUsuario.TabIndex = 6;
             this.gridPerfisUsuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridPerfisUsuario_CellContentClick);
             // 
-            // IdUsuario
-            // 
-            this.IdUsuario.DataPropertyName = "IdUsuario";
-            this.IdUsuario.HeaderText = "IdUsuario";
-            this.IdUsuario.Name = "IdUsuario";
-            this.IdUsuario.ReadOnly = true;
-            this.IdUsuario.Visible = false;
-            // 
-            // Nome
-            // 
-            this.Nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Nome.DataPropertyName = "Nome";
-            this.Nome.HeaderText = "Nome";
-            this.Nome.Name = "Nome";
-            this.Nome.ReadOnly = true;
-            // 
-            // Login
-            // 
-            this.Login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Login.DataPropertyName = "Login";
-            this.Login.HeaderText = "Login";
-            this.Login.Name = "Login";
-            this.Login.ReadOnly = true;
-            this.Login.Width = 77;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            this.Email.Visible = false;
-            // 
-            // Senha
-            // 
-            this.Senha.DataPropertyName = "Senha";
-            this.Senha.HeaderText = "Senha";
-            this.Senha.Name = "Senha";
-            this.Senha.ReadOnly = true;
-            this.Senha.Visible = false;
-            // 
-            // PerfilAdministrador
-            // 
-            this.PerfilAdministrador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.PerfilAdministrador.DataPropertyName = "PerfilAdministrador";
-            this.PerfilAdministrador.FalseValue = "0";
-            this.PerfilAdministrador.HeaderText = "Administrador";
-            this.PerfilAdministrador.Name = "PerfilAdministrador";
-            this.PerfilAdministrador.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.PerfilAdministrador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.PerfilAdministrador.TrueValue = "1";
-            this.PerfilAdministrador.Width = 144;
-            // 
-            // Planejamentos
-            // 
-            this.Planejamentos.DataPropertyName = "Planejamentos";
-            this.Planejamentos.HeaderText = "Planejamentos";
-            this.Planejamentos.Name = "Planejamentos";
-            this.Planejamentos.ReadOnly = true;
-            this.Planejamentos.Visible = false;
-            // 
-            // Relatorios
-            // 
-            this.Relatorios.DataPropertyName = "Relatorios";
-            this.Relatorios.HeaderText = "Relatorios";
-            this.Relatorios.Name = "Relatorios";
-            this.Relatorios.ReadOnly = true;
-            this.Relatorios.Visible = false;
-            // 
-            // Transacoes
-            // 
-            this.Transacoes.DataPropertyName = "Transacoes";
-            this.Transacoes.HeaderText = "Transacoes";
-            this.Transacoes.Name = "Transacoes";
-            this.Transacoes.ReadOnly = true;
-            this.Transacoes.Visible = false;
-            // 
-            // Usuario_Salvar
-            // 
-            this.Usuario_Salvar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Usuario_Salvar.HeaderText = "Atualizar";
-            this.Usuario_Salvar.Name = "Usuario_Salvar";
-            this.Usuario_Salvar.Text = "Salvar";
-            this.Usuario_Salvar.ToolTipText = "Salvar perfil de usuário";
-            this.Usuario_Salvar.UseColumnTextForButtonValue = true;
-            this.Usuario_Salvar.Width = 85;
-            // 
             // btnAtualizarPerfis
             // 
-            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizarPerfis.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAtualizarPerfis.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -257,7 +173,7 @@
             // 
             // btnExcluirCategoria
             // 
-            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcluirCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnExcluirCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -274,7 +190,7 @@
             // 
             // btnEditarCategoria
             // 
-            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnEditarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -291,7 +207,7 @@
             // 
             // btnAdicionarCategoria
             // 
-            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdicionarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAdicionarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -310,35 +226,30 @@
             // 
             this.gridCategorias.AllowUserToAddRows = false;
             this.gridCategorias.AllowUserToDeleteRows = false;
-            this.gridCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.gridCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCategorias.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gridCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IdCategoria,
-            this.NomeCategoria,
-            this.Descricao,
-            this.TipoFluxo,
-            this.Icone,
-            this.PlanejamentosCategoria,
-            this.TransacoesCategoria});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CategoriaIdCategoria,
+            this.CategoriaNome,
+            this.CategoriaDescricao,
+            this.CategoriaTipoFluxo,
+            this.CategoriaIcone,
+            this.CategoriaDataCriacao,
+            this.CategoriaDataExclusao,
+            this.CategoriaAtivo,
+            this.CategoriaPlanejamentos,
+            this.CategoriaTransacoes});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridCategorias.EnableHeadersVisualStyles = false;
             this.gridCategorias.Location = new System.Drawing.Point(20, 75);
             this.gridCategorias.MultiSelect = false;
@@ -349,64 +260,6 @@
             this.gridCategorias.Size = new System.Drawing.Size(707, 340);
             this.gridCategorias.TabIndex = 7;
             this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
-            // 
-            // IdCategoria
-            // 
-            this.IdCategoria.DataPropertyName = "IdCategoria";
-            this.IdCategoria.HeaderText = "IdCategoria";
-            this.IdCategoria.Name = "IdCategoria";
-            this.IdCategoria.ReadOnly = true;
-            this.IdCategoria.Visible = false;
-            // 
-            // NomeCategoria
-            // 
-            this.NomeCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.NomeCategoria.DataPropertyName = "Nome";
-            this.NomeCategoria.HeaderText = "Nome";
-            this.NomeCategoria.Name = "NomeCategoria";
-            this.NomeCategoria.ReadOnly = true;
-            this.NomeCategoria.Width = 80;
-            // 
-            // Descricao
-            // 
-            this.Descricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Descricao.DataPropertyName = "Descricao";
-            this.Descricao.HeaderText = "Descrição";
-            this.Descricao.Name = "Descricao";
-            this.Descricao.ReadOnly = true;
-            // 
-            // TipoFluxo
-            // 
-            this.TipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.TipoFluxo.DataPropertyName = "TipoFluxo";
-            this.TipoFluxo.HeaderText = "Tipo de Fluxo";
-            this.TipoFluxo.Name = "TipoFluxo";
-            this.TipoFluxo.ReadOnly = true;
-            this.TipoFluxo.Width = 141;
-            // 
-            // Icone
-            // 
-            this.Icone.DataPropertyName = "Icone";
-            this.Icone.HeaderText = "Icone";
-            this.Icone.Name = "Icone";
-            this.Icone.ReadOnly = true;
-            this.Icone.Visible = false;
-            // 
-            // PlanejamentosCategoria
-            // 
-            this.PlanejamentosCategoria.DataPropertyName = "Planejamentos";
-            this.PlanejamentosCategoria.HeaderText = "Planejamentos";
-            this.PlanejamentosCategoria.Name = "PlanejamentosCategoria";
-            this.PlanejamentosCategoria.ReadOnly = true;
-            this.PlanejamentosCategoria.Visible = false;
-            // 
-            // TransacoesCategoria
-            // 
-            this.TransacoesCategoria.DataPropertyName = "Transacoes";
-            this.TransacoesCategoria.HeaderText = "Transacoes";
-            this.TransacoesCategoria.Name = "TransacoesCategoria";
-            this.TransacoesCategoria.ReadOnly = true;
-            this.TransacoesCategoria.Visible = false;
             // 
             // btnSair
             // 
@@ -423,7 +276,7 @@
             // 
             // btnUsuario
             // 
-            this.btnUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsuario.Location = new System.Drawing.Point(382, 12);
@@ -432,6 +285,221 @@
             this.btnUsuario.TabIndex = 2;
             this.btnUsuario.Text = "Usuário";
             this.btnUsuario.UseVisualStyleBackColor = true;
+            // 
+            // UsuarioIdUsuario
+            // 
+            this.UsuarioIdUsuario.DataPropertyName = "IdUsuario";
+            this.UsuarioIdUsuario.HeaderText = "IdUsuario";
+            this.UsuarioIdUsuario.Name = "UsuarioIdUsuario";
+            this.UsuarioIdUsuario.ReadOnly = true;
+            this.UsuarioIdUsuario.Visible = false;
+            // 
+            // UsuarioNome
+            // 
+            this.UsuarioNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.UsuarioNome.DataPropertyName = "Nome";
+            this.UsuarioNome.HeaderText = "Nome";
+            this.UsuarioNome.Name = "UsuarioNome";
+            this.UsuarioNome.ReadOnly = true;
+            // 
+            // UsuarioLogin
+            // 
+            this.UsuarioLogin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.UsuarioLogin.DataPropertyName = "Login";
+            this.UsuarioLogin.HeaderText = "Login";
+            this.UsuarioLogin.Name = "UsuarioLogin";
+            this.UsuarioLogin.ReadOnly = true;
+            this.UsuarioLogin.Width = 68;
+            // 
+            // UsuarioEmail
+            // 
+            this.UsuarioEmail.DataPropertyName = "Email";
+            this.UsuarioEmail.HeaderText = "Email";
+            this.UsuarioEmail.Name = "UsuarioEmail";
+            this.UsuarioEmail.ReadOnly = true;
+            this.UsuarioEmail.Visible = false;
+            // 
+            // UsuarioSenha
+            // 
+            this.UsuarioSenha.DataPropertyName = "Senha";
+            this.UsuarioSenha.HeaderText = "Senha";
+            this.UsuarioSenha.Name = "UsuarioSenha";
+            this.UsuarioSenha.ReadOnly = true;
+            this.UsuarioSenha.Visible = false;
+            // 
+            // UsuarioPerfilAdministrador
+            // 
+            this.UsuarioPerfilAdministrador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.UsuarioPerfilAdministrador.DataPropertyName = "PerfilAdministrador";
+            this.UsuarioPerfilAdministrador.FalseValue = "0";
+            this.UsuarioPerfilAdministrador.HeaderText = "Administrador";
+            this.UsuarioPerfilAdministrador.Name = "UsuarioPerfilAdministrador";
+            this.UsuarioPerfilAdministrador.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.UsuarioPerfilAdministrador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.UsuarioPerfilAdministrador.TrueValue = "1";
+            this.UsuarioPerfilAdministrador.Width = 123;
+            // 
+            // UsuarioDataCriacao
+            // 
+            this.UsuarioDataCriacao.DataPropertyName = "DataCriacao";
+            this.UsuarioDataCriacao.HeaderText = "DataCriacao";
+            this.UsuarioDataCriacao.Name = "UsuarioDataCriacao";
+            this.UsuarioDataCriacao.ReadOnly = true;
+            this.UsuarioDataCriacao.Visible = false;
+            // 
+            // UsuarioDataExclusao
+            // 
+            this.UsuarioDataExclusao.DataPropertyName = "DataExclusao";
+            this.UsuarioDataExclusao.HeaderText = "DataExclusao";
+            this.UsuarioDataExclusao.Name = "UsuarioDataExclusao";
+            this.UsuarioDataExclusao.ReadOnly = true;
+            this.UsuarioDataExclusao.Visible = false;
+            // 
+            // UsuarioAtivo
+            // 
+            this.UsuarioAtivo.DataPropertyName = "Ativo";
+            this.UsuarioAtivo.FalseValue = "0";
+            this.UsuarioAtivo.HeaderText = "Ativo";
+            this.UsuarioAtivo.Name = "UsuarioAtivo";
+            this.UsuarioAtivo.ReadOnly = true;
+            this.UsuarioAtivo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.UsuarioAtivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.UsuarioAtivo.TrueValue = "1";
+            this.UsuarioAtivo.Visible = false;
+            // 
+            // UsuarioTransacoes
+            // 
+            this.UsuarioTransacoes.DataPropertyName = "Transacoes";
+            this.UsuarioTransacoes.HeaderText = "Transacoes";
+            this.UsuarioTransacoes.Name = "UsuarioTransacoes";
+            this.UsuarioTransacoes.ReadOnly = true;
+            this.UsuarioTransacoes.Visible = false;
+            // 
+            // UsuarioPlanejamentos
+            // 
+            this.UsuarioPlanejamentos.DataPropertyName = "Planejamentos";
+            this.UsuarioPlanejamentos.HeaderText = "Planejamentos";
+            this.UsuarioPlanejamentos.Name = "UsuarioPlanejamentos";
+            this.UsuarioPlanejamentos.ReadOnly = true;
+            this.UsuarioPlanejamentos.Visible = false;
+            // 
+            // UsuarioRelatorios
+            // 
+            this.UsuarioRelatorios.DataPropertyName = "Relatorios";
+            this.UsuarioRelatorios.HeaderText = "Relatorios";
+            this.UsuarioRelatorios.Name = "UsuarioRelatorios";
+            this.UsuarioRelatorios.ReadOnly = true;
+            this.UsuarioRelatorios.Visible = false;
+            // 
+            // UsuarioChamados
+            // 
+            this.UsuarioChamados.DataPropertyName = "Chamados";
+            this.UsuarioChamados.HeaderText = "Chamados";
+            this.UsuarioChamados.Name = "UsuarioChamados";
+            this.UsuarioChamados.ReadOnly = true;
+            this.UsuarioChamados.Visible = false;
+            // 
+            // UsuarioChamadosAtendidos
+            // 
+            this.UsuarioChamadosAtendidos.DataPropertyName = "ChamadosAtendidos";
+            this.UsuarioChamadosAtendidos.HeaderText = "ChamadosAtendidos";
+            this.UsuarioChamadosAtendidos.Name = "UsuarioChamadosAtendidos";
+            this.UsuarioChamadosAtendidos.ReadOnly = true;
+            this.UsuarioChamadosAtendidos.Visible = false;
+            // 
+            // Usuario_Salvar
+            // 
+            this.Usuario_Salvar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Usuario_Salvar.HeaderText = "Atualizar";
+            this.Usuario_Salvar.Name = "Usuario_Salvar";
+            this.Usuario_Salvar.Text = "Salvar";
+            this.Usuario_Salvar.ToolTipText = "Salvar perfil de usuário";
+            this.Usuario_Salvar.UseColumnTextForButtonValue = true;
+            this.Usuario_Salvar.Width = 69;
+            // 
+            // CategoriaIdCategoria
+            // 
+            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
+            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
+            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
+            this.CategoriaIdCategoria.ReadOnly = true;
+            this.CategoriaIdCategoria.Visible = false;
+            // 
+            // CategoriaNome
+            // 
+            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaNome.DataPropertyName = "Nome";
+            this.CategoriaNome.HeaderText = "Nome";
+            this.CategoriaNome.Name = "CategoriaNome";
+            this.CategoriaNome.ReadOnly = true;
+            this.CategoriaNome.Width = 74;
+            // 
+            // CategoriaDescricao
+            // 
+            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CategoriaDescricao.DataPropertyName = "Descricao";
+            this.CategoriaDescricao.HeaderText = "Descrição";
+            this.CategoriaDescricao.Name = "CategoriaDescricao";
+            this.CategoriaDescricao.ReadOnly = true;
+            // 
+            // CategoriaTipoFluxo
+            // 
+            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
+            this.CategoriaTipoFluxo.HeaderText = "Tipo de Fluxo";
+            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
+            this.CategoriaTipoFluxo.ReadOnly = true;
+            this.CategoriaTipoFluxo.Width = 122;
+            // 
+            // CategoriaIcone
+            // 
+            this.CategoriaIcone.DataPropertyName = "Icone";
+            this.CategoriaIcone.HeaderText = "Icone";
+            this.CategoriaIcone.Name = "CategoriaIcone";
+            this.CategoriaIcone.ReadOnly = true;
+            this.CategoriaIcone.Visible = false;
+            // 
+            // CategoriaDataCriacao
+            // 
+            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
+            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
+            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
+            this.CategoriaDataCriacao.ReadOnly = true;
+            this.CategoriaDataCriacao.Visible = false;
+            // 
+            // CategoriaDataExclusao
+            // 
+            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
+            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
+            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
+            this.CategoriaDataExclusao.ReadOnly = true;
+            this.CategoriaDataExclusao.Visible = false;
+            // 
+            // CategoriaAtivo
+            // 
+            this.CategoriaAtivo.DataPropertyName = "Ativo";
+            this.CategoriaAtivo.FalseValue = "0";
+            this.CategoriaAtivo.HeaderText = "Ativo";
+            this.CategoriaAtivo.Name = "CategoriaAtivo";
+            this.CategoriaAtivo.ReadOnly = true;
+            this.CategoriaAtivo.TrueValue = "1";
+            this.CategoriaAtivo.Visible = false;
+            // 
+            // CategoriaPlanejamentos
+            // 
+            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
+            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
+            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
+            this.CategoriaPlanejamentos.ReadOnly = true;
+            this.CategoriaPlanejamentos.Visible = false;
+            // 
+            // CategoriaTransacoes
+            // 
+            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
+            this.CategoriaTransacoes.HeaderText = "Transacoes";
+            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
+            this.CategoriaTransacoes.ReadOnly = true;
+            this.CategoriaTransacoes.Visible = false;
             // 
             // FormPrincipal
             // 
@@ -466,27 +534,35 @@
         private System.Windows.Forms.Button btnAtualizarPerfis;
         private System.Windows.Forms.DataGridView gridPerfisUsuario;
         private System.Windows.Forms.DataGridView gridCategorias;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdUsuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Senha;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn PerfilAdministrador;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Planejamentos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Relatorios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Transacoes;
-        private System.Windows.Forms.DataGridViewButtonColumn Usuario_Salvar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdCategoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NomeCategoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Descricao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoFluxo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Icone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlanejamentosCategoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TransacoesCategoria;
         private System.Windows.Forms.Button btnExcluirCategoria;
         private System.Windows.Forms.Button btnEditarCategoria;
         private System.Windows.Forms.Button btnAdicionarCategoria;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Button btnUsuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioIdUsuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioNome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioLogin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioSenha;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn UsuarioPerfilAdministrador;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioDataCriacao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioDataExclusao;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn UsuarioAtivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioTransacoes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioPlanejamentos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioRelatorios;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioChamados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioChamadosAtendidos;
+        private System.Windows.Forms.DataGridViewButtonColumn Usuario_Salvar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaIdCategoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaNome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDescricao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaTipoFluxo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaIcone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDataCriacao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDataExclusao;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CategoriaAtivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaPlanejamentos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaTransacoes;
     }
 }

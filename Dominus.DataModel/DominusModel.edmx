@@ -4,36 +4,54 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dominusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DominusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="IdCategoria" />
           </Key>
-          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCategoria" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="TipoFluxo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Icone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="DataExclusao" Type="datetime" />
+          <Property Name="Ativo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chamado">
+          <Key>
+            <PropertyRef Name="IdChamado" />
+          </Key>
+          <Property Name="IdChamado" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mensagem" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioSuporte" Type="uniqueidentifier" />
+          <Property Name="MensagemResposta" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="DataResposta" Type="datetime" />
+          <Property Name="Validado" Type="int" Nullable="false" />
+          <Property Name="IdChamadoAssociado" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Planejamento">
           <Key>
             <PropertyRef Name="IdPlanejamento" />
           </Key>
-          <Property Name="IdPlanejamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
-          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="IdPlanejamento" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdCategoria" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Mes" Type="int" Nullable="false" />
           <Property Name="Ano" Type="int" Nullable="false" />
           <Property Name="Valor" Type="decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="RepetirMes" Type="int" Nullable="false" />
+          <Property Name="DataAtualizacao" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Relatorio">
           <Key>
             <PropertyRef Name="IdRelatorio" />
           </Key>
-          <Property Name="IdRelatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdTipoRelatorio" Type="int" />
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdRelatorio" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdTipoRelatorio" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="InfoLinha" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="InfoColuna" Type="varchar" MaxLength="100" />
@@ -42,7 +60,7 @@
           <Key>
             <PropertyRef Name="IdTipoRelatorio" />
           </Key>
-          <Property Name="IdTipoRelatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoRelatorio" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Tipo" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -50,28 +68,68 @@
           <Key>
             <PropertyRef Name="IdTransacao" />
           </Key>
-          <Property Name="IdTransacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
-          <Property Name="IdCategoria" Type="int" />
-          <Property Name="Identificacao" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IdTransacao" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdCategoria" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Identificacao" Type="varchar" MaxLength="25" />
           <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Valor" Type="decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="Data" Type="date" Nullable="false" />
-          <Property Name="Hora" Type="time" Precision="0" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="Data" Type="date" />
           <Property Name="Comentario" Type="varchar" MaxLength="255" />
-          <Property Name="RepetirMes" Type="int" Nullable="false" />
+          <Property Name="Provisionado" Type="int" Nullable="false" />
+          <Property Name="ValorProvisao" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="DataProvisao" Type="date" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Senha" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="PerfilAdministrador" Type="int" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="DataExclusao" Type="datetime" />
+          <Property Name="Ativo" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Chamado_IdChamadoAssociado">
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="0..1" />
+          <End Role="Chamado1" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chamado">
+              <PropertyRef Name="IdChamado" />
+            </Principal>
+            <Dependent Role="Chamado1">
+              <PropertyRef Name="IdChamadoAssociado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamado_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Chamado">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamado_IdUsuarioSuporte">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Chamado">
+              <PropertyRef Name="IdUsuarioSuporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Planejamento_IdCategoria">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Planejamento" Type="Self.Planejamento" Multiplicity="*" />
@@ -97,7 +155,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Relatorio_IdTipoRelatorio">
-          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="0..1" />
+          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="1" />
           <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoRelatorio">
@@ -121,7 +179,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Transacao_IdCategoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categoria">
@@ -144,13 +202,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dominusModelStoreContainer">
+        <EntityContainer Name="DominusModelStoreContainer">
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chamado" EntityType="Self.Chamado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Planejamento" EntityType="Self.Planejamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relatorio" EntityType="Self.Relatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoRelatorio" EntityType="Self.TipoRelatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transacao" EntityType="Self.Transacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Chamado_IdChamadoAssociado" Association="Self.FK_Chamado_IdChamadoAssociado">
+            <End Role="Chamado" EntitySet="Chamado" />
+            <End Role="Chamado1" EntitySet="Chamado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamado_IdUsuario" Association="Self.FK_Chamado_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chamado" EntitySet="Chamado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamado_IdUsuarioSuporte" Association="Self.FK_Chamado_IdUsuarioSuporte">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Chamado" EntitySet="Chamado" />
+          </AssociationSet>
           <AssociationSet Name="FK_Planejamento_IdCategoria" Association="Self.FK_Planejamento_IdCategoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Planejamento" EntitySet="Planejamento" />
@@ -180,30 +251,52 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="dominusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DominusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="IdCategoria" />
           </Key>
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCategoria" Type="Guid" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TipoFluxo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataExclusao" Type="DateTime" Precision="3" />
+          <Property Name="Ativo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Planejamentos" Relationship="Self.FK_Planejamento_IdCategoria" FromRole="Categoria" ToRole="Planejamento" />
           <NavigationProperty Name="Transacoes" Relationship="Self.FK_Transacao_IdCategoria" FromRole="Categoria" ToRole="Transacao" />
+        </EntityType>
+        <EntityType Name="Chamado">
+          <Key>
+            <PropertyRef Name="IdChamado" />
+          </Key>
+          <Property Name="IdChamado" Type="Guid" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mensagem" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioSuporte" Type="Guid" />
+          <Property Name="MensagemResposta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataResposta" Type="DateTime" Precision="3" />
+          <Property Name="Validado" Type="Int32" Nullable="false" />
+          <Property Name="IdChamadoAssociado" Type="Guid" />
+          <NavigationProperty Name="ChamadoPrincipal" Relationship="Self.FK_Chamado_IdChamadoAssociado" FromRole="Chamado" ToRole="Chamado1" />
+          <NavigationProperty Name="ChamadoAssociado" Relationship="Self.FK_Chamado_IdChamadoAssociado" FromRole="Chamado1" ToRole="Chamado" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Chamado_IdUsuario" FromRole="Chamado" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioSuporte" Relationship="Self.FK_Chamado_IdUsuarioSuporte" FromRole="Chamado" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Planejamento">
           <Key>
             <PropertyRef Name="IdPlanejamento" />
           </Key>
-          <Property Name="IdPlanejamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="IdPlanejamento" Type="Guid" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
+          <Property Name="IdCategoria" Type="Guid" Nullable="false" />
           <Property Name="Mes" Type="Int32" Nullable="false" />
           <Property Name="Ano" Type="Int32" Nullable="false" />
           <Property Name="Valor" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="RepetirMes" Type="Int32" Nullable="false" />
+          <Property Name="DataAtualizacao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Planejamento_IdCategoria" FromRole="Planejamento" ToRole="Categoria" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Planejamento_IdUsuario" FromRole="Planejamento" ToRole="Usuario" />
         </EntityType>
@@ -211,9 +304,9 @@
           <Key>
             <PropertyRef Name="IdRelatorio" />
           </Key>
-          <Property Name="IdRelatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdTipoRelatorio" Type="Int32" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdRelatorio" Type="Guid" Nullable="false" />
+          <Property Name="IdTipoRelatorio" Type="Guid" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="InfoLinha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="InfoColuna" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -224,7 +317,7 @@
           <Key>
             <PropertyRef Name="IdTipoRelatorio" />
           </Key>
-          <Property Name="IdTipoRelatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoRelatorio" Type="Guid" Nullable="false" />
           <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Relatorios" Relationship="Self.FK_Relatorio_IdTipoRelatorio" FromRole="TipoRelatorio" ToRole="Relatorio" />
@@ -233,16 +326,17 @@
           <Key>
             <PropertyRef Name="IdTransacao" />
           </Key>
-          <Property Name="IdTransacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="IdCategoria" Type="Int32" />
-          <Property Name="Identificacao" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTransacao" Type="Guid" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
+          <Property Name="IdCategoria" Type="Guid" Nullable="false" />
+          <Property Name="Identificacao" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Valor" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Hora" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="Valor" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Data" Type="DateTime" Precision="0" />
           <Property Name="Comentario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RepetirMes" Type="Int32" Nullable="false" />
+          <Property Name="Provisionado" Type="Int32" Nullable="false" />
+          <Property Name="ValorProvisao" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="DataProvisao" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Transacao_IdCategoria" FromRole="Transacao" ToRole="Categoria" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Transacao_IdUsuario" FromRole="Transacao" ToRole="Usuario" />
         </EntityType>
@@ -250,12 +344,17 @@
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Senha" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PerfilAdministrador" Type="Int32" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataExclusao" Type="DateTime" Precision="3" />
+          <Property Name="Ativo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chamados" Relationship="Self.FK_Chamado_IdUsuario" FromRole="Usuario" ToRole="Chamado" />
+          <NavigationProperty Name="ChamadosAtendidos" Relationship="Self.FK_Chamado_IdUsuarioSuporte" FromRole="Usuario" ToRole="Chamado" />
           <NavigationProperty Name="Planejamentos" Relationship="Self.FK_Planejamento_IdUsuario" FromRole="Usuario" ToRole="Planejamento" />
           <NavigationProperty Name="Relatorios" Relationship="Self.FK_Relatorio_IdUsuario" FromRole="Usuario" ToRole="Relatorio" />
           <NavigationProperty Name="Transacoes" Relationship="Self.FK_Transacao_IdUsuario" FromRole="Usuario" ToRole="Transacao" />
@@ -273,7 +372,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Transacao_IdCategoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Transacao" Type="Self.Transacao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categoria">
@@ -281,6 +380,42 @@
             </Principal>
             <Dependent Role="Transacao">
               <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamado_IdChamadoAssociado">
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="0..1" />
+          <End Role="Chamado1" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chamado">
+              <PropertyRef Name="IdChamado" />
+            </Principal>
+            <Dependent Role="Chamado1">
+              <PropertyRef Name="IdChamadoAssociado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamado_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Chamado">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamado_IdUsuarioSuporte">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Chamado" Type="Self.Chamado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Chamado">
+              <PropertyRef Name="IdUsuarioSuporte" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -297,7 +432,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Relatorio_IdTipoRelatorio">
-          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="0..1" />
+          <End Role="TipoRelatorio" Type="Self.TipoRelatorio" Multiplicity="1" />
           <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoRelatorio">
@@ -332,8 +467,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dominusConnection" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DominusContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Chamadoes" EntityType="Self.Chamado" />
           <EntitySet Name="Planejamentoes" EntityType="Self.Planejamento" />
           <EntitySet Name="Relatorios" EntityType="Self.Relatorio" />
           <EntitySet Name="TipoRelatorios" EntityType="Self.TipoRelatorio" />
@@ -346,6 +482,18 @@
           <AssociationSet Name="FK_Transacao_IdCategoria" Association="Self.FK_Transacao_IdCategoria">
             <End Role="Categoria" EntitySet="Categorias" />
             <End Role="Transacao" EntitySet="Transacaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamado_IdChamadoAssociado" Association="Self.FK_Chamado_IdChamadoAssociado">
+            <End Role="Chamado" EntitySet="Chamadoes" />
+            <End Role="Chamado1" EntitySet="Chamadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamado_IdUsuario" Association="Self.FK_Chamado_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Chamado" EntitySet="Chamadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamado_IdUsuarioSuporte" Association="Self.FK_Chamado_IdUsuarioSuporte">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Chamado" EntitySet="Chamadoes" />
           </AssociationSet>
           <AssociationSet Name="FK_Planejamento_IdUsuario" Association="Self.FK_Planejamento_IdUsuario">
             <End Role="Usuario" EntitySet="Usuarios" />
@@ -369,20 +517,39 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dominusModelStoreContainer" CdmEntityContainer="dominusConnection">
+        <EntityContainerMapping StorageEntityContainer="DominusModelStoreContainer" CdmEntityContainer="DominusContext">
           <EntitySetMapping Name="Categorias">
-            <EntityTypeMapping TypeName="dominusModel.Categoria">
+            <EntityTypeMapping TypeName="DominusModel.Categoria">
               <MappingFragment StoreEntitySet="Categoria">
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="TipoFluxo" ColumnName="TipoFluxo" />
                 <ScalarProperty Name="Icone" ColumnName="Icone" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="DataExclusao" ColumnName="DataExclusao" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chamadoes">
+            <EntityTypeMapping TypeName="DominusModel.Chamado">
+              <MappingFragment StoreEntitySet="Chamado">
+                <ScalarProperty Name="IdChamado" ColumnName="IdChamado" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Mensagem" ColumnName="Mensagem" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="IdUsuarioSuporte" ColumnName="IdUsuarioSuporte" />
+                <ScalarProperty Name="MensagemResposta" ColumnName="MensagemResposta" />
+                <ScalarProperty Name="DataResposta" ColumnName="DataResposta" />
+                <ScalarProperty Name="Validado" ColumnName="Validado" />
+                <ScalarProperty Name="IdChamadoAssociado" ColumnName="IdChamadoAssociado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Planejamentoes">
-            <EntityTypeMapping TypeName="dominusModel.Planejamento">
+            <EntityTypeMapping TypeName="DominusModel.Planejamento">
               <MappingFragment StoreEntitySet="Planejamento">
                 <ScalarProperty Name="IdPlanejamento" ColumnName="IdPlanejamento" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -390,12 +557,12 @@
                 <ScalarProperty Name="Mes" ColumnName="Mes" />
                 <ScalarProperty Name="Ano" ColumnName="Ano" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
-                <ScalarProperty Name="RepetirMes" ColumnName="RepetirMes" />
+                <ScalarProperty Name="DataAtualizacao" ColumnName="DataAtualizacao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Relatorios">
-            <EntityTypeMapping TypeName="dominusModel.Relatorio">
+            <EntityTypeMapping TypeName="DominusModel.Relatorio">
               <MappingFragment StoreEntitySet="Relatorio">
                 <ScalarProperty Name="IdRelatorio" ColumnName="IdRelatorio" />
                 <ScalarProperty Name="IdTipoRelatorio" ColumnName="IdTipoRelatorio" />
@@ -407,7 +574,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TipoRelatorios">
-            <EntityTypeMapping TypeName="dominusModel.TipoRelatorio">
+            <EntityTypeMapping TypeName="DominusModel.TipoRelatorio">
               <MappingFragment StoreEntitySet="TipoRelatorio">
                 <ScalarProperty Name="IdTipoRelatorio" ColumnName="IdTipoRelatorio" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
@@ -416,7 +583,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transacaos">
-            <EntityTypeMapping TypeName="dominusModel.Transacao">
+            <EntityTypeMapping TypeName="DominusModel.Transacao">
               <MappingFragment StoreEntitySet="Transacao">
                 <ScalarProperty Name="IdTransacao" ColumnName="IdTransacao" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -425,14 +592,15 @@
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="Comentario" ColumnName="Comentario" />
-                <ScalarProperty Name="RepetirMes" ColumnName="RepetirMes" />
+                <ScalarProperty Name="Provisionado" ColumnName="Provisionado" />
+                <ScalarProperty Name="ValorProvisao" ColumnName="ValorProvisao" />
+                <ScalarProperty Name="DataProvisao" ColumnName="DataProvisao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="dominusModel.Usuario">
+            <EntityTypeMapping TypeName="DominusModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -440,6 +608,9 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="PerfilAdministrador" ColumnName="PerfilAdministrador" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="DataExclusao" ColumnName="DataExclusao" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -13,10 +13,10 @@ namespace Dominus.DataModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DominusConnection : DbContext
+    public partial class DominusContext : DbContext
     {
-        public DominusConnection()
-            : base("name=dominusConnection")
+        public DominusContext()
+            : base("name=DominusContext")
         {
         }
     
@@ -26,6 +26,7 @@ namespace Dominus.DataModel
         }
     
         public virtual DbSet<Categoria> Categorias { get; set; }
+        public virtual DbSet<Chamado> Chamados { get; set; }
         public virtual DbSet<Planejamento> Planejamentos { get; set; }
         public virtual DbSet<Relatorio> Relatorios { get; set; }
         public virtual DbSet<TipoRelatorio> TipoRelatorios { get; set; }

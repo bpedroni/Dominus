@@ -1,35 +1,41 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Dominus.FormApp
 {
     public partial class FormGerenciarCategoria : Form
     {
-        public Categoria Categoria = new Categoria();
+        public Categoria Categoria;
 
         public FormGerenciarCategoria(Categoria categoria)
         {
-            Categoria.IdCategoria = 0;
-
-            InitializeComponent();
-
-            if (categoria != null)
+            try
             {
-                Categoria = categoria;
-                txtNome.Text = Categoria.Nome;
-                txtDescricao.Text = Categoria.Descricao;
-                rdoBtnReceita.Checked = Categoria.TipoFluxo == "Receita";
-                rdoBtnDespesa.Checked = Categoria.TipoFluxo == "Despesa";
-                txtIcone.Text = Categoria.Icone;
+                InitializeComponent();
+
+                // Verifica se o formulário recebeu uma categoria e atualiza os componentes:
+                if (categoria != null)
+                {
+                    Categoria = categoria;
+                    txtNome.Text = Categoria.Nome;
+                    txtDescricao.Text = Categoria.Descricao;
+                    rdoBtnReceita.Checked = Categoria.TipoFluxo == (CategoriaManager.TIPO_FLUXO_RECEITA);
+                    rdoBtnReceita.Enabled = false;
+                    rdoBtnDespesa.Checked = Categoria.TipoFluxo == (CategoriaManager.TIPO_FLUXO_DESPESA);
+                    rdoBtnDespesa.Enabled = false;
+                    txtIcone.Text = Categoria.Icone;
+                }
+                else
+                {
+                    Categoria = new Categoria();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro ao abrir o formulário de categoria. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -58,22 +64,33 @@ namespace Dominus.FormApp
                 txtIcone.Focus();
                 return;
             }
-
-            Categoria.Nome = txtNome.Text;
-            Categoria.Descricao = txtDescricao.Text;
-            Categoria.TipoFluxo = rdoBtnReceita.Checked ? "Receita" : "Despesa";
-            Categoria.Icone = txtIcone.Text;
-
-            if (Categoria.IdCategoria == 0)
+            try
             {
-                CategoriaManager.AddCategoria(Categoria);
+                if (!String.IsNullOrWhiteSpace(openFileDialogIcone.FileName))
+                {
+                    MessageBox.Show("FALTA IMPLEMENTAR! Aqui a aplicação salvará a imagem do ícone no servidor.");
+                }
+
+                Categoria.Nome = txtNome.Text.Trim();
+                Categoria.Descricao = txtDescricao.Text.Trim();
+                Categoria.TipoFluxo = rdoBtnReceita.Checked ? CategoriaManager.TIPO_FLUXO_RECEITA : CategoriaManager.TIPO_FLUXO_DESPESA;
+                Categoria.Icone = txtIcone.Text.Trim();
+
+                if (Categoria.IdCategoria == Guid.Empty)
+                {
+                    CategoriaManager.AddCategoria(Categoria);
+                }
+                else
+                {
+                    CategoriaManager.EditCategoria(Categoria);
+                }
+                DialogResult = DialogResult.OK;
+                Close();
             }
-            else
+            catch (Exception ex)
             {
-                CategoriaManager.EditCategoria(Categoria);
+                MessageBox.Show(ex.Message, "Erro ao salvar categoria!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -84,7 +101,37 @@ namespace Dominus.FormApp
 
         private void BtnEncontrarIcone_Click(object sender, EventArgs e)
         {
+            openFileDialogIcone.ShowDialog();
+        }
 
+        private void OpenFileDialogIcone_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            txtIcone.Text = openFileDialogIcone.SafeFileName;
+        }
+
+        private void TxtIcone_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)
+                && File.Exists(((string[])e.Data.GetData(DataFormats.FileDrop))[0])
+                && Path.GetExtension(((string[])e.Data.GetData(DataFormats.FileDrop))[0]).ToLower() == ".png")
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void TxtIcone_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)
+                && File.Exists(((string[])e.Data.GetData(DataFormats.FileDrop))[0])
+                && Path.GetExtension(((string[])e.Data.GetData(DataFormats.FileDrop))[0]).ToLower() == ".png")
+            {
+                openFileDialogIcone.FileName = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                txtIcone.Text = openFileDialogIcone.SafeFileName;
+            }
         }
     }
 }

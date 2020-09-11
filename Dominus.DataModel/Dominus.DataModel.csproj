@@ -56,6 +56,9 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>DominusModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Chamado.cs">
+      <DependentUpon>DominusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Core\CategoriaManager.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\UsuarioManager.cs" />

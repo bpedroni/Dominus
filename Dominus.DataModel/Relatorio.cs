@@ -14,9 +14,9 @@ namespace Dominus.DataModel
     
     public partial class Relatorio
     {
-        public int IdRelatorio { get; set; }
-        public Nullable<int> IdTipoRelatorio { get; set; }
-        public int IdUsuario { get; set; }
+        public System.Guid IdRelatorio { get; set; }
+        public System.Guid IdTipoRelatorio { get; set; }
+        public System.Guid IdUsuario { get; set; }
         public string Nome { get; set; }
         public string InfoLinha { get; set; }
         public string InfoColuna { get; set; }

@@ -36,31 +36,45 @@ namespace Dominus.FormApp
                 return;
             }
 
-            Usuario usuario = UsuarioManager.ValidarUsuario(txtLogin.Text, txtSenha.Text);
-
-            if (usuario == null)
+            try
             {
-                MessageBox.Show("O login ou a senha estão inválidos. Revise os seus dados de acesso.", "Tentativa de login inválida!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                Usuario usuario = UsuarioManager.ValidarUsuario(txtLogin.Text.Trim(), txtSenha.Text);
+
+                if (usuario == null)
+                {
+                    MessageBox.Show("O login ou a senha estão inválidos. Revise os seus dados de acesso.", "Tentativa de login inválida!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (usuario.PerfilAdministrador != UsuarioManager.PERFIL_ADMINISTRADOR)
+                {
+                    MessageBox.Show("O login fornecido não possui permissão de administrador", "Usuário sem permissão!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                LoginInfo.Login(usuario);
+
+                Hide();
+                FormPrincipal form = new FormPrincipal();
+                form.Closed += (s, args) => Close();
+                form.Show();
             }
-            else if (usuario.PerfilAdministrador != 1)
+            catch (Exception ex)
             {
-                MessageBox.Show("O login fornecido não possui permissão de administrador", "Usuário sem permissão!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show(ex.Message, "Erro ao tentar validar o login. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            LoginInfo.Login(usuario);
-
-            Hide();
-            FormPrincipal form = new FormPrincipal();
-            form.Closed += (s, args) => Close();
-            form.Show();
         }
 
         private void LinkRecuperarSenha_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form form = new FormRecuperarSenha();
-            form.ShowDialog();
+            try
+            {
+                Form form = new FormRecuperarSenha(txtLogin.Text);
+                form.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro ao abrir o formulário de recuperação de senha. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LinkCadastrar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

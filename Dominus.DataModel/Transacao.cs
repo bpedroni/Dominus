@@ -14,16 +14,17 @@ namespace Dominus.DataModel
     
     public partial class Transacao
     {
-        public int IdTransacao { get; set; }
-        public int IdUsuario { get; set; }
-        public Nullable<int> IdCategoria { get; set; }
+        public System.Guid IdTransacao { get; set; }
+        public System.Guid IdUsuario { get; set; }
+        public System.Guid IdCategoria { get; set; }
         public string Identificacao { get; set; }
         public string Descricao { get; set; }
-        public decimal Valor { get; set; }
-        public System.DateTime Data { get; set; }
-        public System.TimeSpan Hora { get; set; }
+        public Nullable<decimal> Valor { get; set; }
+        public Nullable<System.DateTime> Data { get; set; }
         public string Comentario { get; set; }
-        public int RepetirMes { get; set; }
+        public int Provisionado { get; set; }
+        public Nullable<decimal> ValorProvisao { get; set; }
+        public Nullable<System.DateTime> DataProvisao { get; set; }
     
         public virtual Categoria Categoria { get; set; }
         public virtual Usuario Usuario { get; set; }
