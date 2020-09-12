@@ -8,7 +8,7 @@ namespace Dominus.FormApp
 {
     public partial class FormGerenciarCategoria : Form
     {
-        public Categoria Categoria;
+        private Categoria Categoria;
 
         public FormGerenciarCategoria(Categoria categoria)
         {

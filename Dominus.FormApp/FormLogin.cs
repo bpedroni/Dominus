@@ -54,8 +54,9 @@ namespace Dominus.FormApp
                 LoginInfo.Login(usuario);
 
                 Hide();
+                txtSenha.Text = String.Empty;
                 FormPrincipal form = new FormPrincipal();
-                form.Closed += (s, args) => Close();
+                form.Closed += (s, args) => { if (!Visible) Close(); };
                 form.Show();
             }
             catch (Exception ex)
@@ -80,6 +81,19 @@ namespace Dominus.FormApp
         private void LinkCadastrar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show("FALTA IMPLEMENTAR! Aqui abrirá o navegador na página de cadastro do Dominus.");
+        }
+
+        private void BtnSair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Visible)
+            {
+                e.Cancel = MessageBox.Show("Deseja realmente sair do sistema?", "Encerrar Sessão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
+            }
         }
     }
 }

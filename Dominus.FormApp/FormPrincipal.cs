@@ -14,6 +14,7 @@ namespace Dominus.FormApp
             try
             {
                 InitializeComponent();
+                panelMenu.Height = 50;
                 btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
                 CarregarGridPerfisUsuario();
                 CarregarGridCategorias();
@@ -33,11 +34,6 @@ namespace Dominus.FormApp
         private void CarregarGridCategorias()
         {
             gridCategorias.DataSource = CategoriaManager.GetCategoriasAtivas().ToList();
-        }
-
-        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = MessageBox.Show("Deseja realmente sair do sistema?", "Encerrar Sessão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
         }
 
         private void BtnAtualizarPerfis_Click(object sender, EventArgs e)
@@ -104,11 +100,6 @@ namespace Dominus.FormApp
             }
         }
 
-        private void BtnSair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void EditarCategoria(Categoria categoria)
         {
             Form form = new FormGerenciarCategoria(categoria);
@@ -116,6 +107,45 @@ namespace Dominus.FormApp
             {
                 CarregarGridCategorias();
                 MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnUsuario_Click(object sender, EventArgs e)
+        {
+            panelMenu.Height = panelMenu.Height > 50 ? 50 : 170;
+        }
+
+        private void BtnCadastro_Click(object sender, EventArgs e)
+        {
+            panelMenu.Height = 50;
+            Form form = new FormGerenciarCadastro(LoginInfo.Usuario);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
+                MessageBox.Show("O seu cadastro foi atualizado com sucesso.", "Cadastro atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            panelMenu.Height = 50;
+            LoginInfo.Logout();
+            Form form = Application.OpenForms["FormLogin"];
+            form.Show();
+            Close();
+        }
+
+        private void BtnSair_Click(object sender, EventArgs e)
+        {
+            panelMenu.Height = 50;
+            Close();
+        }
+
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (LoginInfo.Usuario != null)
+            {
+                e.Cancel = MessageBox.Show("Deseja realmente sair do sistema?", "Encerrar Sessão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
             }
         }
     }
