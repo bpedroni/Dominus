@@ -11,7 +11,7 @@ namespace Dominus.FormApp
         {
             InitializeComponent();
             
-            if (ValidarEmail(email))
+            if (!String.IsNullOrWhiteSpace(email) && ValidarEmail(email))
             {
                 txtEmail.Text = email;
             }

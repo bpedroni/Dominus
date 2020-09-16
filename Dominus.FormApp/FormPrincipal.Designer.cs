@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPerfisUsuario = new System.Windows.Forms.TabPage();
+            this.btnFitrarUsuario = new System.Windows.Forms.Button();
+            this.txtFiltroUsuario = new System.Windows.Forms.TextBox();
+            this.labelFiltroUsuario = new System.Windows.Forms.Label();
             this.gridPerfisUsuario = new System.Windows.Forms.DataGridView();
             this.UsuarioIdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsuarioNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +54,9 @@
             this.Usuario_Salvar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnAtualizarPerfis = new System.Windows.Forms.Button();
             this.tabCategorias = new System.Windows.Forms.TabPage();
+            this.btnFiltrarCategoria = new System.Windows.Forms.Button();
+            this.txtFiltroCategoria = new System.Windows.Forms.TextBox();
+            this.labelFiltroCategoria = new System.Windows.Forms.Label();
             this.btnExcluirCategoria = new System.Windows.Forms.Button();
             this.btnEditarCategoria = new System.Windows.Forms.Button();
             this.btnAdicionarCategoria = new System.Windows.Forms.Button();
@@ -69,12 +76,14 @@
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnCadastro = new System.Windows.Forms.Button();
+            this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.tabControl.SuspendLayout();
             this.tabPerfisUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).BeginInit();
             this.tabCategorias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).BeginInit();
             this.panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -94,6 +103,9 @@
             // 
             this.tabPerfisUsuario.Controls.Add(this.gridPerfisUsuario);
             this.tabPerfisUsuario.Controls.Add(this.btnAtualizarPerfis);
+            this.tabPerfisUsuario.Controls.Add(this.btnFitrarUsuario);
+            this.tabPerfisUsuario.Controls.Add(this.txtFiltroUsuario);
+            this.tabPerfisUsuario.Controls.Add(this.labelFiltroUsuario);
             this.tabPerfisUsuario.Location = new System.Drawing.Point(4, 27);
             this.tabPerfisUsuario.Name = "tabPerfisUsuario";
             this.tabPerfisUsuario.Padding = new System.Windows.Forms.Padding(3);
@@ -102,10 +114,42 @@
             this.tabPerfisUsuario.Text = "Perfil de Usuário";
             this.tabPerfisUsuario.UseVisualStyleBackColor = true;
             // 
+            // btnFitrarUsuario
+            // 
+            this.btnFitrarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFitrarUsuario.Location = new System.Drawing.Point(331, 25);
+            this.btnFitrarUsuario.Name = "btnFitrarUsuario";
+            this.btnFitrarUsuario.Size = new System.Drawing.Size(60, 30);
+            this.btnFitrarUsuario.TabIndex = 3;
+            this.btnFitrarUsuario.Text = "Filtrar";
+            this.btnFitrarUsuario.UseVisualStyleBackColor = true;
+            this.btnFitrarUsuario.Click += new System.EventHandler(this.BtnFitrarUsuario_Click);
+            // 
+            // txtFiltroUsuario
+            // 
+            this.txtFiltroUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtFiltroUsuario.Location = new System.Drawing.Point(125, 28);
+            this.txtFiltroUsuario.Name = "txtFiltroUsuario";
+            this.txtFiltroUsuario.Size = new System.Drawing.Size(200, 24);
+            this.txtFiltroUsuario.TabIndex = 2;
+            this.txtFiltroUsuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFiltroUsuario_KeyDown);
+            // 
+            // labelFiltroUsuario
+            // 
+            this.labelFiltroUsuario.AutoSize = true;
+            this.labelFiltroUsuario.Location = new System.Drawing.Point(17, 31);
+            this.labelFiltroUsuario.Name = "labelFiltroUsuario";
+            this.labelFiltroUsuario.Size = new System.Drawing.Size(102, 18);
+            this.labelFiltroUsuario.TabIndex = 1;
+            this.labelFiltroUsuario.Text = "Filtrar usuário:";
+            // 
             // gridPerfisUsuario
             // 
             this.gridPerfisUsuario.AllowUserToAddRows = false;
             this.gridPerfisUsuario.AllowUserToDeleteRows = false;
+            this.gridPerfisUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridPerfisUsuario.BackgroundColor = System.Drawing.Color.White;
             this.gridPerfisUsuario.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.gridPerfisUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -125,14 +169,14 @@
             this.UsuarioChamados,
             this.UsuarioChamadosAtendidos,
             this.Usuario_Salvar});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridPerfisUsuario.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridPerfisUsuario.DefaultCellStyle = dataGridViewCellStyle1;
             this.gridPerfisUsuario.EnableHeadersVisualStyles = false;
             this.gridPerfisUsuario.Location = new System.Drawing.Point(20, 75);
             this.gridPerfisUsuario.MultiSelect = false;
@@ -140,8 +184,8 @@
             this.gridPerfisUsuario.RowHeadersVisible = false;
             this.gridPerfisUsuario.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gridPerfisUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPerfisUsuario.Size = new System.Drawing.Size(707, 340);
-            this.gridPerfisUsuario.TabIndex = 6;
+            this.gridPerfisUsuario.Size = new System.Drawing.Size(707, 335);
+            this.gridPerfisUsuario.TabIndex = 5;
             this.gridPerfisUsuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridPerfisUsuario_CellContentClick);
             // 
             // UsuarioIdUsuario
@@ -277,27 +321,29 @@
             // 
             // btnAtualizarPerfis
             // 
-            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAtualizarPerfis.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAtualizarPerfis.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAtualizarPerfis.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAtualizarPerfis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAtualizarPerfis.ForeColor = System.Drawing.Color.White;
-            this.btnAtualizarPerfis.Location = new System.Drawing.Point(20, 20);
+            this.btnAtualizarPerfis.Location = new System.Drawing.Point(567, 20);
             this.btnAtualizarPerfis.Name = "btnAtualizarPerfis";
-            this.btnAtualizarPerfis.Size = new System.Drawing.Size(260, 35);
-            this.btnAtualizarPerfis.TabIndex = 5;
+            this.btnAtualizarPerfis.Size = new System.Drawing.Size(160, 35);
+            this.btnAtualizarPerfis.TabIndex = 4;
             this.btnAtualizarPerfis.Text = "Atualizar Perfis";
             this.btnAtualizarPerfis.UseVisualStyleBackColor = false;
             this.btnAtualizarPerfis.Click += new System.EventHandler(this.BtnAtualizarPerfis_Click);
             // 
             // tabCategorias
             // 
+            this.tabCategorias.Controls.Add(this.gridCategorias);
             this.tabCategorias.Controls.Add(this.btnExcluirCategoria);
             this.tabCategorias.Controls.Add(this.btnEditarCategoria);
             this.tabCategorias.Controls.Add(this.btnAdicionarCategoria);
-            this.tabCategorias.Controls.Add(this.gridCategorias);
+            this.tabCategorias.Controls.Add(this.btnFiltrarCategoria);
+            this.tabCategorias.Controls.Add(this.txtFiltroCategoria);
+            this.tabCategorias.Controls.Add(this.labelFiltroCategoria);
             this.tabCategorias.Location = new System.Drawing.Point(4, 27);
             this.tabCategorias.Name = "tabCategorias";
             this.tabCategorias.Padding = new System.Windows.Forms.Padding(3);
@@ -306,53 +352,79 @@
             this.tabCategorias.Text = "Categorias";
             this.tabCategorias.UseVisualStyleBackColor = true;
             // 
+            // btnFiltrarCategoria
+            // 
+            this.btnFiltrarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltrarCategoria.Location = new System.Drawing.Point(331, 25);
+            this.btnFiltrarCategoria.Name = "btnFiltrarCategoria";
+            this.btnFiltrarCategoria.Size = new System.Drawing.Size(60, 30);
+            this.btnFiltrarCategoria.TabIndex = 3;
+            this.btnFiltrarCategoria.Text = "Filtrar";
+            this.btnFiltrarCategoria.UseVisualStyleBackColor = true;
+            this.btnFiltrarCategoria.Click += new System.EventHandler(this.BtnFiltrarCategoria_Click);
+            // 
+            // txtFiltroCategoria
+            // 
+            this.txtFiltroCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtFiltroCategoria.Location = new System.Drawing.Point(137, 28);
+            this.txtFiltroCategoria.Name = "txtFiltroCategoria";
+            this.txtFiltroCategoria.Size = new System.Drawing.Size(188, 24);
+            this.txtFiltroCategoria.TabIndex = 2;
+            this.txtFiltroCategoria.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFiltroCategoria_KeyDown);
+            // 
+            // labelFiltroCategoria
+            // 
+            this.labelFiltroCategoria.AutoSize = true;
+            this.labelFiltroCategoria.Location = new System.Drawing.Point(17, 31);
+            this.labelFiltroCategoria.Name = "labelFiltroCategoria";
+            this.labelFiltroCategoria.Size = new System.Drawing.Size(114, 18);
+            this.labelFiltroCategoria.TabIndex = 1;
+            this.labelFiltroCategoria.Text = "Filtrar categoria:";
+            // 
             // btnExcluirCategoria
             // 
-            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcluirCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnExcluirCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExcluirCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExcluirCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcluirCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnExcluirCategoria.Location = new System.Drawing.Point(412, 20);
+            this.btnExcluirCategoria.Location = new System.Drawing.Point(644, 20);
             this.btnExcluirCategoria.Name = "btnExcluirCategoria";
-            this.btnExcluirCategoria.Size = new System.Drawing.Size(180, 35);
-            this.btnExcluirCategoria.TabIndex = 10;
+            this.btnExcluirCategoria.Size = new System.Drawing.Size(100, 35);
+            this.btnExcluirCategoria.TabIndex = 6;
             this.btnExcluirCategoria.Text = "Excluir";
             this.btnExcluirCategoria.UseVisualStyleBackColor = false;
             this.btnExcluirCategoria.Click += new System.EventHandler(this.BtnExcluirCategoria_Click);
             // 
             // btnEditarCategoria
             // 
-            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnEditarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnEditarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEditarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnEditarCategoria.Location = new System.Drawing.Point(216, 20);
+            this.btnEditarCategoria.Location = new System.Drawing.Point(538, 20);
             this.btnEditarCategoria.Name = "btnEditarCategoria";
-            this.btnEditarCategoria.Size = new System.Drawing.Size(180, 35);
-            this.btnEditarCategoria.TabIndex = 9;
+            this.btnEditarCategoria.Size = new System.Drawing.Size(100, 35);
+            this.btnEditarCategoria.TabIndex = 5;
             this.btnEditarCategoria.Text = "Editar";
             this.btnEditarCategoria.UseVisualStyleBackColor = false;
             this.btnEditarCategoria.Click += new System.EventHandler(this.BtnEditarCategoria_Click);
             // 
             // btnAdicionarCategoria
             // 
-            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdicionarCategoria.BackColor = System.Drawing.Color.SteelBlue;
             this.btnAdicionarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAdicionarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAdicionarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdicionarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnAdicionarCategoria.Location = new System.Drawing.Point(20, 20);
+            this.btnAdicionarCategoria.Location = new System.Drawing.Point(432, 20);
             this.btnAdicionarCategoria.Name = "btnAdicionarCategoria";
-            this.btnAdicionarCategoria.Size = new System.Drawing.Size(180, 35);
-            this.btnAdicionarCategoria.TabIndex = 8;
+            this.btnAdicionarCategoria.Size = new System.Drawing.Size(100, 35);
+            this.btnAdicionarCategoria.TabIndex = 4;
             this.btnAdicionarCategoria.Text = "Adicionar";
             this.btnAdicionarCategoria.UseVisualStyleBackColor = false;
             this.btnAdicionarCategoria.Click += new System.EventHandler(this.BtnAdicionarCategoria_Click);
@@ -377,14 +449,14 @@
             this.CategoriaAtivo,
             this.CategoriaPlanejamentos,
             this.CategoriaTransacoes});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridCategorias.EnableHeadersVisualStyles = false;
             this.gridCategorias.Location = new System.Drawing.Point(20, 75);
             this.gridCategorias.MultiSelect = false;
@@ -392,7 +464,7 @@
             this.gridCategorias.RowHeadersVisible = false;
             this.gridCategorias.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gridCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridCategorias.Size = new System.Drawing.Size(707, 340);
+            this.gridCategorias.Size = new System.Drawing.Size(724, 340);
             this.gridCategorias.TabIndex = 7;
             this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
             // 
@@ -489,6 +561,7 @@
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(300, 40);
             this.btnSair.TabIndex = 5;
+            this.btnSair.TabStop = false;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.BtnSair_Click);
@@ -514,7 +587,7 @@
             this.panelMenu.Controls.Add(this.btnCadastro);
             this.panelMenu.Controls.Add(this.btnUsuario);
             this.panelMenu.Controls.Add(this.btnSair);
-            this.panelMenu.Location = new System.Drawing.Point(468, 12);
+            this.panelMenu.Location = new System.Drawing.Point(472, 12);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(300, 50);
             this.panelMenu.TabIndex = 1;
@@ -527,6 +600,7 @@
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(300, 40);
             this.btnLogout.TabIndex = 4;
+            this.btnLogout.TabStop = false;
             this.btnLogout.Text = "Logout";
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
@@ -539,9 +613,19 @@
             this.btnCadastro.Name = "btnCadastro";
             this.btnCadastro.Size = new System.Drawing.Size(300, 40);
             this.btnCadastro.TabIndex = 3;
+            this.btnCadastro.TabStop = false;
             this.btnCadastro.Text = "Editar cadastro";
             this.btnCadastro.UseVisualStyleBackColor = true;
             this.btnCadastro.Click += new System.EventHandler(this.BtnCadastro_Click);
+            // 
+            // pictureLogo
+            // 
+            this.pictureLogo.Image = global::Dominus.FormApp.Properties.Resources.logo_250x50;
+            this.pictureLogo.Location = new System.Drawing.Point(12, 12);
+            this.pictureLogo.Name = "pictureLogo";
+            this.pictureLogo.Size = new System.Drawing.Size(250, 50);
+            this.pictureLogo.TabIndex = 9;
+            this.pictureLogo.TabStop = false;
             // 
             // FormPrincipal
             // 
@@ -551,19 +635,24 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.pictureLogo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(400, 500);
+            this.MinimumSize = new System.Drawing.Size(785, 500);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dominus";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tabPerfisUsuario.ResumeLayout(false);
+            this.tabPerfisUsuario.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).EndInit();
             this.tabCategorias.ResumeLayout(false);
+            this.tabCategorias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).EndInit();
             this.panelMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -609,5 +698,12 @@
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnCadastro;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.PictureBox pictureLogo;
+        private System.Windows.Forms.Label labelFiltroUsuario;
+        private System.Windows.Forms.TextBox txtFiltroUsuario;
+        private System.Windows.Forms.Button btnFitrarUsuario;
+        private System.Windows.Forms.Button btnFiltrarCategoria;
+        private System.Windows.Forms.TextBox txtFiltroCategoria;
+        private System.Windows.Forms.Label labelFiltroCategoria;
     }
 }

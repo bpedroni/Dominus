@@ -1,6 +1,7 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,14 +27,16 @@ namespace Dominus.FormApp
             }
         }
 
-        private void CarregarGridPerfisUsuario()
+        private void CarregarGridPerfisUsuario(String usuario = null)
         {
-            gridPerfisUsuario.DataSource = UsuarioManager.GetUsuariosAtivos().Where(x => x.IdUsuario != LoginInfo.Usuario.IdUsuario).ToList();
+            List<Usuario> usuarios = UsuarioManager.GetUsuariosAtivos().Where(x => x.IdUsuario != LoginInfo.Usuario.IdUsuario).ToList();
+            gridPerfisUsuario.DataSource = usuarios.Where(x => String.IsNullOrEmpty(usuario) || x.Nome.ToLower().Contains(usuario.ToLower()) || x.Login.ToLower().Contains(usuario.ToLower())).ToList();
         }
 
-        private void CarregarGridCategorias()
+        private void CarregarGridCategorias(String categoria = null)
         {
-            gridCategorias.DataSource = CategoriaManager.GetCategoriasAtivas().ToList();
+            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas().ToList();
+            gridCategorias.DataSource = categorias.Where(x => String.IsNullOrEmpty(categoria) || x.Nome.ToLower().Contains(categoria.ToLower()) || x.Descricao.ToLower().Contains(categoria.ToLower())).ToList();
         }
 
         private void BtnAtualizarPerfis_Click(object sender, EventArgs e)
@@ -147,6 +150,32 @@ namespace Dominus.FormApp
             {
                 e.Cancel = MessageBox.Show("Deseja realmente sair do sistema?", "Encerrar Sessão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
             }
+        }
+
+        private void TxtFiltroUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnFitrarUsuario_Click(this, new EventArgs());
+            }
+        }
+
+        private void BtnFitrarUsuario_Click(object sender, EventArgs e)
+        {
+            CarregarGridPerfisUsuario(txtFiltroUsuario.Text);
+        }
+
+        private void TxtFiltroCategoria_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnFiltrarCategoria_Click(this, new EventArgs());
+            }
+        }
+
+        private void BtnFiltrarCategoria_Click(object sender, EventArgs e)
+        {
+            CarregarGridCategorias(txtFiltroCategoria.Text);
         }
     }
 }
