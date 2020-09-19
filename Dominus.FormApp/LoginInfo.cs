@@ -11,7 +11,7 @@ namespace Dominus.FormApp
             Usuario = usuario;
         }
 
-        public static void Logout()
+        public static void Logoff()
         {
             Usuario = null;
         }

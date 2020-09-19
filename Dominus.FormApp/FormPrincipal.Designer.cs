@@ -28,614 +28,322 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPerfisUsuario = new System.Windows.Forms.TabPage();
-            this.btnFitrarUsuario = new System.Windows.Forms.Button();
-            this.txtFiltroUsuario = new System.Windows.Forms.TextBox();
-            this.labelFiltroUsuario = new System.Windows.Forms.Label();
-            this.gridPerfisUsuario = new System.Windows.Forms.DataGridView();
-            this.UsuarioIdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioLogin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioPerfilAdministrador = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UsuarioDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UsuarioTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioRelatorios = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioChamados = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioChamadosAtendidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario_Salvar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnAtualizarPerfis = new System.Windows.Forms.Button();
-            this.tabCategorias = new System.Windows.Forms.TabPage();
-            this.btnFiltrarCategoria = new System.Windows.Forms.Button();
-            this.txtFiltroCategoria = new System.Windows.Forms.TextBox();
-            this.labelFiltroCategoria = new System.Windows.Forms.Label();
-            this.btnExcluirCategoria = new System.Windows.Forms.Button();
-            this.btnEditarCategoria = new System.Windows.Forms.Button();
-            this.btnAdicionarCategoria = new System.Windows.Forms.Button();
-            this.gridCategorias = new System.Windows.Forms.DataGridView();
-            this.CategoriaIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaIcone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelLateral = new System.Windows.Forms.Panel();
+            this.bordaBotao = new System.Windows.Forms.Panel();
+            this.btnEstatisticas = new FontAwesome.Sharp.IconButton();
+            this.btnChamados = new FontAwesome.Sharp.IconButton();
+            this.btnCategorias = new FontAwesome.Sharp.IconButton();
+            this.btnPerfisUsuario = new FontAwesome.Sharp.IconButton();
+            this.panelTopo = new System.Windows.Forms.Panel();
             this.btnSair = new System.Windows.Forms.Button();
-            this.btnUsuario = new System.Windows.Forms.Button();
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.btnCadastro = new System.Windows.Forms.Button();
+            this.lblPanelAtivo = new System.Windows.Forms.Label();
+            this.iconPanelAtivo = new FontAwesome.Sharp.IconPictureBox();
             this.pictureLogo = new System.Windows.Forms.PictureBox();
-            this.tabControl.SuspendLayout();
-            this.tabPerfisUsuario.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).BeginInit();
-            this.tabCategorias.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).BeginInit();
-            this.panelMenu.SuspendLayout();
+            this.menuUsuario = new System.Windows.Forms.MenuStrip();
+            this.menuItemUsuario = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemCadastro = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemLogoff = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSair = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelBorda = new System.Windows.Forms.Panel();
+            this.panelDesktop = new System.Windows.Forms.Panel();
+            this.panelLateral.SuspendLayout();
+            this.panelTopo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPanelAtivo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).BeginInit();
+            this.menuUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl
-            // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPerfisUsuario);
-            this.tabControl.Controls.Add(this.tabCategorias);
-            this.tabControl.Location = new System.Drawing.Point(13, 81);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(759, 468);
-            this.tabControl.TabIndex = 0;
-            // 
-            // tabPerfisUsuario
-            // 
-            this.tabPerfisUsuario.Controls.Add(this.gridPerfisUsuario);
-            this.tabPerfisUsuario.Controls.Add(this.btnAtualizarPerfis);
-            this.tabPerfisUsuario.Controls.Add(this.btnFitrarUsuario);
-            this.tabPerfisUsuario.Controls.Add(this.txtFiltroUsuario);
-            this.tabPerfisUsuario.Controls.Add(this.labelFiltroUsuario);
-            this.tabPerfisUsuario.Location = new System.Drawing.Point(4, 27);
-            this.tabPerfisUsuario.Name = "tabPerfisUsuario";
-            this.tabPerfisUsuario.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPerfisUsuario.Size = new System.Drawing.Size(751, 437);
-            this.tabPerfisUsuario.TabIndex = 0;
-            this.tabPerfisUsuario.Text = "Perfil de Usuário";
-            this.tabPerfisUsuario.UseVisualStyleBackColor = true;
-            // 
-            // btnFitrarUsuario
-            // 
-            this.btnFitrarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFitrarUsuario.Location = new System.Drawing.Point(331, 25);
-            this.btnFitrarUsuario.Name = "btnFitrarUsuario";
-            this.btnFitrarUsuario.Size = new System.Drawing.Size(60, 30);
-            this.btnFitrarUsuario.TabIndex = 3;
-            this.btnFitrarUsuario.Text = "Filtrar";
-            this.btnFitrarUsuario.UseVisualStyleBackColor = true;
-            this.btnFitrarUsuario.Click += new System.EventHandler(this.BtnFitrarUsuario_Click);
-            // 
-            // txtFiltroUsuario
-            // 
-            this.txtFiltroUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.txtFiltroUsuario.Location = new System.Drawing.Point(125, 28);
-            this.txtFiltroUsuario.Name = "txtFiltroUsuario";
-            this.txtFiltroUsuario.Size = new System.Drawing.Size(200, 24);
-            this.txtFiltroUsuario.TabIndex = 2;
-            this.txtFiltroUsuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFiltroUsuario_KeyDown);
-            // 
-            // labelFiltroUsuario
-            // 
-            this.labelFiltroUsuario.AutoSize = true;
-            this.labelFiltroUsuario.Location = new System.Drawing.Point(17, 31);
-            this.labelFiltroUsuario.Name = "labelFiltroUsuario";
-            this.labelFiltroUsuario.Size = new System.Drawing.Size(102, 18);
-            this.labelFiltroUsuario.TabIndex = 1;
-            this.labelFiltroUsuario.Text = "Filtrar usuário:";
-            // 
-            // gridPerfisUsuario
-            // 
-            this.gridPerfisUsuario.AllowUserToAddRows = false;
-            this.gridPerfisUsuario.AllowUserToDeleteRows = false;
-            this.gridPerfisUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridPerfisUsuario.BackgroundColor = System.Drawing.Color.White;
-            this.gridPerfisUsuario.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.gridPerfisUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridPerfisUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.UsuarioIdUsuario,
-            this.UsuarioNome,
-            this.UsuarioLogin,
-            this.UsuarioEmail,
-            this.UsuarioSenha,
-            this.UsuarioPerfilAdministrador,
-            this.UsuarioDataCriacao,
-            this.UsuarioDataExclusao,
-            this.UsuarioAtivo,
-            this.UsuarioTransacoes,
-            this.UsuarioPlanejamentos,
-            this.UsuarioRelatorios,
-            this.UsuarioChamados,
-            this.UsuarioChamadosAtendidos,
-            this.Usuario_Salvar});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridPerfisUsuario.DefaultCellStyle = dataGridViewCellStyle1;
-            this.gridPerfisUsuario.EnableHeadersVisualStyles = false;
-            this.gridPerfisUsuario.Location = new System.Drawing.Point(20, 75);
-            this.gridPerfisUsuario.MultiSelect = false;
-            this.gridPerfisUsuario.Name = "gridPerfisUsuario";
-            this.gridPerfisUsuario.RowHeadersVisible = false;
-            this.gridPerfisUsuario.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridPerfisUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPerfisUsuario.Size = new System.Drawing.Size(707, 335);
-            this.gridPerfisUsuario.TabIndex = 5;
-            this.gridPerfisUsuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridPerfisUsuario_CellContentClick);
-            // 
-            // UsuarioIdUsuario
-            // 
-            this.UsuarioIdUsuario.DataPropertyName = "IdUsuario";
-            this.UsuarioIdUsuario.HeaderText = "IdUsuario";
-            this.UsuarioIdUsuario.Name = "UsuarioIdUsuario";
-            this.UsuarioIdUsuario.ReadOnly = true;
-            this.UsuarioIdUsuario.Visible = false;
-            // 
-            // UsuarioNome
-            // 
-            this.UsuarioNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.UsuarioNome.DataPropertyName = "Nome";
-            this.UsuarioNome.HeaderText = "Nome";
-            this.UsuarioNome.Name = "UsuarioNome";
-            this.UsuarioNome.ReadOnly = true;
-            // 
-            // UsuarioLogin
-            // 
-            this.UsuarioLogin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.UsuarioLogin.DataPropertyName = "Login";
-            this.UsuarioLogin.HeaderText = "Login";
-            this.UsuarioLogin.Name = "UsuarioLogin";
-            this.UsuarioLogin.ReadOnly = true;
-            this.UsuarioLogin.Width = 68;
-            // 
-            // UsuarioEmail
-            // 
-            this.UsuarioEmail.DataPropertyName = "Email";
-            this.UsuarioEmail.HeaderText = "Email";
-            this.UsuarioEmail.Name = "UsuarioEmail";
-            this.UsuarioEmail.ReadOnly = true;
-            this.UsuarioEmail.Visible = false;
-            // 
-            // UsuarioSenha
-            // 
-            this.UsuarioSenha.DataPropertyName = "Senha";
-            this.UsuarioSenha.HeaderText = "Senha";
-            this.UsuarioSenha.Name = "UsuarioSenha";
-            this.UsuarioSenha.ReadOnly = true;
-            this.UsuarioSenha.Visible = false;
-            // 
-            // UsuarioPerfilAdministrador
-            // 
-            this.UsuarioPerfilAdministrador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.UsuarioPerfilAdministrador.DataPropertyName = "PerfilAdministrador";
-            this.UsuarioPerfilAdministrador.FalseValue = "0";
-            this.UsuarioPerfilAdministrador.HeaderText = "Administrador";
-            this.UsuarioPerfilAdministrador.Name = "UsuarioPerfilAdministrador";
-            this.UsuarioPerfilAdministrador.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.UsuarioPerfilAdministrador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.UsuarioPerfilAdministrador.TrueValue = "1";
-            this.UsuarioPerfilAdministrador.Width = 123;
-            // 
-            // UsuarioDataCriacao
-            // 
-            this.UsuarioDataCriacao.DataPropertyName = "DataCriacao";
-            this.UsuarioDataCriacao.HeaderText = "DataCriacao";
-            this.UsuarioDataCriacao.Name = "UsuarioDataCriacao";
-            this.UsuarioDataCriacao.ReadOnly = true;
-            this.UsuarioDataCriacao.Visible = false;
-            // 
-            // UsuarioDataExclusao
-            // 
-            this.UsuarioDataExclusao.DataPropertyName = "DataExclusao";
-            this.UsuarioDataExclusao.HeaderText = "DataExclusao";
-            this.UsuarioDataExclusao.Name = "UsuarioDataExclusao";
-            this.UsuarioDataExclusao.ReadOnly = true;
-            this.UsuarioDataExclusao.Visible = false;
-            // 
-            // UsuarioAtivo
-            // 
-            this.UsuarioAtivo.DataPropertyName = "Ativo";
-            this.UsuarioAtivo.FalseValue = "0";
-            this.UsuarioAtivo.HeaderText = "Ativo";
-            this.UsuarioAtivo.Name = "UsuarioAtivo";
-            this.UsuarioAtivo.ReadOnly = true;
-            this.UsuarioAtivo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.UsuarioAtivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.UsuarioAtivo.TrueValue = "1";
-            this.UsuarioAtivo.Visible = false;
-            // 
-            // UsuarioTransacoes
-            // 
-            this.UsuarioTransacoes.DataPropertyName = "Transacoes";
-            this.UsuarioTransacoes.HeaderText = "Transacoes";
-            this.UsuarioTransacoes.Name = "UsuarioTransacoes";
-            this.UsuarioTransacoes.ReadOnly = true;
-            this.UsuarioTransacoes.Visible = false;
-            // 
-            // UsuarioPlanejamentos
-            // 
-            this.UsuarioPlanejamentos.DataPropertyName = "Planejamentos";
-            this.UsuarioPlanejamentos.HeaderText = "Planejamentos";
-            this.UsuarioPlanejamentos.Name = "UsuarioPlanejamentos";
-            this.UsuarioPlanejamentos.ReadOnly = true;
-            this.UsuarioPlanejamentos.Visible = false;
-            // 
-            // UsuarioRelatorios
-            // 
-            this.UsuarioRelatorios.DataPropertyName = "Relatorios";
-            this.UsuarioRelatorios.HeaderText = "Relatorios";
-            this.UsuarioRelatorios.Name = "UsuarioRelatorios";
-            this.UsuarioRelatorios.ReadOnly = true;
-            this.UsuarioRelatorios.Visible = false;
-            // 
-            // UsuarioChamados
-            // 
-            this.UsuarioChamados.DataPropertyName = "Chamados";
-            this.UsuarioChamados.HeaderText = "Chamados";
-            this.UsuarioChamados.Name = "UsuarioChamados";
-            this.UsuarioChamados.ReadOnly = true;
-            this.UsuarioChamados.Visible = false;
-            // 
-            // UsuarioChamadosAtendidos
-            // 
-            this.UsuarioChamadosAtendidos.DataPropertyName = "ChamadosAtendidos";
-            this.UsuarioChamadosAtendidos.HeaderText = "ChamadosAtendidos";
-            this.UsuarioChamadosAtendidos.Name = "UsuarioChamadosAtendidos";
-            this.UsuarioChamadosAtendidos.ReadOnly = true;
-            this.UsuarioChamadosAtendidos.Visible = false;
-            // 
-            // Usuario_Salvar
-            // 
-            this.Usuario_Salvar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Usuario_Salvar.HeaderText = "Atualizar";
-            this.Usuario_Salvar.Name = "Usuario_Salvar";
-            this.Usuario_Salvar.Text = "Salvar";
-            this.Usuario_Salvar.ToolTipText = "Salvar perfil de usuário";
-            this.Usuario_Salvar.UseColumnTextForButtonValue = true;
-            this.Usuario_Salvar.Width = 69;
-            // 
-            // btnAtualizarPerfis
-            // 
-            this.btnAtualizarPerfis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAtualizarPerfis.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnAtualizarPerfis.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAtualizarPerfis.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAtualizarPerfis.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAtualizarPerfis.ForeColor = System.Drawing.Color.White;
-            this.btnAtualizarPerfis.Location = new System.Drawing.Point(567, 20);
-            this.btnAtualizarPerfis.Name = "btnAtualizarPerfis";
-            this.btnAtualizarPerfis.Size = new System.Drawing.Size(160, 35);
-            this.btnAtualizarPerfis.TabIndex = 4;
-            this.btnAtualizarPerfis.Text = "Atualizar Perfis";
-            this.btnAtualizarPerfis.UseVisualStyleBackColor = false;
-            this.btnAtualizarPerfis.Click += new System.EventHandler(this.BtnAtualizarPerfis_Click);
-            // 
-            // tabCategorias
-            // 
-            this.tabCategorias.Controls.Add(this.gridCategorias);
-            this.tabCategorias.Controls.Add(this.btnExcluirCategoria);
-            this.tabCategorias.Controls.Add(this.btnEditarCategoria);
-            this.tabCategorias.Controls.Add(this.btnAdicionarCategoria);
-            this.tabCategorias.Controls.Add(this.btnFiltrarCategoria);
-            this.tabCategorias.Controls.Add(this.txtFiltroCategoria);
-            this.tabCategorias.Controls.Add(this.labelFiltroCategoria);
-            this.tabCategorias.Location = new System.Drawing.Point(4, 27);
-            this.tabCategorias.Name = "tabCategorias";
-            this.tabCategorias.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCategorias.Size = new System.Drawing.Size(751, 437);
-            this.tabCategorias.TabIndex = 1;
-            this.tabCategorias.Text = "Categorias";
-            this.tabCategorias.UseVisualStyleBackColor = true;
-            // 
-            // btnFiltrarCategoria
-            // 
-            this.btnFiltrarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFiltrarCategoria.Location = new System.Drawing.Point(331, 25);
-            this.btnFiltrarCategoria.Name = "btnFiltrarCategoria";
-            this.btnFiltrarCategoria.Size = new System.Drawing.Size(60, 30);
-            this.btnFiltrarCategoria.TabIndex = 3;
-            this.btnFiltrarCategoria.Text = "Filtrar";
-            this.btnFiltrarCategoria.UseVisualStyleBackColor = true;
-            this.btnFiltrarCategoria.Click += new System.EventHandler(this.BtnFiltrarCategoria_Click);
-            // 
-            // txtFiltroCategoria
-            // 
-            this.txtFiltroCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.txtFiltroCategoria.Location = new System.Drawing.Point(137, 28);
-            this.txtFiltroCategoria.Name = "txtFiltroCategoria";
-            this.txtFiltroCategoria.Size = new System.Drawing.Size(188, 24);
-            this.txtFiltroCategoria.TabIndex = 2;
-            this.txtFiltroCategoria.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFiltroCategoria_KeyDown);
-            // 
-            // labelFiltroCategoria
-            // 
-            this.labelFiltroCategoria.AutoSize = true;
-            this.labelFiltroCategoria.Location = new System.Drawing.Point(17, 31);
-            this.labelFiltroCategoria.Name = "labelFiltroCategoria";
-            this.labelFiltroCategoria.Size = new System.Drawing.Size(114, 18);
-            this.labelFiltroCategoria.TabIndex = 1;
-            this.labelFiltroCategoria.Text = "Filtrar categoria:";
-            // 
-            // btnExcluirCategoria
-            // 
-            this.btnExcluirCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExcluirCategoria.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnExcluirCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExcluirCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExcluirCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnExcluirCategoria.Location = new System.Drawing.Point(644, 20);
-            this.btnExcluirCategoria.Name = "btnExcluirCategoria";
-            this.btnExcluirCategoria.Size = new System.Drawing.Size(100, 35);
-            this.btnExcluirCategoria.TabIndex = 6;
-            this.btnExcluirCategoria.Text = "Excluir";
-            this.btnExcluirCategoria.UseVisualStyleBackColor = false;
-            this.btnExcluirCategoria.Click += new System.EventHandler(this.BtnExcluirCategoria_Click);
-            // 
-            // btnEditarCategoria
-            // 
-            this.btnEditarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditarCategoria.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnEditarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnEditarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEditarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnEditarCategoria.Location = new System.Drawing.Point(538, 20);
-            this.btnEditarCategoria.Name = "btnEditarCategoria";
-            this.btnEditarCategoria.Size = new System.Drawing.Size(100, 35);
-            this.btnEditarCategoria.TabIndex = 5;
-            this.btnEditarCategoria.Text = "Editar";
-            this.btnEditarCategoria.UseVisualStyleBackColor = false;
-            this.btnEditarCategoria.Click += new System.EventHandler(this.BtnEditarCategoria_Click);
-            // 
-            // btnAdicionarCategoria
-            // 
-            this.btnAdicionarCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdicionarCategoria.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnAdicionarCategoria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAdicionarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAdicionarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdicionarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnAdicionarCategoria.Location = new System.Drawing.Point(432, 20);
-            this.btnAdicionarCategoria.Name = "btnAdicionarCategoria";
-            this.btnAdicionarCategoria.Size = new System.Drawing.Size(100, 35);
-            this.btnAdicionarCategoria.TabIndex = 4;
-            this.btnAdicionarCategoria.Text = "Adicionar";
-            this.btnAdicionarCategoria.UseVisualStyleBackColor = false;
-            this.btnAdicionarCategoria.Click += new System.EventHandler(this.BtnAdicionarCategoria_Click);
-            // 
-            // gridCategorias
-            // 
-            this.gridCategorias.AllowUserToAddRows = false;
-            this.gridCategorias.AllowUserToDeleteRows = false;
-            this.gridCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridCategorias.BackgroundColor = System.Drawing.Color.White;
-            this.gridCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CategoriaIdCategoria,
-            this.CategoriaNome,
-            this.CategoriaDescricao,
-            this.CategoriaTipoFluxo,
-            this.CategoriaIcone,
-            this.CategoriaDataCriacao,
-            this.CategoriaDataExclusao,
-            this.CategoriaAtivo,
-            this.CategoriaPlanejamentos,
-            this.CategoriaTransacoes});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle2;
-            this.gridCategorias.EnableHeadersVisualStyles = false;
-            this.gridCategorias.Location = new System.Drawing.Point(20, 75);
-            this.gridCategorias.MultiSelect = false;
-            this.gridCategorias.Name = "gridCategorias";
-            this.gridCategorias.RowHeadersVisible = false;
-            this.gridCategorias.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridCategorias.Size = new System.Drawing.Size(724, 340);
-            this.gridCategorias.TabIndex = 7;
-            this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
-            // 
-            // CategoriaIdCategoria
-            // 
-            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
-            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
-            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
-            this.CategoriaIdCategoria.ReadOnly = true;
-            this.CategoriaIdCategoria.Visible = false;
-            // 
-            // CategoriaNome
-            // 
-            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaNome.DataPropertyName = "Nome";
-            this.CategoriaNome.HeaderText = "Nome";
-            this.CategoriaNome.Name = "CategoriaNome";
-            this.CategoriaNome.ReadOnly = true;
-            this.CategoriaNome.Width = 74;
-            // 
-            // CategoriaDescricao
-            // 
-            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CategoriaDescricao.DataPropertyName = "Descricao";
-            this.CategoriaDescricao.HeaderText = "Descrição";
-            this.CategoriaDescricao.Name = "CategoriaDescricao";
-            this.CategoriaDescricao.ReadOnly = true;
-            // 
-            // CategoriaTipoFluxo
-            // 
-            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
-            this.CategoriaTipoFluxo.HeaderText = "Tipo de Fluxo";
-            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
-            this.CategoriaTipoFluxo.ReadOnly = true;
-            this.CategoriaTipoFluxo.Width = 122;
-            // 
-            // CategoriaIcone
-            // 
-            this.CategoriaIcone.DataPropertyName = "Icone";
-            this.CategoriaIcone.HeaderText = "Icone";
-            this.CategoriaIcone.Name = "CategoriaIcone";
-            this.CategoriaIcone.ReadOnly = true;
-            this.CategoriaIcone.Visible = false;
-            // 
-            // CategoriaDataCriacao
-            // 
-            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
-            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
-            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
-            this.CategoriaDataCriacao.ReadOnly = true;
-            this.CategoriaDataCriacao.Visible = false;
-            // 
-            // CategoriaDataExclusao
-            // 
-            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
-            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
-            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
-            this.CategoriaDataExclusao.ReadOnly = true;
-            this.CategoriaDataExclusao.Visible = false;
-            // 
-            // CategoriaAtivo
-            // 
-            this.CategoriaAtivo.DataPropertyName = "Ativo";
-            this.CategoriaAtivo.FalseValue = "0";
-            this.CategoriaAtivo.HeaderText = "Ativo";
-            this.CategoriaAtivo.Name = "CategoriaAtivo";
-            this.CategoriaAtivo.ReadOnly = true;
-            this.CategoriaAtivo.TrueValue = "1";
-            this.CategoriaAtivo.Visible = false;
-            // 
-            // CategoriaPlanejamentos
-            // 
-            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
-            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
-            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
-            this.CategoriaPlanejamentos.ReadOnly = true;
-            this.CategoriaPlanejamentos.Visible = false;
-            // 
-            // CategoriaTransacoes
-            // 
-            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
-            this.CategoriaTransacoes.HeaderText = "Transacoes";
-            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
-            this.CategoriaTransacoes.ReadOnly = true;
-            this.CategoriaTransacoes.Visible = false;
+            // panelLateral
+            // 
+            this.panelLateral.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.panelLateral.Controls.Add(this.bordaBotao);
+            this.panelLateral.Controls.Add(this.btnEstatisticas);
+            this.panelLateral.Controls.Add(this.btnChamados);
+            this.panelLateral.Controls.Add(this.btnCategorias);
+            this.panelLateral.Controls.Add(this.btnPerfisUsuario);
+            this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLateral.Location = new System.Drawing.Point(0, 60);
+            this.panelLateral.Name = "panelLateral";
+            this.panelLateral.Size = new System.Drawing.Size(200, 501);
+            this.panelLateral.TabIndex = 0;
+            // 
+            // bordaBotao
+            // 
+            this.bordaBotao.BackColor = System.Drawing.Color.Orange;
+            this.bordaBotao.Location = new System.Drawing.Point(0, 0);
+            this.bordaBotao.Name = "bordaBotao";
+            this.bordaBotao.Size = new System.Drawing.Size(10, 50);
+            this.bordaBotao.TabIndex = 5;
+            // 
+            // btnEstatisticas
+            // 
+            this.btnEstatisticas.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnEstatisticas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEstatisticas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEstatisticas.FlatAppearance.BorderSize = 0;
+            this.btnEstatisticas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnEstatisticas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnEstatisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEstatisticas.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnEstatisticas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEstatisticas.ForeColor = System.Drawing.Color.LightGray;
+            this.btnEstatisticas.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
+            this.btnEstatisticas.IconColor = System.Drawing.Color.White;
+            this.btnEstatisticas.IconSize = 32;
+            this.btnEstatisticas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEstatisticas.Location = new System.Drawing.Point(0, 150);
+            this.btnEstatisticas.Name = "btnEstatisticas";
+            this.btnEstatisticas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnEstatisticas.Rotation = 0D;
+            this.btnEstatisticas.Size = new System.Drawing.Size(200, 50);
+            this.btnEstatisticas.TabIndex = 4;
+            this.btnEstatisticas.Text = "Estatísticas";
+            this.btnEstatisticas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEstatisticas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEstatisticas.UseVisualStyleBackColor = false;
+            this.btnEstatisticas.Click += new System.EventHandler(this.BtnEstatisticas_Click);
+            // 
+            // btnChamados
+            // 
+            this.btnChamados.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnChamados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChamados.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnChamados.FlatAppearance.BorderSize = 0;
+            this.btnChamados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnChamados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnChamados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChamados.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnChamados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChamados.ForeColor = System.Drawing.Color.LightGray;
+            this.btnChamados.IconChar = FontAwesome.Sharp.IconChar.Envelope;
+            this.btnChamados.IconColor = System.Drawing.Color.White;
+            this.btnChamados.IconSize = 32;
+            this.btnChamados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChamados.Location = new System.Drawing.Point(0, 100);
+            this.btnChamados.Name = "btnChamados";
+            this.btnChamados.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnChamados.Rotation = 0D;
+            this.btnChamados.Size = new System.Drawing.Size(200, 50);
+            this.btnChamados.TabIndex = 3;
+            this.btnChamados.Text = "Chamados";
+            this.btnChamados.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChamados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnChamados.UseVisualStyleBackColor = false;
+            this.btnChamados.Click += new System.EventHandler(this.BtnChamados_Click);
+            // 
+            // btnCategorias
+            // 
+            this.btnCategorias.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnCategorias.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCategorias.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCategorias.FlatAppearance.BorderSize = 0;
+            this.btnCategorias.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnCategorias.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnCategorias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategorias.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnCategorias.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCategorias.ForeColor = System.Drawing.Color.LightGray;
+            this.btnCategorias.IconChar = FontAwesome.Sharp.IconChar.MoneyBillWave;
+            this.btnCategorias.IconColor = System.Drawing.Color.White;
+            this.btnCategorias.IconSize = 32;
+            this.btnCategorias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCategorias.Location = new System.Drawing.Point(0, 50);
+            this.btnCategorias.Name = "btnCategorias";
+            this.btnCategorias.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnCategorias.Rotation = 0D;
+            this.btnCategorias.Size = new System.Drawing.Size(200, 50);
+            this.btnCategorias.TabIndex = 2;
+            this.btnCategorias.Text = "Categorias";
+            this.btnCategorias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCategorias.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCategorias.UseVisualStyleBackColor = false;
+            this.btnCategorias.Click += new System.EventHandler(this.BtnCategorias_Click);
+            // 
+            // btnPerfisUsuario
+            // 
+            this.btnPerfisUsuario.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnPerfisUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPerfisUsuario.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPerfisUsuario.FlatAppearance.BorderSize = 0;
+            this.btnPerfisUsuario.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnPerfisUsuario.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnPerfisUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPerfisUsuario.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnPerfisUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPerfisUsuario.ForeColor = System.Drawing.Color.LightGray;
+            this.btnPerfisUsuario.IconChar = FontAwesome.Sharp.IconChar.UserCog;
+            this.btnPerfisUsuario.IconColor = System.Drawing.Color.White;
+            this.btnPerfisUsuario.IconSize = 32;
+            this.btnPerfisUsuario.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPerfisUsuario.Location = new System.Drawing.Point(0, 0);
+            this.btnPerfisUsuario.Name = "btnPerfisUsuario";
+            this.btnPerfisUsuario.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnPerfisUsuario.Rotation = 0D;
+            this.btnPerfisUsuario.Size = new System.Drawing.Size(200, 50);
+            this.btnPerfisUsuario.TabIndex = 1;
+            this.btnPerfisUsuario.Text = "Perfis de Usuário";
+            this.btnPerfisUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPerfisUsuario.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPerfisUsuario.UseVisualStyleBackColor = false;
+            this.btnPerfisUsuario.Click += new System.EventHandler(this.BtnPerfisUsuario_Click);
+            // 
+            // panelTopo
+            // 
+            this.panelTopo.BackColor = System.Drawing.Color.White;
+            this.panelTopo.Controls.Add(this.btnSair);
+            this.panelTopo.Controls.Add(this.lblPanelAtivo);
+            this.panelTopo.Controls.Add(this.iconPanelAtivo);
+            this.panelTopo.Controls.Add(this.pictureLogo);
+            this.panelTopo.Controls.Add(this.menuUsuario);
+            this.panelTopo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTopo.Location = new System.Drawing.Point(0, 0);
+            this.panelTopo.Name = "panelTopo";
+            this.panelTopo.Size = new System.Drawing.Size(984, 60);
+            this.panelTopo.TabIndex = 1;
             // 
             // btnSair
             // 
             this.btnSair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSair.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSair.Location = new System.Drawing.Point(0, 130);
+            this.btnSair.Location = new System.Drawing.Point(978, 6);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(300, 40);
-            this.btnSair.TabIndex = 5;
+            this.btnSair.Size = new System.Drawing.Size(0, 0);
+            this.btnSair.TabIndex = 10;
             this.btnSair.TabStop = false;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.BtnSair_Click);
             // 
-            // btnUsuario
+            // lblPanelAtivo
             // 
-            this.btnUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsuario.Location = new System.Drawing.Point(0, 0);
-            this.btnUsuario.Name = "btnUsuario";
-            this.btnUsuario.Size = new System.Drawing.Size(300, 50);
-            this.btnUsuario.TabIndex = 2;
-            this.btnUsuario.Text = "Usuário";
-            this.btnUsuario.UseVisualStyleBackColor = true;
-            this.btnUsuario.Click += new System.EventHandler(this.BtnUsuario_Click);
+            this.lblPanelAtivo.AutoSize = true;
+            this.lblPanelAtivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPanelAtivo.ForeColor = System.Drawing.Color.Gray;
+            this.lblPanelAtivo.Location = new System.Drawing.Point(264, 25);
+            this.lblPanelAtivo.Name = "lblPanelAtivo";
+            this.lblPanelAtivo.Size = new System.Drawing.Size(134, 24);
+            this.lblPanelAtivo.TabIndex = 2;
+            this.lblPanelAtivo.Text = "Página Inicial";
+            this.lblPanelAtivo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panelMenu
+            // iconPanelAtivo
             // 
-            this.panelMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelMenu.BackColor = System.Drawing.Color.Transparent;
-            this.panelMenu.Controls.Add(this.btnLogout);
-            this.panelMenu.Controls.Add(this.btnCadastro);
-            this.panelMenu.Controls.Add(this.btnUsuario);
-            this.panelMenu.Controls.Add(this.btnSair);
-            this.panelMenu.Location = new System.Drawing.Point(472, 12);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(300, 50);
-            this.panelMenu.TabIndex = 1;
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.Location = new System.Drawing.Point(0, 90);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(300, 40);
-            this.btnLogout.TabIndex = 4;
-            this.btnLogout.TabStop = false;
-            this.btnLogout.Text = "Logout";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
-            // 
-            // btnCadastro
-            // 
-            this.btnCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCadastro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCadastro.Location = new System.Drawing.Point(0, 50);
-            this.btnCadastro.Name = "btnCadastro";
-            this.btnCadastro.Size = new System.Drawing.Size(300, 40);
-            this.btnCadastro.TabIndex = 3;
-            this.btnCadastro.TabStop = false;
-            this.btnCadastro.Text = "Editar cadastro";
-            this.btnCadastro.UseVisualStyleBackColor = true;
-            this.btnCadastro.Click += new System.EventHandler(this.BtnCadastro_Click);
+            this.iconPanelAtivo.BackColor = System.Drawing.Color.White;
+            this.iconPanelAtivo.ForeColor = System.Drawing.Color.Gray;
+            this.iconPanelAtivo.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.iconPanelAtivo.IconColor = System.Drawing.Color.Gray;
+            this.iconPanelAtivo.Location = new System.Drawing.Point(226, 21);
+            this.iconPanelAtivo.Name = "iconPanelAtivo";
+            this.iconPanelAtivo.Size = new System.Drawing.Size(32, 32);
+            this.iconPanelAtivo.TabIndex = 1;
+            this.iconPanelAtivo.TabStop = false;
             // 
             // pictureLogo
             // 
-            this.pictureLogo.Image = global::Dominus.FormApp.Properties.Resources.logo_250x50;
-            this.pictureLogo.Location = new System.Drawing.Point(12, 12);
+            this.pictureLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pictureLogo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureLogo.Image = global::Dominus.FormApp.Properties.Resources.logo_200x60;
+            this.pictureLogo.Location = new System.Drawing.Point(0, 0);
             this.pictureLogo.Name = "pictureLogo";
-            this.pictureLogo.Size = new System.Drawing.Size(250, 50);
-            this.pictureLogo.TabIndex = 9;
+            this.pictureLogo.Size = new System.Drawing.Size(200, 60);
+            this.pictureLogo.TabIndex = 0;
             this.pictureLogo.TabStop = false;
+            // 
+            // menuUsuario
+            // 
+            this.menuUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuUsuario.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuUsuario.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.menuUsuario.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemUsuario});
+            this.menuUsuario.Location = new System.Drawing.Point(895, 10);
+            this.menuUsuario.Name = "menuUsuario";
+            this.menuUsuario.Padding = new System.Windows.Forms.Padding(0);
+            this.menuUsuario.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuUsuario.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.menuUsuario.Size = new System.Drawing.Size(80, 34);
+            this.menuUsuario.TabIndex = 3;
+            this.menuUsuario.Text = "menuUsuario";
+            // 
+            // menuItemUsuario
+            // 
+            this.menuItemUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemCadastro,
+            this.menuItemLogoff,
+            this.menuItemSair});
+            this.menuItemUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuItemUsuario.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.menuItemUsuario.Name = "menuItemUsuario";
+            this.menuItemUsuario.Padding = new System.Windows.Forms.Padding(5);
+            this.menuItemUsuario.Size = new System.Drawing.Size(78, 34);
+            this.menuItemUsuario.Text = "Usuário";
+            // 
+            // menuItemCadastro
+            // 
+            this.menuItemCadastro.BackColor = System.Drawing.Color.White;
+            this.menuItemCadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuItemCadastro.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.menuItemCadastro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemCadastro.Name = "menuItemCadastro";
+            this.menuItemCadastro.Size = new System.Drawing.Size(180, 22);
+            this.menuItemCadastro.Text = "Editar Cadastro";
+            this.menuItemCadastro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemCadastro.Click += new System.EventHandler(this.MenuItemCadastro_Click);
+            // 
+            // menuItemLogoff
+            // 
+            this.menuItemLogoff.BackColor = System.Drawing.Color.White;
+            this.menuItemLogoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuItemLogoff.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.menuItemLogoff.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemLogoff.Name = "menuItemLogoff";
+            this.menuItemLogoff.Size = new System.Drawing.Size(180, 22);
+            this.menuItemLogoff.Text = "Fazer Logoff";
+            this.menuItemLogoff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemLogoff.Click += new System.EventHandler(this.MenuItemLogoff_Click);
+            // 
+            // menuItemSair
+            // 
+            this.menuItemSair.BackColor = System.Drawing.Color.White;
+            this.menuItemSair.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuItemSair.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.menuItemSair.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemSair.Name = "menuItemSair";
+            this.menuItemSair.Size = new System.Drawing.Size(180, 22);
+            this.menuItemSair.Text = "Sair";
+            this.menuItemSair.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuItemSair.Click += new System.EventHandler(this.MenuItemSair_Click);
+            // 
+            // panelBorda
+            // 
+            this.panelBorda.BackColor = System.Drawing.Color.Orange;
+            this.panelBorda.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelBorda.Location = new System.Drawing.Point(200, 60);
+            this.panelBorda.Name = "panelBorda";
+            this.panelBorda.Size = new System.Drawing.Size(784, 10);
+            this.panelBorda.TabIndex = 2;
+            // 
+            // panelDesktop
+            // 
+            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDesktop.Location = new System.Drawing.Point(200, 70);
+            this.panelDesktop.Name = "panelDesktop";
+            this.panelDesktop.Size = new System.Drawing.Size(784, 491);
+            this.panelDesktop.TabIndex = 3;
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSair;
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.panelMenu);
-            this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.pictureLogo);
+            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.panelDesktop);
+            this.Controls.Add(this.panelBorda);
+            this.Controls.Add(this.panelLateral);
+            this.Controls.Add(this.panelTopo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -644,66 +352,36 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dominus";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
-            this.tabControl.ResumeLayout(false);
-            this.tabPerfisUsuario.ResumeLayout(false);
-            this.tabPerfisUsuario.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).EndInit();
-            this.tabCategorias.ResumeLayout(false);
-            this.tabCategorias.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).EndInit();
-            this.panelMenu.ResumeLayout(false);
+            this.panelLateral.ResumeLayout(false);
+            this.panelTopo.ResumeLayout(false);
+            this.panelTopo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPanelAtivo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).EndInit();
+            this.menuUsuario.ResumeLayout(false);
+            this.menuUsuario.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPerfisUsuario;
-        private System.Windows.Forms.TabPage tabCategorias;
-        private System.Windows.Forms.Button btnAtualizarPerfis;
-        private System.Windows.Forms.DataGridView gridPerfisUsuario;
-        private System.Windows.Forms.DataGridView gridCategorias;
-        private System.Windows.Forms.Button btnExcluirCategoria;
-        private System.Windows.Forms.Button btnEditarCategoria;
-        private System.Windows.Forms.Button btnAdicionarCategoria;
-        private System.Windows.Forms.Button btnSair;
-        private System.Windows.Forms.Button btnUsuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioIdUsuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioNome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioLogin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioSenha;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn UsuarioPerfilAdministrador;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioDataCriacao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioDataExclusao;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn UsuarioAtivo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioTransacoes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioPlanejamentos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioRelatorios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioChamados;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioChamadosAtendidos;
-        private System.Windows.Forms.DataGridViewButtonColumn Usuario_Salvar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaIdCategoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaNome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDescricao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaTipoFluxo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaIcone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDataCriacao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDataExclusao;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CategoriaAtivo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaPlanejamentos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaTransacoes;
-        private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button btnCadastro;
-        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Panel panelLateral;
+        private System.Windows.Forms.Panel panelTopo;
         private System.Windows.Forms.PictureBox pictureLogo;
-        private System.Windows.Forms.Label labelFiltroUsuario;
-        private System.Windows.Forms.TextBox txtFiltroUsuario;
-        private System.Windows.Forms.Button btnFitrarUsuario;
-        private System.Windows.Forms.Button btnFiltrarCategoria;
-        private System.Windows.Forms.TextBox txtFiltroCategoria;
-        private System.Windows.Forms.Label labelFiltroCategoria;
+        private FontAwesome.Sharp.IconButton btnPerfisUsuario;
+        private FontAwesome.Sharp.IconButton btnCategorias;
+        private FontAwesome.Sharp.IconButton btnEstatisticas;
+        private FontAwesome.Sharp.IconButton btnChamados;
+        private System.Windows.Forms.Label lblPanelAtivo;
+        private FontAwesome.Sharp.IconPictureBox iconPanelAtivo;
+        private System.Windows.Forms.Panel panelBorda;
+        private System.Windows.Forms.Panel panelDesktop;
+        private System.Windows.Forms.Panel bordaBotao;
+        private System.Windows.Forms.MenuStrip menuUsuario;
+        private System.Windows.Forms.ToolStripMenuItem menuItemUsuario;
+        private System.Windows.Forms.ToolStripMenuItem menuItemCadastro;
+        private System.Windows.Forms.ToolStripMenuItem menuItemLogoff;
+        private System.Windows.Forms.ToolStripMenuItem menuItemSair;
+        private System.Windows.Forms.Button btnSair;
     }
 }

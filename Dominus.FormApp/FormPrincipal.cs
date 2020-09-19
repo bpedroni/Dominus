@@ -1,24 +1,48 @@
-﻿using Dominus.DataModel;
-using Dominus.DataModel.Core;
+﻿using FontAwesome.Sharp;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Dominus.FormApp
 {
     public partial class FormPrincipal : Form
     {
+        // Formulário dos perfis de usuário:
+        private static FormPerfisUsuario formPerfisUsuario;
+        // Formulário das categorias:
+        private static FormCategorias formCategorias;
+        // Formulário dos chamados:
+        private static FormChamados formChamados;
+        // Formulário das estatísticas:
+        private static FormEstatisticas formEstatisticas;
+        // Formulário de controle usado para a identificação do form na tela pricipal:
+        private static Form formAtivo;
+        // Botão de controle usado para a identificação do botão no menu que está ativo:
+        private static IconButton btnAtivo;
+
         public FormPrincipal()
         {
             try
             {
                 InitializeComponent();
-                panelMenu.Height = 50;
-                btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
-                CarregarGridPerfisUsuario();
-                CarregarGridCategorias();
+
+                // Instanciamento dos formulários utilizados no form principal:
+                formPerfisUsuario = new FormPerfisUsuario();
+                formCategorias = new FormCategorias();
+                formChamados = new FormChamados();
+                formEstatisticas = new FormEstatisticas();
+
+                // Carregamento do form de perfis de usuário na tela através do evento de click de botão no menu:
+                BtnPerfisUsuario_Click(btnPerfisUsuario, new EventArgs());
+
+                // Carregamento das informações do usuário no menu superior à direita:
+                menuItemUsuario.Image = IconChar.UserCircle.ToBitmap(32, Color.MidnightBlue);
+                menuItemUsuario.Text = LoginInfo.Usuario?.Nome;
+
+                // Carregamento das imagens utilizadas nos botões do menu lateral:
+                menuItemCadastro.Image = IconChar.Tasks.ToBitmap(32, Color.MidnightBlue);
+                menuItemLogoff.Image = IconChar.SignOutAlt.ToBitmap(32, Color.MidnightBlue);
+                menuItemSair.Image = IconChar.TimesCircle.ToBitmap(32, Color.MidnightBlue);
             }
             catch (Exception ex)
             {
@@ -27,155 +51,150 @@ namespace Dominus.FormApp
             }
         }
 
-        private void CarregarGridPerfisUsuario(String usuario = null)
+        // Método usado para ativar o botão correspondente ao formulário carregado na tela:
+        private void AtivarBotao(IconButton botao)
         {
-            List<Usuario> usuarios = UsuarioManager.GetUsuariosAtivos().Where(x => x.IdUsuario != LoginInfo.Usuario.IdUsuario).ToList();
-            gridPerfisUsuario.DataSource = usuarios.Where(x => String.IsNullOrEmpty(usuario) || x.Nome.ToLower().Contains(usuario.ToLower()) || x.Login.ToLower().Contains(usuario.ToLower())).ToList();
-        }
-
-        private void CarregarGridCategorias(String categoria = null)
-        {
-            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas().ToList();
-            gridCategorias.DataSource = categorias.Where(x => String.IsNullOrEmpty(categoria) || x.Nome.ToLower().Contains(categoria.ToLower()) || x.Descricao.ToLower().Contains(categoria.ToLower())).ToList();
-        }
-
-        private void BtnAtualizarPerfis_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in gridPerfisUsuario.Rows)
+            // Verifica se existe algum botão ativo e altera o estado para desativar o botão (a ativação e desativação ocorre alterando a cor do fundo):
+            if (btnAtivo != null)
             {
-                Usuario usuario = (Usuario)row.DataBoundItem;
-                UsuarioManager.EditUsuario(usuario);
+                btnAtivo.BackColor = Color.MidnightBlue;
             }
-            MessageBox.Show("Os perfis foram atualizados com sucesso.", "Perfis atualizados!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void GridPerfisUsuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var senderGrid = (DataGridView)sender;
-
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            // Verifica se foi enviado um botão:
+            if (botao != null)
             {
-                Usuario usuario = (Usuario)gridPerfisUsuario.Rows[e.RowIndex].DataBoundItem;
-                UsuarioManager.EditUsuario(usuario);
-                MessageBox.Show("O perfil do usuário " + usuario.Login + " foi atualizado com sucesso.", "Perfil atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Altera o status do botão para ativo através da alteração do background e da posição da barra lateral do botão ativo:
+                botao.BackColor = Color.RoyalBlue;
+                bordaBotao.Location = new Point(0, botao.Location.Y);
+
+                // Atualiza as informações do painel ativado presentes na parte superior do form:
+                iconPanelAtivo.IconChar = botao.IconChar;
+                lblPanelAtivo.Text = botao.Text;
+
+                // Atualiza o botão ativado na tela:
+                btnAtivo = botao;
             }
         }
 
-        private void BtnAdicionarCategoria_Click(object sender, EventArgs e)
+        // Método usado para mostrar o formulário carregado na tela:
+        private void AbrirFormulario(Form form)
         {
-            Form form = new FormGerenciarCategoria(null);
-            if (form.ShowDialog() == DialogResult.OK)
+            // Verifica se existe algum form ativo na tela e o esconde:
+            if (formAtivo != null)
             {
-                CarregarGridCategorias();
-                MessageBox.Show("A categoria foi inserida com sucesso.", "Categoria nova incluída!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                formAtivo.Hide();
+            }
+
+            // Atualiza a propriedade TopLevel para falso, possibilitando o carregamento do form no panelDesktop:
+            form.TopLevel = false;
+
+            // Remove as bordas do form e preenche todo o espaço destinado ao formulário:
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            // Adiciona o form ao painel principal e define neste painel quais os dados que foram adicionados:
+            panelDesktop.Controls.Add(form);
+            panelDesktop.Tag = form;
+
+            // Torna o form visível no formulário principal:
+            form.BringToFront();
+            form.Show();
+
+            // Atualiza a informação do formulário visível na tela:
+            formAtivo = form;
+        }
+
+        // Evento de click no botão de perfis de usuário:
+        private void BtnPerfisUsuario_Click(object sender, EventArgs e)
+        {
+            // Valida se o botão ativo é diferente do botão clicado antes de atualizar a visualização:
+            if (btnAtivo != (IconButton)sender)
+            {
+                AtivarBotao((IconButton)sender);
+                AbrirFormulario(formPerfisUsuario);
             }
         }
 
-        private void BtnEditarCategoria_Click(object sender, EventArgs e)
+        // Evento de click no botão de categorias:
+        private void BtnCategorias_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = gridCategorias.SelectedRows[0];
-            if (row != null)
+            // Valida se o botão ativo é diferente do botão clicado antes de atualizar a visualização:
+            if (btnAtivo != (IconButton)sender)
             {
-                Categoria categoria = (Categoria)row.DataBoundItem;
-                EditarCategoria(categoria);
+                AtivarBotao((IconButton)sender);
+                AbrirFormulario(formCategorias);
             }
         }
 
-        private void BtnExcluirCategoria_Click(object sender, EventArgs e)
+        // Evento de click no botão de chamados:
+        private void BtnChamados_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = gridCategorias.SelectedRows[0];
-            if (row != null)
+            // Valida se o botão ativo é diferente do botão clicado antes de atualizar a visualização:
+            if (btnAtivo != (IconButton)sender)
             {
-                if (MessageBox.Show("Deseja realmente excluir a categoria?", "Excluir categoria", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    CategoriaManager.DeleteCategoria((Categoria)row.DataBoundItem);
-                    CarregarGridCategorias();
-                }
+                AtivarBotao((IconButton)sender);
+                AbrirFormulario(formChamados);
             }
         }
 
-        private void GridCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        // Evento de click no botão de estatísticas:
+        private void BtnEstatisticas_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            // Valida se o botão ativo é diferente do botão clicado antes de atualizar a visualização:
+            if (btnAtivo != (IconButton)sender)
             {
-                Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
-                EditarCategoria(categoria);
+                AtivarBotao((IconButton)sender);
+                AbrirFormulario(formEstatisticas);
             }
         }
 
-        private void EditarCategoria(Categoria categoria)
+        // Evento de click no botão de menu do cadastro do usuário:
+        private void MenuItemCadastro_Click(object sender, EventArgs e)
         {
-            Form form = new FormGerenciarCategoria(categoria);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                CarregarGridCategorias();
-                MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void BtnUsuario_Click(object sender, EventArgs e)
-        {
-            panelMenu.Height = panelMenu.Height > 50 ? 50 : 170;
-        }
-
-        private void BtnCadastro_Click(object sender, EventArgs e)
-        {
-            panelMenu.Height = 50;
             Form form = new FormGerenciarCadastro(LoginInfo.Usuario);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                btnUsuario.Text = "Olá, " + LoginInfo.Usuario.Nome;
+                menuItemUsuario.Text = LoginInfo.Usuario.Nome;
                 MessageBox.Show("O seu cadastro foi atualizado com sucesso.", "Cadastro atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void BtnLogout_Click(object sender, EventArgs e)
+        // Evento de click no botão de menu de logoff:
+        private void MenuItemLogoff_Click(object sender, EventArgs e)
         {
-            panelMenu.Height = 50;
-            LoginInfo.Logout();
+            // Realiza o logoff do usuário:
+            LoginInfo.Logoff();
+
+            // Mostra o formuláio de login e encerra o formulário principal:
             Form form = Application.OpenForms["FormLogin"];
+            if (form == null)
+            {
+                form = new FormLogin();
+            }
             form.Show();
+
             Close();
         }
 
+        // Evento de click no botão de menu de sair da aplicação:
+        private void MenuItemSair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // Evento de click no botão de sair da aplicação (o botão está invisível no form):
         private void BtnSair_Click(object sender, EventArgs e)
         {
-            panelMenu.Height = 50;
             Close();
         }
 
+        // Evento de fechamento do formulário principal:
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Verifica se o usuário está encerrando a aplicação (e valida o encerramento) ou se está fazendo logoff:
             if (LoginInfo.Usuario != null)
             {
                 e.Cancel = MessageBox.Show("Deseja realmente sair do sistema?", "Encerrar Sessão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No;
             }
-        }
-
-        private void TxtFiltroUsuario_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                BtnFitrarUsuario_Click(this, new EventArgs());
-            }
-        }
-
-        private void BtnFitrarUsuario_Click(object sender, EventArgs e)
-        {
-            CarregarGridPerfisUsuario(txtFiltroUsuario.Text);
-        }
-
-        private void TxtFiltroCategoria_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                BtnFiltrarCategoria_Click(this, new EventArgs());
-            }
-        }
-
-        private void BtnFiltrarCategoria_Click(object sender, EventArgs e)
-        {
-            CarregarGridCategorias(txtFiltroCategoria.Text);
         }
     }
 }

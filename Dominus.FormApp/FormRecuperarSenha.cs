@@ -1,6 +1,10 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Configuration;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 using System.Windows.Forms;
 
 namespace Dominus.FormApp
@@ -10,7 +14,7 @@ namespace Dominus.FormApp
         public FormRecuperarSenha(String email)
         {
             InitializeComponent();
-            
+
             if (!String.IsNullOrWhiteSpace(email) && ValidarEmail(email))
             {
                 txtEmail.Text = email;
@@ -40,7 +44,9 @@ namespace Dominus.FormApp
                     txtEmail.Focus();
                     return;
                 }
-                MessageBox.Show("FALTA IMPLEMENTAR!!!");
+                EnviarSenhaPorEmail(usuario);
+                MessageBox.Show("E-mail de recuperação da senha enviado com sucesso.", "E-mail enviado com sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Close();
             }
             catch (Exception ex)
             {
@@ -64,6 +70,39 @@ namespace Dominus.FormApp
             catch (FormatException)
             {
                 return false;
+            }
+        }
+
+        private void EnviarSenhaPorEmail(Usuario usuario)
+        {
+            try
+            {
+                MailMessage mailMessage = new MailMessage
+                {
+                    Subject = "Recuperação de senha - Dominus",
+                    Body = String.Format(
+                        "Olá, " + usuario.Nome + "!" + Environment.NewLine + Environment.NewLine +
+                        "Suas credenciais de acesso à plataforma Dominus são:" + Environment.NewLine +
+                        " - login: " + usuario.Login + Environment.NewLine +
+                        " - senha: " + usuario.Senha
+                        )
+                };
+                mailMessage.To.Add(usuario.Email);
+
+                SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                using (SmtpClient client = new SmtpClient(section.Network.Host, section.Network.Port))
+                {
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(section.Network.UserName, section.Network.Password);
+                    client.EnableSsl = section.Network.EnableSsl;
+                    client.Send(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -137,12 +137,13 @@ namespace Dominus.DataModel.Core
         {
             try
             {
+                String senhaCodificada = Codificador.Criptografar(senha);
                 // Verifica se existe um usuário com login e senha fornecidos:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.ToLower() == login.ToLower() && x.Senha == senha);
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.ToLower() == login.ToLower() && x.Senha == senhaCodificada);
                 if (usuario == null)
                 {
                     // Verifica se existe um usuário com e-mail e senha fornecidos:
-                    usuario = GetUsuarios().FirstOrDefault(x => x.Email.ToLower() == login.ToLower() && x.Senha == senha);
+                    usuario = GetUsuarios().FirstOrDefault(x => x.Email.ToLower() == login.ToLower() && x.Senha == senhaCodificada);
                 }
                 return usuario;
             }

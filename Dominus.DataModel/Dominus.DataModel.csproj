@@ -60,7 +60,9 @@
       <DependentUpon>DominusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Core\CategoriaManager.cs" />
+    <Compile Include="Core\Codificador.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
+    <Compile Include="Core\EstatisticaManager.cs" />
     <Compile Include="Core\UsuarioManager.cs" />
     <Compile Include="DominusModel.Context.cs">
       <AutoGen>True</AutoGen>

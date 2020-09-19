@@ -38,7 +38,7 @@ CREATE TABLE Usuario (
 	Nome varchar(100) NOT NULL,
 	Login varchar(25) NOT NULL CONSTRAINT AK_Usuario_Login UNIQUE,
 	Email varchar(100) NOT NULL CONSTRAINT AK_Usuario_Email UNIQUE,
-	Senha varchar(15) NOT NULL,
+	Senha varchar(255) NOT NULL,
 	PerfilAdministrador int NOT NULL CONSTRAINT DF_Usuario_PerfilAdministrador DEFAULT 0,
 	DataCriacao datetime NOT NULL CONSTRAINT DF_Usuario_DataCriacao DEFAULT getdate(),
 	DataExclusao datetime NULL,
@@ -50,13 +50,14 @@ GO
 -- Criação da tabela Categoria.
 CREATE TABLE Categoria (
 	IdCategoria uniqueidentifier CONSTRAINT DF_Categoria_IdCategoria DEFAULT newid() CONSTRAINT PK_Categoria PRIMARY KEY,
-	Nome varchar(50) NOT NULL CONSTRAINT AK_Categoria_Nome UNIQUE,
+	Nome varchar(50) NOT NULL,
 	Descricao varchar(255) NOT NULL,
 	TipoFluxo varchar(10) NOT NULL CONSTRAINT CK_Categoria_TipoFluxo CHECK (TipoFluxo IN ('Receita', 'Despesa')),
 	Icone varchar(100) NOT NULL,
 	DataCriacao datetime NOT NULL CONSTRAINT DF_Categoria_DataCriacao DEFAULT getdate(),
 	DataExclusao datetime NULL,
-	Ativo int NOT NULL CONSTRAINT DF_Categoria_Ativo DEFAULT 1
+	Ativo int NOT NULL CONSTRAINT DF_Categoria_Ativo DEFAULT 1,
+	CONSTRAINT AK_Categoria_Nome_TipoFluxo UNIQUE (Nome, TipoFluxo)
 );
 CREATE INDEX IX_Categoria_IdCategoria ON Categoria (IdCategoria);
 GO

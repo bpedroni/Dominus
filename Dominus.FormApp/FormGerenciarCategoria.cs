@@ -10,7 +10,7 @@ namespace Dominus.FormApp
     {
         private Categoria Categoria;
 
-        public FormGerenciarCategoria(Categoria categoria)
+        public FormGerenciarCategoria(Categoria categoria = null)
         {
             try
             {

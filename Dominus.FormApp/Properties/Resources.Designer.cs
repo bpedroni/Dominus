@@ -73,9 +73,29 @@ namespace Dominus.FormApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_200x60 {
+            get {
+                object obj = ResourceManager.GetObject("logo_200x60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_250x50 {
             get {
                 object obj = ResourceManager.GetObject("logo_250x50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_400x300 {
+            get {
+                object obj = ResourceManager.GetObject("logo_400x300", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

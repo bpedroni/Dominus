@@ -39,7 +39,7 @@ namespace Dominus.FormApp
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtSenha.Text) || txtSenha.Text != Usuario.Senha)
+            if (String.IsNullOrWhiteSpace(txtSenha.Text) || Codificador.Criptografar(txtSenha.Text) != Usuario.Senha)
             {
                 MessageBox.Show("A senha digitada não corresponde à senha cadastrada.", "O senha fornecida não confere!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtSenha.Focus();
@@ -62,7 +62,7 @@ namespace Dominus.FormApp
                         txtNovaSenha.Focus();
                         return;
                     }
-                    Usuario.Senha = txtNovaSenha.Text;
+                    Usuario.Senha = Codificador.Criptografar(txtNovaSenha.Text);
                 }
 
                 Usuario.Nome = txtNome.Text;

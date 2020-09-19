@@ -44,9 +44,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=5.14.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.5.14.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +63,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCategorias.Designer.cs">
+      <DependentUpon>FormCategorias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChamados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChamados.Designer.cs">
+      <DependentUpon>FormChamados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEstatisticas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEstatisticas.Designer.cs">
+      <DependentUpon>FormEstatisticas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormGerenciarCadastro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +99,12 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPerfisUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPerfisUsuario.Designer.cs">
+      <DependentUpon>FormPerfisUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,9 +117,24 @@
     <Compile Include="FormRecuperarSenha.Designer.cs">
       <DependentUpon>FormRecuperarSenha.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSplash.Designer.cs">
+      <DependentUpon>FormSplash.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCategorias.resx">
+      <DependentUpon>FormCategorias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChamados.resx">
+      <DependentUpon>FormChamados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEstatisticas.resx">
+      <DependentUpon>FormEstatisticas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormGerenciarCadastro.resx">
       <DependentUpon>FormGerenciarCadastro.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,11 +145,17 @@
       <DependentUpon>FormLogin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPerfisUsuario.resx">
+      <DependentUpon>FormPerfisUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecuperarSenha.resx">
       <DependentUpon>FormRecuperarSenha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSplash.resx">
+      <DependentUpon>FormSplash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -139,6 +189,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\icone.ico" />
+    <None Include="Resources\logo_200x60.png" />
+    <None Include="Resources\logo_400x300.png" />
     <None Include="Resources\logo_250x50.png" />
     <None Include="Resources\logo_160x120.png" />
   </ItemGroup>
