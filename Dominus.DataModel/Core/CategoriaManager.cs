@@ -55,7 +55,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe uma categoria com o nome fornecido:
-                Categoria categoria = GetCategorias().FirstOrDefault(x => x.Nome.ToLower() == nome.ToLower());
+                Categoria categoria = GetCategorias().FirstOrDefault(x => x.Nome.Equals(nome, StringComparison.CurrentCultureIgnoreCase));
                 return categoria;
             }
             catch (Exception ex)

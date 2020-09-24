@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 
 namespace Dominus.DataModel.Core
 {
@@ -55,7 +59,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com o login fornecido:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.ToLower() == login.ToLower());
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.Equals(login, StringComparison.CurrentCultureIgnoreCase));
                 return usuario;
             }
             catch (Exception ex)
@@ -69,7 +73,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com o e-mail fornecido:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
                 return usuario;
             }
             catch (Exception ex)
@@ -139,17 +143,63 @@ namespace Dominus.DataModel.Core
             {
                 String senhaCodificada = Codificador.Criptografar(senha);
                 // Verifica se existe um usuário com login e senha fornecidos:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.ToLower() == login.ToLower() && x.Senha == senhaCodificada);
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.Equals(login, StringComparison.CurrentCultureIgnoreCase) && x.Senha == senhaCodificada);
                 if (usuario == null)
                 {
                     // Verifica se existe um usuário com e-mail e senha fornecidos:
-                    usuario = GetUsuarios().FirstOrDefault(x => x.Email.ToLower() == login.ToLower() && x.Senha == senhaCodificada);
+                    usuario = GetUsuarios().FirstOrDefault(x => x.Email.Equals(login, StringComparison.CurrentCultureIgnoreCase) && x.Senha == senhaCodificada);
                 }
                 return usuario;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static bool ValidarEmail(String email)
+        {
+            // Verifica se o e-mail digitado é válido:
+            try
+            {
+                new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        public static void EnviarSenhaPorEmail(Usuario usuario)
+        {
+            try
+            {
+                MailMessage mailMessage = new MailMessage
+                {
+                    Subject = "Recuperação de senha - Dominus",
+                    Body = String.Format(
+                        "Olá, " + usuario.Nome + "!" + Environment.NewLine + Environment.NewLine +
+                        "Suas credenciais de acesso à plataforma Dominus são:" + Environment.NewLine +
+                        " - login: " + usuario.Login + Environment.NewLine +
+                        " - senha: " + Codificador.Descriptografar(usuario.Senha)
+                        )
+                };
+                mailMessage.To.Add(usuario.Email);
+
+                SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                using (SmtpClient client = new SmtpClient(section.Network.Host, section.Network.Port))
+                {
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(section.Network.UserName, section.Network.Password);
+                    client.EnableSsl = section.Network.EnableSsl;
+                    client.Send(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
