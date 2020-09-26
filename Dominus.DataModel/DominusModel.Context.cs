@@ -29,7 +29,7 @@ namespace Dominus.DataModel
         public virtual DbSet<Chamado> Chamados { get; set; }
         public virtual DbSet<Planejamento> Planejamentos { get; set; }
         public virtual DbSet<Relatorio> Relatorios { get; set; }
-        public virtual DbSet<TipoRelatorio> TipoRelatorios { get; set; }
+        public virtual DbSet<TipoRelatorio> TiposRelatorio { get; set; }
         public virtual DbSet<Transacao> Transacoes { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     }

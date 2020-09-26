@@ -37,18 +37,18 @@ namespace Dominus.FormApp
             this.btnAdicionarCategoria = new FontAwesome.Sharp.IconButton();
             this.btnFiltrarCategoria = new FontAwesome.Sharp.IconButton();
             this.gridCategorias = new System.Windows.Forms.DataGridView();
-            this.CategoriaIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaEditar = new System.Windows.Forms.DataGridViewImageColumn();
             this.CategoriaExcluir = new System.Windows.Forms.DataGridViewImageColumn();
+            this.CategoriaEditar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,63 +176,37 @@ namespace Dominus.FormApp
             this.gridCategorias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellContentClick);
             this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
             // 
-            // CategoriaIdCategoria
+            // CategoriaExcluir
             // 
-            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
-            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
-            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
-            this.CategoriaIdCategoria.ReadOnly = true;
-            this.CategoriaIdCategoria.Visible = false;
+            this.CategoriaExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaExcluir.HeaderText = "Excluir";
+            this.CategoriaExcluir.Name = "CategoriaExcluir";
+            this.CategoriaExcluir.ToolTipText = "Excluir categoria";
+            this.CategoriaExcluir.Width = 58;
             // 
-            // CategoriaNome
+            // CategoriaEditar
             // 
-            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CategoriaNome.DataPropertyName = "Nome";
-            this.CategoriaNome.HeaderText = "Nome";
-            this.CategoriaNome.Name = "CategoriaNome";
-            this.CategoriaNome.ReadOnly = true;
+            this.CategoriaEditar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaEditar.HeaderText = "Editar";
+            this.CategoriaEditar.Name = "CategoriaEditar";
+            this.CategoriaEditar.ToolTipText = "Editar categoria";
+            this.CategoriaEditar.Width = 52;
             // 
-            // CategoriaDescricao
+            // CategoriaPlanejamentos
             // 
-            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaDescricao.DataPropertyName = "Descricao";
-            this.CategoriaDescricao.HeaderText = "Descrição";
-            this.CategoriaDescricao.Name = "CategoriaDescricao";
-            this.CategoriaDescricao.ReadOnly = true;
-            this.CategoriaDescricao.Visible = false;
+            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
+            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
+            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
+            this.CategoriaPlanejamentos.ReadOnly = true;
+            this.CategoriaPlanejamentos.Visible = false;
             // 
-            // CategoriaTipoFluxo
+            // CategoriaTransacoes
             // 
-            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
-            this.CategoriaTipoFluxo.HeaderText = "Tipo Fluxo";
-            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
-            this.CategoriaTipoFluxo.ReadOnly = true;
-            this.CategoriaTipoFluxo.Width = 102;
-            // 
-            // CategoriaSenha
-            // 
-            this.CategoriaSenha.DataPropertyName = "Icone";
-            this.CategoriaSenha.HeaderText = "Ícone";
-            this.CategoriaSenha.Name = "CategoriaSenha";
-            this.CategoriaSenha.ReadOnly = true;
-            this.CategoriaSenha.Visible = false;
-            // 
-            // CategoriaDataCriacao
-            // 
-            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
-            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
-            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
-            this.CategoriaDataCriacao.ReadOnly = true;
-            this.CategoriaDataCriacao.Visible = false;
-            // 
-            // CategoriaDataExclusao
-            // 
-            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
-            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
-            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
-            this.CategoriaDataExclusao.ReadOnly = true;
-            this.CategoriaDataExclusao.Visible = false;
+            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
+            this.CategoriaTransacoes.HeaderText = "Transacoes";
+            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
+            this.CategoriaTransacoes.ReadOnly = true;
+            this.CategoriaTransacoes.Visible = false;
             // 
             // CategoriaAtivo
             // 
@@ -246,37 +220,64 @@ namespace Dominus.FormApp
             this.CategoriaAtivo.TrueValue = "1";
             this.CategoriaAtivo.Visible = false;
             // 
-            // CategoriaTransacoes
+            // CategoriaDataExclusao
             // 
-            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
-            this.CategoriaTransacoes.HeaderText = "Transacoes";
-            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
-            this.CategoriaTransacoes.ReadOnly = true;
-            this.CategoriaTransacoes.Visible = false;
+            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
+            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
+            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
+            this.CategoriaDataExclusao.ReadOnly = true;
+            this.CategoriaDataExclusao.Visible = false;
             // 
-            // CategoriaPlanejamentos
+            // CategoriaDataCriacao
             // 
-            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
-            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
-            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
-            this.CategoriaPlanejamentos.ReadOnly = true;
-            this.CategoriaPlanejamentos.Visible = false;
+            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
+            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
+            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
+            this.CategoriaDataCriacao.ReadOnly = true;
+            this.CategoriaDataCriacao.Visible = false;
             // 
-            // CategoriaEditar
+            // CategoriaSenha
             // 
-            this.CategoriaEditar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaEditar.HeaderText = "Editar";
-            this.CategoriaEditar.Name = "CategoriaEditar";
-            this.CategoriaEditar.ToolTipText = "Editar categoria";
-            this.CategoriaEditar.Width = 52;
+            this.CategoriaSenha.DataPropertyName = "Icone";
+            this.CategoriaSenha.HeaderText = "Ícone";
+            this.CategoriaSenha.Name = "CategoriaSenha";
+            this.CategoriaSenha.ReadOnly = true;
+            this.CategoriaSenha.Visible = false;
             // 
-            // CategoriaExcluir
+            // CategoriaTipoFluxo
             // 
-            this.CategoriaExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaExcluir.HeaderText = "Excluir";
-            this.CategoriaExcluir.Name = "CategoriaExcluir";
-            this.CategoriaExcluir.ToolTipText = "Excluir categoria";
-            this.CategoriaExcluir.Width = 58;
+            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
+            this.CategoriaTipoFluxo.HeaderText = "Tipo Fluxo";
+            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
+            this.CategoriaTipoFluxo.ReadOnly = true;
+            this.CategoriaTipoFluxo.Width = 102;
+            // 
+            // CategoriaDescricao
+            // 
+            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaDescricao.DataPropertyName = "Descricao";
+            this.CategoriaDescricao.HeaderText = "Descrição";
+            this.CategoriaDescricao.Name = "CategoriaDescricao";
+            this.CategoriaDescricao.ReadOnly = true;
+            this.CategoriaDescricao.Visible = false;
+            this.CategoriaDescricao.Width = 101;
+            // 
+            // CategoriaNome
+            // 
+            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CategoriaNome.DataPropertyName = "Nome";
+            this.CategoriaNome.HeaderText = "Nome";
+            this.CategoriaNome.Name = "CategoriaNome";
+            this.CategoriaNome.ReadOnly = true;
+            // 
+            // CategoriaIdCategoria
+            // 
+            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
+            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
+            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
+            this.CategoriaIdCategoria.ReadOnly = true;
+            this.CategoriaIdCategoria.Visible = false;
             // 
             // FormCategorias
             // 

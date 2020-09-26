@@ -1,6 +1,8 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Dominus.FormApp
@@ -15,7 +17,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao iniciar o formulário de login!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao iniciar o formulário de login. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
         }
@@ -72,7 +74,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao tentar validar o login. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao tentar validar o login. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -87,15 +89,28 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao abrir o formulário de recuperação de senha. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao abrir o formulário de recuperação de senha. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         // Evento de click no link de realizar cadastro no sistema:
         private void LinkCadastrar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Depende da criação da versão web do programa
-            MessageBox.Show("FALTA IMPLEMENTAR! Aqui abrirá o navegador na página de cadastro do Dominus.");
+            try
+            {
+                // Verifica se o arquivo de configuração possui a url do site do Dominus:
+                String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
+                if (!String.IsNullOrWhiteSpace(urlDominus))
+                {
+                    // Inicia um processo no navegador e direciona o usuário para a página de cadastro no Dominus:
+                    ProcessStartInfo sInfo = new ProcessStartInfo(urlDominus + "/Cadastro");
+                    Process.Start(sInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao abrir página de cadastro no navegador. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Evento de click no botão de sair da aplicação (o botão está invisível no form):

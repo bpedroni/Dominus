@@ -25,7 +25,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao iniciar a aplicação!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao iniciar a aplicação! " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
         }

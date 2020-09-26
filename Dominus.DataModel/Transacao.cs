@@ -19,6 +19,7 @@ namespace Dominus.DataModel
         public System.Guid IdCategoria { get; set; }
         public string Identificacao { get; set; }
         public string Descricao { get; set; }
+        public string TipoFluxo { get; set; }
         public Nullable<decimal> Valor { get; set; }
         public Nullable<System.DateTime> Data { get; set; }
         public string Comentario { get; set; }

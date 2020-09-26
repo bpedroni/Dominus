@@ -35,7 +35,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao abrir o formulário de categoria. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao abrir o formulário de categoria. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao salvar categoria!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao salvar categoria. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

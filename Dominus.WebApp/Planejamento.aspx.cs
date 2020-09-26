@@ -3,7 +3,7 @@ using System;
 
 namespace Dominus.WebApp
 {
-    public partial class Resumo : System.Web.UI.Page
+    public partial class Planejamento : System.Web.UI.Page
     {
         protected static Usuario Usuario;
 
@@ -15,7 +15,7 @@ namespace Dominus.WebApp
             }
             else
             {
-                Response.Redirect("Login?ReturnUrl=Resumo", true);
+                Response.Redirect("Login?ReturnUrl=Planejamento", true);
             }
         }
     }

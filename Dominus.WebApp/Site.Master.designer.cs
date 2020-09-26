@@ -11,7 +11,7 @@ namespace Dominus.WebApp
 {
 
 
-    public partial class Page
+    public partial class Site
     {
 
         /// <summary>

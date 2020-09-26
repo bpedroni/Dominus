@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Recuperar Senha" Language="C#" MasterPageFile="~/Page.Master" AutoEventWireup="true" CodeBehind="RecuperarSenha.aspx.cs" Inherits="Dominus.WebApp.RecuperarSenha" %>
+﻿<%@ Page Title="Recuperar Senha" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RecuperarSenha.aspx.cs" Inherits="Dominus.WebApp.RecuperarSenha" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

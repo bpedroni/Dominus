@@ -69,9 +69,9 @@ namespace Dominus.DataModel.Core
                         }
                         break;
                     case GrupoTransacoes.TipoFluxo:
-                        foreach (var item in transacoes.GroupBy(x => x.Categoria.TipoFluxo).OrderBy(x => x.Key))
+                        foreach (var item in transacoes.GroupBy(x => x.TipoFluxo).OrderBy(x => x.Key))
                         {
-                            items.Add(new Item { Categoria = item.Key.ToString(), Valor = transacoes.Count(x => x.Categoria.TipoFluxo == item.Key) });
+                            items.Add(new Item { Categoria = item.Key.ToString(), Valor = transacoes.Count(x => x.TipoFluxo == item.Key) });
                         }
                         break;
                     default:

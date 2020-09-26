@@ -69,6 +69,7 @@ CREATE TABLE Transacao (
 	IdCategoria uniqueidentifier NOT NULL CONSTRAINT FK_Transacao_IdCategoria FOREIGN KEY REFERENCES Categoria (IdCategoria),
 	Identificacao varchar(25) NULL,
 	Descricao varchar(100) NOT NULL,
+	TipoFluxo varchar(10) NOT NULL CONSTRAINT CK_Transacao_TipoFluxo CHECK (TipoFluxo IN ('Receita', 'Despesa')),
 	Valor dec(11,2) NULL,
 	Data date NULL,
 	Comentario varchar(255) NULL,

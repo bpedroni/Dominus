@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Resumo" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Resumo.aspx.cs" Inherits="Dominus.WebApp.Resumo" %>
+﻿<%@ Page Title="Planejamento" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Planejamento.aspx.cs" Inherits="Dominus.WebApp.Planejamento" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

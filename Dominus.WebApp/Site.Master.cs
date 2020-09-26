@@ -1,21 +1,23 @@
 ﻿using Dominus.DataModel;
 using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class Resumo : System.Web.UI.Page
+    public partial class Site : MasterPage
     {
-        protected static Usuario Usuario;
+        protected static bool UsuarioConectado = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Usuario"] is Usuario usuario)
             {
-                Usuario = usuario;
+                UsuarioConectado = true;
+                lblNomeUsuario.Text = usuario.Nome;
             }
             else
             {
-                Response.Redirect("Login?ReturnUrl=Resumo", true);
+                UsuarioConectado = false;
             }
         }
     }

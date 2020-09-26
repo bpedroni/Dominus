@@ -17,7 +17,7 @@ namespace Dominus.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Chamado()
         {
-            this.ChamadoAssociado = new HashSet<Chamado>();
+            this.ChamadoPrincipal = new HashSet<Chamado>();
         }
     
         public System.Guid IdChamado { get; set; }
@@ -32,8 +32,8 @@ namespace Dominus.DataModel
         public Nullable<System.Guid> IdChamadoAssociado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chamado> ChamadoAssociado { get; set; }
-        public virtual Chamado ChamadoPrincipal { get; set; }
+        public virtual ICollection<Chamado> ChamadoPrincipal { get; set; }
+        public virtual Chamado ChamadoAssociado { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario UsuarioSuporte { get; set; }
     }

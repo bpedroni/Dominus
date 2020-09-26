@@ -73,6 +73,7 @@
           <Property Name="IdCategoria" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Identificacao" Type="varchar" MaxLength="25" />
           <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TipoFluxo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Valor" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Data" Type="date" />
           <Property Name="Comentario" Type="varchar" MaxLength="255" />
@@ -338,6 +339,7 @@
           <Property Name="DataProvisao" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK_Transacao_IdCategoria" FromRole="Transacao" ToRole="Categoria" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Transacao_IdUsuario" FromRole="Transacao" ToRole="Usuario" />
+          <Property Name="TipoFluxo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -584,6 +586,7 @@
           <EntitySetMapping Name="Transacaos">
             <EntityTypeMapping TypeName="DominusModel.Transacao">
               <MappingFragment StoreEntitySet="Transacao">
+                <ScalarProperty Name="TipoFluxo" ColumnName="TipoFluxo" />
                 <ScalarProperty Name="IdTransacao" ColumnName="IdTransacao" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />

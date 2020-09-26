@@ -46,7 +46,7 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Erro ao tentar enviar senha por e-mail. Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao tentar enviar senha por e-mail. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
