@@ -3,11 +3,11 @@
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="shadow p-3 mb-5 bg-white rounded formulario">
-        <div class="text-center">
-            <img src="Contents/img/logo_160x120.png" alt="Login" width="160">
-        </div>
-        <form runat="server">
+    <form runat="server">
+        <div class="shadow p-3 mb-5 bg-white rounded formulario">
+            <div class="text-center">
+                <img src="Contents/img/logo_160x120.png" alt="Login" width="160">
+            </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-user"></i></span>
@@ -31,6 +31,6 @@
             <div class="text-center">
                 <asp:Label ID="lblCadastro" Text="Não possui conta? " runat="server" /><a href="Cadastro">Cadastre-se</a>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </asp:Content>

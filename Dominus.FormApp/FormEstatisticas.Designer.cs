@@ -423,7 +423,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormEstatisticas";
             this.Text = "Estatísticas";
-            this.Load += new System.EventHandler(this.FormEstatisticas_Load);
+            this.Shown += new System.EventHandler(this.FormEstatisticas_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.chartAnalise)).EndInit();
             this.groupAnalise.ResumeLayout(false);
             this.groupAnalise.PerformLayout();

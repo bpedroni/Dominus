@@ -41,6 +41,8 @@
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.openFileDialogIcone = new System.Windows.Forms.OpenFileDialog();
+            this.pictureIcone = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureIcone)).BeginInit();
             this.SuspendLayout();
             // 
             // labelNome
@@ -87,7 +89,7 @@
             // rdoBtnReceita
             // 
             this.rdoBtnReceita.AutoSize = true;
-            this.rdoBtnReceita.Location = new System.Drawing.Point(172, 93);
+            this.rdoBtnReceita.Location = new System.Drawing.Point(157, 93);
             this.rdoBtnReceita.Name = "rdoBtnReceita";
             this.rdoBtnReceita.Size = new System.Drawing.Size(76, 22);
             this.rdoBtnReceita.TabIndex = 6;
@@ -98,7 +100,7 @@
             // rdoBtnDespesa
             // 
             this.rdoBtnDespesa.AutoSize = true;
-            this.rdoBtnDespesa.Location = new System.Drawing.Point(286, 93);
+            this.rdoBtnDespesa.Location = new System.Drawing.Point(256, 93);
             this.rdoBtnDespesa.Name = "rdoBtnDespesa";
             this.rdoBtnDespesa.Size = new System.Drawing.Size(85, 22);
             this.rdoBtnDespesa.TabIndex = 7;
@@ -121,7 +123,7 @@
             this.txtIcone.Location = new System.Drawing.Point(124, 126);
             this.txtIcone.Name = "txtIcone";
             this.txtIcone.ReadOnly = true;
-            this.txtIcone.Size = new System.Drawing.Size(247, 24);
+            this.txtIcone.Size = new System.Drawing.Size(193, 24);
             this.txtIcone.TabIndex = 9;
             this.txtIcone.TabStop = false;
             this.txtIcone.DragDrop += new System.Windows.Forms.DragEventHandler(this.TxtIcone_DragDrop);
@@ -129,7 +131,7 @@
             // 
             // btnEncontrarIcone
             // 
-            this.btnEncontrarIcone.Location = new System.Drawing.Point(377, 127);
+            this.btnEncontrarIcone.Location = new System.Drawing.Point(323, 126);
             this.btnEncontrarIcone.Name = "btnEncontrarIcone";
             this.btnEncontrarIcone.Size = new System.Drawing.Size(37, 23);
             this.btnEncontrarIcone.TabIndex = 10;
@@ -173,6 +175,15 @@
             this.openFileDialogIcone.Filter = "Image files (*.png) | *.png";
             this.openFileDialogIcone.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogIcone_FileOk);
             // 
+            // pictureIcone
+            // 
+            this.pictureIcone.Location = new System.Drawing.Point(366, 102);
+            this.pictureIcone.Name = "pictureIcone";
+            this.pictureIcone.Size = new System.Drawing.Size(48, 48);
+            this.pictureIcone.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureIcone.TabIndex = 13;
+            this.pictureIcone.TabStop = false;
+            // 
             // FormGerenciarCategoria
             // 
             this.AcceptButton = this.btnSalvar;
@@ -183,6 +194,7 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnEncontrarIcone);
+            this.Controls.Add(this.pictureIcone);
             this.Controls.Add(this.txtIcone);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rdoBtnDespesa);
@@ -202,6 +214,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gerenciar Categoria";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureIcone)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,5 +235,6 @@
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.OpenFileDialog openFileDialogIcone;
+        private System.Windows.Forms.PictureBox pictureIcone;
     }
 }

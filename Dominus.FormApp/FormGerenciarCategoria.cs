@@ -1,6 +1,7 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -27,6 +28,10 @@ namespace Dominus.FormApp
                     rdoBtnDespesa.Checked = Categoria.TipoFluxo == (CategoriaManager.TIPO_FLUXO_DESPESA);
                     rdoBtnDespesa.Enabled = false;
                     txtIcone.Text = Categoria.Icone;
+                    if (CategoriaManager.GetIconeCategoria(Categoria) is Image image)
+                    {
+                        pictureIcone.Image = new Bitmap(image, new Size(48, 48));
+                    }
                 }
                 else
                 {
@@ -66,11 +71,6 @@ namespace Dominus.FormApp
             }
             try
             {
-                if (!String.IsNullOrWhiteSpace(openFileDialogIcone.FileName))
-                {
-                    MessageBox.Show("FALTA IMPLEMENTAR! Aqui a aplicação salvará a imagem do ícone no servidor.");
-                }
-
                 Categoria.Nome = txtNome.Text.Trim();
                 Categoria.Descricao = txtDescricao.Text.Trim();
                 Categoria.TipoFluxo = rdoBtnReceita.Checked ? CategoriaManager.TIPO_FLUXO_RECEITA : CategoriaManager.TIPO_FLUXO_DESPESA;
@@ -83,6 +83,20 @@ namespace Dominus.FormApp
                 else
                 {
                     CategoriaManager.EditCategoria(Categoria);
+                }
+                if (!String.IsNullOrWhiteSpace(openFileDialogIcone.FileName))
+                {
+                    try
+                    {
+                        if (!CategoriaManager.SaveIconeCategoria(Categoria, openFileDialogIcone.FileName))
+                        {
+                            MessageBox.Show("Não foi possível salvar a imagem selecionada.", "Erro ao salvar ícone!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao salvar imagem no servidor. " + Environment.NewLine + ex.Message, "Erro ao salvar ícone!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 DialogResult = DialogResult.OK;
                 Close();
@@ -106,7 +120,18 @@ namespace Dominus.FormApp
 
         private void OpenFileDialogIcone_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            txtIcone.Text = openFileDialogIcone.SafeFileName;
+            try
+            {
+                if (new Bitmap(openFileDialogIcone.FileName) is Image image)
+                {
+                    pictureIcone.Image = new Bitmap(image, new Size(48, 48));
+                    txtIcone.Text = openFileDialogIcone.SafeFileName;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro ao carregar a imagem selecionada.", "Erro ao abrir arquivo!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TxtIcone_DragOver(object sender, DragEventArgs e)

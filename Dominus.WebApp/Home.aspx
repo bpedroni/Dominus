@@ -3,23 +3,26 @@
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="row">
-        <div class="col mx-3 jumbotron">
-            <h1>Algum conteúdo</h1>
-            <p class="lead">Escrever sobre o Dominus</p>
+    <div class="row w-100 mx-auto">
+        <div class="col-md p-2 m-3 bg-light">
+            <h1>Controle suas finanças</h1>
+            <p class="lead">O Dominus é uma solução desenvolvida para auxiliar na sua gestão financeira.</p>
+            <p class="lead">Tenha um maior controle de suas receitas e despesas através do uso de uma plataforma que organiza para você os seus recursos.</p>
         </div>
-        <div class="col mx-3">
-            <div class="row jumbotron">
-                <h3>Sobre o Dominus</h3>
-                <p>Breve descrição sobre o Dominus</p>
-                <br />
-                <a class="btn btn-default" href="Sobre">Link para página sobre &raquo;</a>
+        <div class="col-md">
+            <div class="row p-2 m-3 bg-light">
+                <div>
+                    <h3>Sobre o Dominus</h3>
+                    <p>Breve descrição sobre o Dominus</p>
+                    <a class="btn btn-default" href="Sobre">Link para página sobre &raquo;</a>
+                </div>
             </div>
-            <div class="row jumbotron">
-                <h3>Dicas de uso do Dominus</h3>
-                <p>Breve descrição do uso do Dominus</p>
-                <br />
-                <a class="btn btn-default" href="Contato">Link para página de contato &raquo;</a>
+            <div class="row p-2 m-3 bg-light">
+                <div>
+                    <h3>Dicas de uso do Dominus</h3>
+                    <p>Breve descrição do uso do Dominus</p>
+                    <a class="btn btn-default" href="Contato">Link para página de contato &raquo;</a>
+                </div>
             </div>
         </div>
     </div>

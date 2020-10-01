@@ -8,8 +8,8 @@
     </script>
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="shadow p-3 mb-5 bg-white rounded formulario">
-        <form runat="server">
+    <form runat="server">
+        <div class="shadow p-3 mb-5 bg-white rounded formulario">
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-user"></i></span>
@@ -64,6 +64,6 @@
             <div class="text-center">
                 <asp:Label ID="lblCadastro" Text="Já possui uma conta? Faça o seu " runat="server" /><a href="Login">Login</a>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </asp:Content>

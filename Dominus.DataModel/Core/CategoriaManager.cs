@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace Dominus.DataModel.Core
 {
@@ -15,7 +20,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de categorias cadastradas no sistema:
-                return ConnectionManager.context.Categorias.ToList();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                List<Categoria> categorias = connection.context.Categorias.ToList();
+                connection.CloseConnection();
+                return categorias;
             }
             catch (Exception ex)
             {
@@ -50,12 +59,12 @@ namespace Dominus.DataModel.Core
             }
         }
 
-        public static Categoria GetCategoriaByNome(String nome)
+        public static Categoria GetCategoriaByNomeETipo(String nome, String tipoFluxo)
         {
             try
             {
                 // Verifica se existe uma categoria com o nome fornecido:
-                Categoria categoria = GetCategorias().FirstOrDefault(x => x.Nome.Equals(nome, StringComparison.CurrentCultureIgnoreCase));
+                Categoria categoria = GetCategorias().FirstOrDefault(x => x.Nome.Equals(nome, StringComparison.CurrentCultureIgnoreCase) && x.TipoFluxo.Equals(tipoFluxo));
                 return categoria;
             }
             catch (Exception ex)
@@ -68,7 +77,7 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                if (GetCategoriaByNome(categoria.Nome) != null)
+                if (GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) != null)
                 {
                     throw new Exception("O sistema já possui uma categoria com o nome '" + categoria.Nome + "'.");
                 }
@@ -76,8 +85,11 @@ namespace Dominus.DataModel.Core
                 categoria.IdCategoria = Guid.NewGuid();
                 categoria.DataCriacao = DateTime.Now;
                 categoria.Ativo = ConnectionManager.STATUS_ATIVO;
-                ConnectionManager.context.Entry(categoria).State = EntityState.Added;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(categoria).State = EntityState.Added;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -90,8 +102,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados da categoria fornecida:
-                ConnectionManager.context.Entry(categoria).State = EntityState.Modified;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(categoria).State = EntityState.Modified;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -105,8 +120,60 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação remove a categoria alterando o seu status para inativo:
                 categoria.Ativo = ConnectionManager.STATUS_INATIVO;
-                ConnectionManager.context.Entry(categoria).State = EntityState.Modified;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(categoria).State = EntityState.Modified;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static Image GetIconeCategoria(Categoria categoria)
+        {
+            try
+            {
+                if (ConnectionManager.VerificaSiteOnLine())
+                {
+                    String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
+                    WebRequest request = WebRequest.Create(urlDominus + "/api/Categorias/icone/" + categoria.IdCategoria.ToString());
+
+                    using (WebResponse response = request.GetResponse())
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        return Image.FromStream(stream);
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static bool SaveIconeCategoria(Categoria categoria, String filepath)
+        {
+            try
+            {
+                if (ConnectionManager.VerificaSiteOnLine() && GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) is Categoria categ)
+                {
+                    String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
+                    using (WebClient webClient = new WebClient { UseDefaultCredentials = true })
+                    {
+                        webClient.Headers.Add(HttpRequestHeader.ContentType, "image/gif");
+                        byte[] imageBytes = webClient.DownloadData(filepath);
+                        webClient.UploadData(urlDominus + "/api/Categorias/uploadIcone/" + categ.IdCategoria.ToString(),
+                            WebRequestMethods.Http.Post,
+                            imageBytes);
+                    }
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {

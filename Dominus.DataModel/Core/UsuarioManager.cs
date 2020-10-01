@@ -19,7 +19,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de usuários cadastrados sistema:
-                return ConnectionManager.context.Usuarios.ToList();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                List<Usuario> usuarios = connection.context.Usuarios.ToList();
+                connection.CloseConnection();
+                return usuarios;
             }
             catch (Exception ex)
             {
@@ -99,8 +103,11 @@ namespace Dominus.DataModel.Core
                 usuario.DataCriacao = DateTime.Now;
                 usuario.PerfilAdministrador = PERFIL_USUARIO;
                 usuario.Ativo = ConnectionManager.STATUS_ATIVO;
-                ConnectionManager.context.Entry(usuario).State = EntityState.Added;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(usuario).State = EntityState.Added;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -113,8 +120,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados do usuário fornecido:
-                ConnectionManager.context.Entry(usuario).State = EntityState.Modified;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(usuario).State = EntityState.Modified;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -128,8 +138,11 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação remove o usuário fornecido alterando o seu status para inativo:
                 usuario.Ativo = ConnectionManager.STATUS_INATIVO;
-                ConnectionManager.context.Entry(usuario).State = EntityState.Modified;
-                ConnectionManager.context.SaveChanges();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                connection.context.Entry(usuario).State = EntityState.Modified;
+                connection.context.SaveChanges();
+                connection.CloseConnection();
             }
             catch (Exception ex)
             {

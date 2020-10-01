@@ -22,7 +22,7 @@ namespace Dominus.FormApp
             catch (Exception) { }
         }
 
-        private void FormPerfisUsuario_Load(object sender, EventArgs e)
+        private void FormPerfisUsuario_Shown(object sender, EventArgs e)
         {
             CarregarGridPerfisUsuario();
         }

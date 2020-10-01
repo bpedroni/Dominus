@@ -7,6 +7,12 @@
     max-width: 100%;
 }
 
+#btnUser {
+    color: white;
+    font-size: x-large;
+    text-decoration: none;
+}
+
 .formulario {
     margin: 20px auto;
     max-width: 400px;
@@ -36,28 +42,25 @@
             background-color: royalblue;
         }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     .nav-link span {
         display: none;
     }
 }
 
-@media screen and (max-width: 575px) {
-    #collapseContent ul {
-        align-items: flex-end !important;
-    }
-
-    .nav-link {
-        display: inline-flex;
-        align-items: center;
-    }
-
-        .nav-link span {
-            display: block;
-        }
-}
-
 @media screen and (max-width: 700px) {
+    #btnUser {
+        font-size: xx-large;
+    }
+
+        #btnUser span {
+            display: none;
+        }
+
+    div.content {
+        margin-left: unset;
+    }
+
     .sidebar {
         width: 100%;
         height: auto;
@@ -80,6 +83,29 @@
             }
 
     div.content {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
+}
+
+@media screen and (max-width: 575px) {
+    #btnUser {
+        font-size: x-large;
+    }
+
+        #btnUser span {
+            display: inline-flex;
+        }
+
+    #collapseContent ul {
+        align-items: flex-end !important;
+    }
+
+    .nav-link {
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .nav-link span {
+            display: block;
+        }
 }

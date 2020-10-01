@@ -26,7 +26,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="<%: UsuarioConectado ? "Resumo" : "./" %>">
             <img src="Contents/img/logo_250x50.png" alt="Dominus" />
         </a>
@@ -66,7 +66,7 @@
                     <a class="nav-link active" href="Cadastro">Criar conta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Login">Login</a>
+                    <a class="nav-link active" href="Login">Login</a>
                 </li>
             </ul>
             <%}%>

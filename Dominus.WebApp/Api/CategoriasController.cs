@@ -2,8 +2,13 @@
 using Dominus.DataModel.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -63,20 +68,32 @@ namespace Dominus.WebApp
         // GET api/categorias/icone/{id} - exibe o ícone de uma categoria solicitado pelo id:
         [HttpGet]
         [ActionName("icone")]
-        public String GetIconeCategoria(String id)
+        public HttpResponseMessage GetIconeCategoria(String id)
         {
-            String path = HttpContext.Current.Server.MapPath("~/Images/Categorias/");
-
-            Guid guid = Guid.Parse(id);
-            Categoria categoria = CategoriaManager.GetCategoriaById(guid);
-
-            String icone = path + categoria.Icone;
-            if (File.Exists(icone))
+            try
             {
-                byte[] b = File.ReadAllBytes(icone);
-                return "data:image/png;base64," + Convert.ToBase64String(b);
+                String path = HttpContext.Current.Server.MapPath("~/Images/Categorias/");
+
+                Guid guid = Guid.Parse(id);
+                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
+
+                String icone = path + categoria?.Icone;
+                if (File.Exists(icone))
+                {
+                    FileStream file = new FileStream(icone, FileMode.Open, FileAccess.Read);
+                    HttpResponseMessage response = new HttpResponseMessage { Content = new StreamContent(file) };
+                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = categoria.Icone;
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+
+                    return response;
+                }
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
-            return path + categoria.Icone;
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST api/<controller>
@@ -89,6 +106,43 @@ namespace Dominus.WebApp
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        // POST api/categorias/salvaIcone/{id} - salva uma imagem como ícone de uma categoria solicitada pelo id:
+        [HttpPost]
+        [ActionName("uploadIcone")]
+        public HttpResponseMessage PostIconeCategoria(String id)
+        {
+            try
+            {
+                String path = HttpContext.Current.Server.MapPath("~/Images/Categorias/");
+
+                Guid guid = Guid.Parse(id);
+                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
+
+                byte[] data = Request.Content.ReadAsByteArrayAsync().Result;
+                using (MemoryStream ms = new MemoryStream(data))
+                {
+                    try
+                    {
+                        Image image = Image.FromStream(ms);
+                        if (image.Width > 64)
+                        {
+                            image = (Image)(new Bitmap(image, new Size(64, 64 * (image.Height / image.Width)))); ;
+                        }
+                        image.Save(path + categoria.Icone);
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    catch (Exception)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
         }
 

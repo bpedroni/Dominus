@@ -15,7 +15,10 @@ namespace Dominus.DataModel.Core
                 DateTime inicio = new DateTime(dataInicial.Year, dataInicial.Month, dataInicial.Day, 0, 0, 0);
                 DateTime fim = new DateTime(dataFinal.Year, dataFinal.Month, dataFinal.Day, 23, 59, 59);
 
-                List<Usuario> usuarios = ConnectionManager.context.Usuarios.Where(x => x.DataCriacao >= inicio && x.DataCriacao <= fim).ToList();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                List<Usuario> usuarios = connection.context.Usuarios.Where(x => x.DataCriacao >= inicio && x.DataCriacao <= fim).ToList();
+                connection.CloseConnection();
 
                 switch (periodo)
                 {
@@ -58,7 +61,9 @@ namespace Dominus.DataModel.Core
                 DateTime inicio = new DateTime(dataInicial.Year, dataInicial.Month, dataInicial.Day, 0, 0, 0);
                 DateTime fim = new DateTime(dataFinal.Year, dataFinal.Month, dataFinal.Day, 23, 59, 59);
 
-                List<Transacao> transacoes = ConnectionManager.context.Transacoes.Where(x => x.Data >= inicio && x.Data <= fim).ToList();
+                ConnectionManager connection = new ConnectionManager();
+                connection.OpenConnection();
+                List<Transacao> transacoes = connection.context.Transacoes.Where(x => x.Data >= inicio && x.Data <= fim).ToList();
 
                 switch (grupoTransacoes)
                 {
@@ -77,6 +82,7 @@ namespace Dominus.DataModel.Core
                     default:
                         break;
                 }
+                connection.CloseConnection();
                 return items;
             }
             catch (Exception)

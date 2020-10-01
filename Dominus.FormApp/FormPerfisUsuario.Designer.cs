@@ -325,7 +325,7 @@ namespace Dominus.FormApp
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormPerfisUsuario";
             this.Text = "Perfis de Usuário";
-            this.Load += new System.EventHandler(this.FormPerfisUsuario_Load);
+            this.Shown += new System.EventHandler(this.FormPerfisUsuario_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.gridPerfisUsuario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -19,7 +19,7 @@ namespace Dominus.FormApp
             cboModeloAnalise.Items.Add(new ComboboxItem { Value = TipoAnalise.ChartCategorias, Text = "Categorias utilizadas no sistema" });
         }
 
-        private void FormEstatisticas_Load(object sender, EventArgs e)
+        private void FormEstatisticas_Shown(object sender, EventArgs e)
         {
             periodo = Periodo.Mes;
             grupoTransacoes = GrupoTransacoes.Categoria;

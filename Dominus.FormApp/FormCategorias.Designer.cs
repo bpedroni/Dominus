@@ -30,25 +30,26 @@ namespace Dominus.FormApp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtFiltroCategoria = new System.Windows.Forms.TextBox();
             this.labelFiltroCategoria = new System.Windows.Forms.Label();
             this.btnAdicionarCategoria = new FontAwesome.Sharp.IconButton();
             this.btnFiltrarCategoria = new FontAwesome.Sharp.IconButton();
             this.gridCategorias = new System.Windows.Forms.DataGridView();
-            this.CategoriaExcluir = new System.Windows.Forms.DataGridViewImageColumn();
-            this.CategoriaEditar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
             this.CategoriaIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaTipoFluxo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDataCriacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaDataExclusao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CategoriaTransacoes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaPlanejamentos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CategoriaEditar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.CategoriaExcluir = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,16 +134,17 @@ namespace Dominus.FormApp
             this.gridCategorias.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridCategorias.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.gridCategorias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.gridCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Image,
             this.CategoriaIdCategoria,
             this.CategoriaNome,
             this.CategoriaDescricao,
@@ -155,14 +157,14 @@ namespace Dominus.FormApp
             this.CategoriaPlanejamentos,
             this.CategoriaEditar,
             this.CategoriaExcluir});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightSteelBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LightSteelBlue;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridCategorias.DefaultCellStyle = dataGridViewCellStyle6;
             this.gridCategorias.EnableHeadersVisualStyles = false;
             this.gridCategorias.GridColor = System.Drawing.Color.DarkGoldenrod;
             this.gridCategorias.Location = new System.Drawing.Point(12, 86);
@@ -176,37 +178,71 @@ namespace Dominus.FormApp
             this.gridCategorias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellContentClick);
             this.gridCategorias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCategorias_CellDoubleClick);
             // 
-            // CategoriaExcluir
+            // Image
             // 
-            this.CategoriaExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaExcluir.HeaderText = "Excluir";
-            this.CategoriaExcluir.Name = "CategoriaExcluir";
-            this.CategoriaExcluir.ToolTipText = "Excluir categoria";
-            this.CategoriaExcluir.Width = 58;
+            this.Image.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Image.HeaderText = "Ícone";
+            this.Image.Name = "Image";
+            this.Image.Width = 50;
             // 
-            // CategoriaEditar
+            // CategoriaIdCategoria
             // 
-            this.CategoriaEditar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaEditar.HeaderText = "Editar";
-            this.CategoriaEditar.Name = "CategoriaEditar";
-            this.CategoriaEditar.ToolTipText = "Editar categoria";
-            this.CategoriaEditar.Width = 52;
+            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
+            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
+            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
+            this.CategoriaIdCategoria.ReadOnly = true;
+            this.CategoriaIdCategoria.Visible = false;
             // 
-            // CategoriaPlanejamentos
+            // CategoriaNome
             // 
-            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
-            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
-            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
-            this.CategoriaPlanejamentos.ReadOnly = true;
-            this.CategoriaPlanejamentos.Visible = false;
+            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CategoriaNome.DataPropertyName = "Nome";
+            this.CategoriaNome.HeaderText = "Nome";
+            this.CategoriaNome.Name = "CategoriaNome";
+            this.CategoriaNome.ReadOnly = true;
             // 
-            // CategoriaTransacoes
+            // CategoriaDescricao
             // 
-            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
-            this.CategoriaTransacoes.HeaderText = "Transacoes";
-            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
-            this.CategoriaTransacoes.ReadOnly = true;
-            this.CategoriaTransacoes.Visible = false;
+            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaDescricao.DataPropertyName = "Descricao";
+            this.CategoriaDescricao.HeaderText = "Descrição";
+            this.CategoriaDescricao.Name = "CategoriaDescricao";
+            this.CategoriaDescricao.ReadOnly = true;
+            this.CategoriaDescricao.Visible = false;
+            this.CategoriaDescricao.Width = 101;
+            // 
+            // CategoriaTipoFluxo
+            // 
+            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
+            this.CategoriaTipoFluxo.HeaderText = "Tipo Fluxo";
+            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
+            this.CategoriaTipoFluxo.ReadOnly = true;
+            this.CategoriaTipoFluxo.Width = 102;
+            // 
+            // CategoriaSenha
+            // 
+            this.CategoriaSenha.DataPropertyName = "Icone";
+            this.CategoriaSenha.HeaderText = "Ícone";
+            this.CategoriaSenha.Name = "CategoriaSenha";
+            this.CategoriaSenha.ReadOnly = true;
+            this.CategoriaSenha.Visible = false;
+            // 
+            // CategoriaDataCriacao
+            // 
+            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
+            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
+            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
+            this.CategoriaDataCriacao.ReadOnly = true;
+            this.CategoriaDataCriacao.Visible = false;
+            // 
+            // CategoriaDataExclusao
+            // 
+            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
+            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
+            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
+            this.CategoriaDataExclusao.ReadOnly = true;
+            this.CategoriaDataExclusao.Visible = false;
             // 
             // CategoriaAtivo
             // 
@@ -220,64 +256,37 @@ namespace Dominus.FormApp
             this.CategoriaAtivo.TrueValue = "1";
             this.CategoriaAtivo.Visible = false;
             // 
-            // CategoriaDataExclusao
+            // CategoriaTransacoes
             // 
-            this.CategoriaDataExclusao.DataPropertyName = "DataExclusao";
-            this.CategoriaDataExclusao.HeaderText = "DataExclusao";
-            this.CategoriaDataExclusao.Name = "CategoriaDataExclusao";
-            this.CategoriaDataExclusao.ReadOnly = true;
-            this.CategoriaDataExclusao.Visible = false;
+            this.CategoriaTransacoes.DataPropertyName = "Transacoes";
+            this.CategoriaTransacoes.HeaderText = "Transacoes";
+            this.CategoriaTransacoes.Name = "CategoriaTransacoes";
+            this.CategoriaTransacoes.ReadOnly = true;
+            this.CategoriaTransacoes.Visible = false;
             // 
-            // CategoriaDataCriacao
+            // CategoriaPlanejamentos
             // 
-            this.CategoriaDataCriacao.DataPropertyName = "DataCriacao";
-            this.CategoriaDataCriacao.HeaderText = "DataCriacao";
-            this.CategoriaDataCriacao.Name = "CategoriaDataCriacao";
-            this.CategoriaDataCriacao.ReadOnly = true;
-            this.CategoriaDataCriacao.Visible = false;
+            this.CategoriaPlanejamentos.DataPropertyName = "Planejamentos";
+            this.CategoriaPlanejamentos.HeaderText = "Planejamentos";
+            this.CategoriaPlanejamentos.Name = "CategoriaPlanejamentos";
+            this.CategoriaPlanejamentos.ReadOnly = true;
+            this.CategoriaPlanejamentos.Visible = false;
             // 
-            // CategoriaSenha
+            // CategoriaEditar
             // 
-            this.CategoriaSenha.DataPropertyName = "Icone";
-            this.CategoriaSenha.HeaderText = "Ícone";
-            this.CategoriaSenha.Name = "CategoriaSenha";
-            this.CategoriaSenha.ReadOnly = true;
-            this.CategoriaSenha.Visible = false;
+            this.CategoriaEditar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaEditar.HeaderText = "Editar";
+            this.CategoriaEditar.Name = "CategoriaEditar";
+            this.CategoriaEditar.ToolTipText = "Editar categoria";
+            this.CategoriaEditar.Width = 52;
             // 
-            // CategoriaTipoFluxo
+            // CategoriaExcluir
             // 
-            this.CategoriaTipoFluxo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaTipoFluxo.DataPropertyName = "TipoFluxo";
-            this.CategoriaTipoFluxo.HeaderText = "Tipo Fluxo";
-            this.CategoriaTipoFluxo.Name = "CategoriaTipoFluxo";
-            this.CategoriaTipoFluxo.ReadOnly = true;
-            this.CategoriaTipoFluxo.Width = 102;
-            // 
-            // CategoriaDescricao
-            // 
-            this.CategoriaDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CategoriaDescricao.DataPropertyName = "Descricao";
-            this.CategoriaDescricao.HeaderText = "Descrição";
-            this.CategoriaDescricao.Name = "CategoriaDescricao";
-            this.CategoriaDescricao.ReadOnly = true;
-            this.CategoriaDescricao.Visible = false;
-            this.CategoriaDescricao.Width = 101;
-            // 
-            // CategoriaNome
-            // 
-            this.CategoriaNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CategoriaNome.DataPropertyName = "Nome";
-            this.CategoriaNome.HeaderText = "Nome";
-            this.CategoriaNome.Name = "CategoriaNome";
-            this.CategoriaNome.ReadOnly = true;
-            // 
-            // CategoriaIdCategoria
-            // 
-            this.CategoriaIdCategoria.DataPropertyName = "IdCategoria";
-            this.CategoriaIdCategoria.HeaderText = "IdCategoria";
-            this.CategoriaIdCategoria.Name = "CategoriaIdCategoria";
-            this.CategoriaIdCategoria.ReadOnly = true;
-            this.CategoriaIdCategoria.Visible = false;
+            this.CategoriaExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CategoriaExcluir.HeaderText = "Excluir";
+            this.CategoriaExcluir.Name = "CategoriaExcluir";
+            this.CategoriaExcluir.ToolTipText = "Excluir categoria";
+            this.CategoriaExcluir.Width = 58;
             // 
             // FormCategorias
             // 
@@ -294,7 +303,7 @@ namespace Dominus.FormApp
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCategorias";
             this.Text = "Categorias";
-            this.Load += new System.EventHandler(this.FormCategorias_Load);
+            this.Shown += new System.EventHandler(this.FormCategorias_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.gridCategorias)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -308,6 +317,7 @@ namespace Dominus.FormApp
         private System.Windows.Forms.Label labelFiltroCategoria;
         private FontAwesome.Sharp.IconButton btnAdicionarCategoria;
         private System.Windows.Forms.DataGridView gridCategorias;
+        private System.Windows.Forms.DataGridViewImageColumn Image;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaIdCategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaDescricao;

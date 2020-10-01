@@ -6,7 +6,7 @@
     <div class="card" style="margin: 20px auto; width: 400px;">
         <%--<img src="." class="card-img-top" alt="Login">--%>
         <div class="card-body">
-            <form>
+            <form runat="server">
                 <a class="btn btn-link btn-block text-left" href="Login"><i class="fas fa-long-arrow-alt-left"></i> Voltar para o login</a><p></p>
                 <asp:Label ID="lblRecuperarSenha" CssClass="text-info" Text="Informe seu e-mail cadastrado e enviaremos um link de recuperação de senha." runat="server" /><p></p>
                 <div class="form-group input-group">

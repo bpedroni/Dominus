@@ -4,6 +4,7 @@ using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,26 +18,44 @@ namespace Dominus.FormApp
             try
             {
                 DataGridViewImageColumn column = (DataGridViewImageColumn)gridCategorias.Columns["CategoriaEditar"];
-                column.Image = IconChar.Pen.ToBitmap(20, System.Drawing.Color.Blue);
+                column.Image = IconChar.Pen.ToBitmap(20, Color.Blue);
 
                 column = (DataGridViewImageColumn)gridCategorias.Columns["CategoriaExcluir"];
-                column.Image = IconChar.TimesCircle.ToBitmap(20, System.Drawing.Color.Red);
+                column.Image = IconChar.TimesCircle.ToBitmap(20, Color.Red);
             }
             catch (Exception) { }
         }
 
-        private void FormCategorias_Load(object sender, EventArgs e)
+        private void FormCategorias_Shown(object sender, EventArgs e)
         {
             CarregarGridCategorias();
         }
 
-        private void CarregarGridCategorias(String categoria = null)
+        private void CarregarGridCategorias(String nome = null)
         {
-            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas().ToList();
+            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas();
             gridCategorias.DataSource = categorias.Where(x =>
-                String.IsNullOrEmpty(categoria) ||
-                x.Nome.ToLower().Contains(categoria.ToLower()))
+                String.IsNullOrEmpty(nome) ||
+                x.Nome.ToLower().Contains(nome.ToLower()))
             .OrderBy(x => x.Nome).ToList();
+
+            if (ConnectionManager.VerificaSiteOnLine())
+            {
+                foreach (DataGridViewRow row in gridCategorias.Rows)
+                {
+                    Categoria categoria = (Categoria)row.DataBoundItem;
+                    DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
+
+                    if (CategoriaManager.GetIconeCategoria(categoria) is Image image)
+                    {
+                        iconeCell.Value = new Bitmap(image, new Size(18, 18));
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Não foi possível carregar os ícones das categorias.", "Ícones não carregados!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void EditarCategoria(Categoria categoria)
