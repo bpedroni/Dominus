@@ -184,6 +184,16 @@ namespace Dominus.DataModel.Core
             }
         }
 
+        public static bool ValidarSenha(String senha)
+        {
+            bool senhaValida = senha.Length >= 8
+                && senha.Any(char.IsUpper)
+                && senha.Any(char.IsLower)
+                && senha.Any(char.IsDigit);
+
+            return senhaValida;
+        }
+
         public static void EnviarSenhaPorEmail(Usuario usuario)
         {
             try

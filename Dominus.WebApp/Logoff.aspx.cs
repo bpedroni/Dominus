@@ -10,7 +10,8 @@ namespace Dominus.WebApp
             Session.Clear();
             Session.Abandon();
             FormsAuthentication.SignOut();
-            Response.Redirect("/", true);
+            string strRedirect = Request["ReturnUrl"] ?? "/";
+            Response.Redirect(strRedirect, true);
         }
     }
 }

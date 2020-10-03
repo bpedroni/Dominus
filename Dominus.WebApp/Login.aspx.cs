@@ -1,8 +1,6 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
-using System.Web;
-using System.Web.Security;
 
 namespace Dominus.WebApp
 {
@@ -10,7 +8,11 @@ namespace Dominus.WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Usuario"] is Usuario)
+            {
+                Response.Redirect("Logoff?ReturnUrl=Login", true);
+            }
+            txtLogin.Focus();
         }
 
         protected void BtnLogin_Click(object sender, EventArgs e)
@@ -43,14 +45,7 @@ namespace Dominus.WebApp
                     return;
                 }
 
-                Session["Usuario"] = usuario;
-
-                FormsAuthenticationTicket tkt = new FormsAuthenticationTicket(1, txtLogin.Value, DateTime.Now, DateTime.Now.AddMinutes(30), true, usuario.Nome);
-                string cookiestr = FormsAuthentication.Encrypt(tkt);
-                HttpCookie ck = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
-                ck.Expires = tkt.Expiration;
-                ck.Path = FormsAuthentication.FormsCookiePath;
-                Response.Cookies.Add(ck);
+                Sessao.IniciarSessao(usuario);
 
                 string strRedirect = Request["ReturnUrl"] ?? "Resumo";
                 Response.Redirect(strRedirect, true);

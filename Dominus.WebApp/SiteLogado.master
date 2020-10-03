@@ -1,8 +1,0 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SiteLogado.master.cs" Inherits="Dominus.WebApp.SiteLogado" %>
-
-<asp:Content ID="headLogado" ContentPlaceHolderID="head" runat="server">
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-</asp:Content>
-<asp:Content ID="MainContentLogado" ContentPlaceHolderID="MainContent" runat="server">
-</asp:Content>

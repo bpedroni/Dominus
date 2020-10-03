@@ -33,6 +33,24 @@ namespace Dominus.WebApp
         protected global::System.Web.UI.WebControls.Label lblNomeUsuario;
 
         /// <summary>
+        /// lblSaldo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSaldo;
+
+        /// <summary>
+        /// ddListaPeriodo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddListaPeriodo;
+
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

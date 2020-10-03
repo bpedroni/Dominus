@@ -42,6 +42,10 @@
             background-color: royalblue;
         }
 
+.info-usuario {
+    font-size: 1.4rem;
+}
+
 @media screen and (max-width: 900px) {
     .nav-link span {
         display: none;

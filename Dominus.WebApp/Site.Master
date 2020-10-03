@@ -26,68 +26,88 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="<%: UsuarioConectado ? "Resumo" : "./" %>">
-            <img src="Contents/img/logo_250x50.png" alt="Dominus" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="collapseContent">
-            <ul class="navbar-nav justify-content-start">
-                <li class="nav-item">
-                    <a class="nav-link active" href="./"><i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="Sobre"><i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="Contato"><i class="fas fa-at"></i>&nbsp;<span>Contato</span></a>
-                </li>
-            </ul>
+    <form runat="server">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a class="navbar-brand" href="<%: UsuarioConectado ? "Resumo" : "./" %>">
+                <img src="Contents/img/logo_250x50.png" alt="Dominus" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="collapseContent">
+                <ul class="navbar-nav justify-content-start">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./"><i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Sobre"><i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Contato"><i class="fas fa-at"></i>&nbsp;<span>Contato</span></a>
+                    </li>
+                </ul>
+                <% if (UsuarioConectado)
+                    {%>
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item dropdown">
+                        <button type="button" id="btnUser" class="btn btn-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user-circle"></i>&nbsp;<asp:Label ID="lblNomeUsuario" runat="server"></asp:Label>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnUser">
+                            <a class="dropdown-item" href="EditarCadastro">Editar Conta</a>
+                            <a class="dropdown-item" href="Logoff">Sair</a>
+                        </div>
+                    </li>
+                </ul>
+                <%}%>
+                <% else
+                    {%>
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Cadastro">Criar conta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Login">Login</a>
+                    </li>
+                </ul>
+                <%}%>
+            </div>
+        </nav>
+        <% if (UsuarioConectado)
+            {%>
+        <div class="sidebar">
+            <a <%= Page.Request.FilePath == "/Resumo" ? "class='active'" : "" %> href="Resumo"><i class="fas fa-money-check-alt"></i>&nbsp;<span>Resumo</span></a>
+            <a <%= Page.Request.FilePath == "/Extrato" ? "class='active'" : "" %> href="Extrato"><i class="fas fa-dollar-sign"></i>&nbsp;<span>Extrato</span></a>
+            <a <%= Page.Request.FilePath == "/Planejamento" ? "class='active'" : "" %> href="Planejamento"><i class="fas fa-balance-scale"></i>&nbsp;<span>Planejamento</span></a>
+            <a <%= Page.Request.FilePath == "/Relatorios" ? "class='active'" : "" %> href="Relatorios"><i class="fas fa-chart-pie"></i>&nbsp;<span>Relatórios</span></a>
+        </div>
+        <%}%>
+        <div class="content">
             <% if (UsuarioConectado)
                 {%>
-            <ul class="navbar-nav justify-content-end">
-                <li class="nav-item dropdown">
-                    <a id="btnUser" class="nav-item" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="far fa-user-circle"></i>&nbsp;<asp:Label ID="lblNomeUsuario" runat="server"></asp:Label>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnUser">
-                        <a class="dropdown-item" href="#">Editar Conta</a>
-                        <a class="dropdown-item" href="Logoff">Sair</a>
-                    </div>
-                </li>
-            </ul>
+            <div class="info-usuario form-row m-0 justify-content-between bg-light">
+                <div class="form-row col-sm m-2">
+                    <span>Saldo atual:&nbsp;&nbsp;</span>
+                    <b>
+                        <asp:Label ID="lblSaldo" runat="server" Text="R$ 0,00"></asp:Label>
+                    </b>
+                </div>
+                <div class="form-row col-sm m-2">
+                    <span>Período:&nbsp;&nbsp;</span>
+                    <b>
+                        <asp:DropDownList ID="ddListaPeriodo" CssClass="form-control" runat="server" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </b>
+                </div>
+            </div>
             <%}%>
-            <% else
-                {%>
-            <ul class="navbar-nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link active" href="Cadastro">Criar conta</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="Login">Login</a>
-                </li>
-            </ul>
-            <%}%>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
         </div>
-    </nav>
-    <% if (UsuarioConectado)
-        {%>
-    <div class="sidebar">
-        <a <%= Page.Request.FilePath == "/Resumo" ? "class='active'" : "" %> href="Resumo"><i class="fas fa-money-check-alt"></i>&nbsp;<span>Resumo</span></a>
-        <a <%= Page.Request.FilePath == "/Extrato" ? "class='active'" : "" %> href="Extrato"><i class="fas fa-dollar-sign"></i>&nbsp;<span>Extrato</span></a>
-        <a <%= Page.Request.FilePath == "/Planejamento" ? "class='active'" : "" %> href="Planejamento"><i class="fas fa-balance-scale"></i>&nbsp;<span>Planejamento</span></a>
-        <a <%= Page.Request.FilePath == "/Relatorios" ? "class='active'" : "" %> href="Relatorios"><i class="fas fa-chart-pie"></i>&nbsp;<span>Relatórios</span></a>
-    </div>
-    <%}%>
-    <div class="content">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        </asp:ContentPlaceHolder>
-    </div>
-    <%--<hr />
-    <footer>
-        <p>&copy; <%: DateTime.Now.Year %> - Dominus</p>
-    </footer>--%>
+        <%--<hr />
+        <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - Dominus</p>
+        </footer>--%>
+    </form>
 </body>
 </html>

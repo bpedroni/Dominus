@@ -8,7 +8,11 @@ namespace Dominus.WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Usuario"] is Usuario)
+            {
+                Response.Redirect("Logoff?ReturnUrl=RecuperarSenha", true);
+            }
+            txtEmail.Focus();
         }
 
         protected void BtnRecuperarSenha_Click(object sender, EventArgs e)
