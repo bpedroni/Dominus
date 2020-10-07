@@ -6,21 +6,12 @@
             args.IsValid = document.getElementById("<%=chkTermosUso.ClientID %>").checked == true;
         }
 
-        function validarSenhas() {
+        function verificarSenhas() {
             var senha = document.getElementById("<%=txtSenha.ClientID %>");
             var verificarSenha = document.getElementById("<%=txtVerficarSenha.ClientID %>");
             var msg = document.getElementById("<%=lblMsg.ClientID %>");
 
-            if (senha.validity.valid && senha.value != verificarSenha.value) {
-                verificarSenha.classList.add('is-invalid');
-                msg.textContent = 'As senhas não conferem!';
-                verificarSenha.select();
-            }
-            else {
-                verificarSenha.classList.remove('is-invalid');
-            }
-
-            return senha.value == verificarSenha.value;
+            return validarSenhas(senha, verificarSenha, msg);
         }
     </script>
 </asp:Content>
@@ -76,7 +67,7 @@
             <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" /><p></p>
         </div>
         <div class="text-right">
-            <asp:Button ID="btnCadastrar" CssClass="btn btn-primary btn-lg" runat="server" Text="Cadastrar" OnClientClick="return validarSenhas();" OnClick="BtnCadastrar_Click" />
+            <asp:Button ID="btnCadastrar" CssClass="btn btn-primary btn-lg" runat="server" Text="Cadastrar" OnClientClick="return verificarSenhas();" OnClick="BtnCadastrar_Click" />
         </div>
         <br />
         <div class="text-center">

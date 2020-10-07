@@ -9,6 +9,7 @@
 
 namespace Dominus.DataModel
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -23,7 +24,8 @@ namespace Dominus.DataModel
         public System.Guid IdTipoRelatorio { get; set; }
         public string Tipo { get; set; }
         public string Descricao { get; set; }
-    
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Relatorio> Relatorios { get; set; }
     }

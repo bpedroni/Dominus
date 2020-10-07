@@ -9,6 +9,7 @@
 
 namespace Dominus.DataModel
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -30,7 +31,8 @@ namespace Dominus.DataModel
         public Nullable<System.DateTime> DataResposta { get; set; }
         public int Validado { get; set; }
         public Nullable<System.Guid> IdChamadoAssociado { get; set; }
-    
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chamado> ChamadoPrincipal { get; set; }
         public virtual Chamado ChamadoAssociado { get; set; }

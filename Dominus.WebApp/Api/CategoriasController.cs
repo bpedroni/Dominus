@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -19,15 +18,7 @@ namespace Dominus.WebApp
         // GET api/categorias - exibe todas as categorias ativas:
         public List<Categoria> Get()
         {
-            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas();
-
-            foreach (Categoria categoria in categorias)
-            {
-                categoria.Transacoes.Clear();
-                categoria.Planejamentos.Clear();
-            }
-
-            return categorias;
+            return CategoriaManager.GetCategoriasAtivas();
         }
 
         // GET api/categorias/tipo/{id} - exibe todas as categorias ativas de algum tipo de fluxo:
@@ -35,15 +26,7 @@ namespace Dominus.WebApp
         [ActionName("tipo")]
         public List<Categoria> GetCategoriasByTipo(String id)
         {
-            List<Categoria> categorias = CategoriaManager.GetCategoriasAtivas().Where(x => x.TipoFluxo.Equals(id, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-            foreach (Categoria categoria in categorias)
-            {
-                categoria.Transacoes.Clear();
-                categoria.Planejamentos.Clear();
-            }
-
-            return categorias;
+            return CategoriaManager.GetCategoriasAtivas().Where(x => x.TipoFluxo.Equals(id, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
         // GET api/categorias/id/{id} - exibe a categoria solicitada pelo id
@@ -53,11 +36,7 @@ namespace Dominus.WebApp
             try
             {
                 Guid guid = Guid.Parse(id);
-                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
-                categoria.Transacoes.Clear();
-                categoria.Planejamentos.Clear();
-
-                return categoria;
+                return CategoriaManager.GetCategoriaById(guid);
             }
             catch (Exception)
             {
