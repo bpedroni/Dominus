@@ -160,8 +160,9 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                if (ConnectionManager.VerificaSiteOnLine() && GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) is Categoria categ)
+                if (ConnectionManager.VerificaSiteOnLine() && GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) != null)
                 {
+                    Categoria categ = GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo);
                     String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
                     using (WebClient webClient = new WebClient { UseDefaultCredentials = true })
                     {

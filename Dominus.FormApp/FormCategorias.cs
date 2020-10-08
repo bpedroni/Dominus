@@ -46,8 +46,9 @@ namespace Dominus.FormApp
                     Categoria categoria = (Categoria)row.DataBoundItem;
                     DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
 
-                    if (CategoriaManager.GetIconeCategoria(categoria) is Image image)
+                    if (CategoriaManager.GetIconeCategoria(categoria) != null)
                     {
+                        Image image = CategoriaManager.GetIconeCategoria(categoria);
                         iconeCell.Value = new Bitmap(image, new Size(18, 18));
                     }
                 }
@@ -104,8 +105,9 @@ namespace Dominus.FormApp
         {
             DataGridView senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewImageColumn column && e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.RowIndex >= 0)
             {
+                DataGridViewImageColumn column = (DataGridViewImageColumn)senderGrid.Columns[e.ColumnIndex];
                 Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
                 switch (column.Name)
                 {
