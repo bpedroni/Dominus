@@ -9,9 +9,9 @@ namespace Dominus.WebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"] is Usuario usuario)
+            if (Session["Usuario"] != null)
             {
-                Usuario = usuario;
+                Usuario = (Usuario)Session["Usuario"];
             }
             else
             {

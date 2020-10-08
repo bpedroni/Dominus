@@ -136,6 +136,7 @@ namespace Dominus.DataModel.Core
         {
             try
             {
+                // Verifica se o site está no ar e retorna a imagem do ícone da categoria fornecida:
                 if (ConnectionManager.VerificaSiteOnLine())
                 {
                     String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
@@ -160,15 +161,15 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                if (ConnectionManager.VerificaSiteOnLine() && GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) != null)
+                // Verifica se o site está no ar e salva a imagem do ícone da categoria fornecida:
+                if (ConnectionManager.VerificaSiteOnLine())
                 {
-                    Categoria categ = GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo);
                     String urlDominus = ConfigurationManager.AppSettings["UrlSiteDominus"];
                     using (WebClient webClient = new WebClient { UseDefaultCredentials = true })
                     {
                         webClient.Headers.Add(HttpRequestHeader.ContentType, "image/gif");
                         byte[] imageBytes = webClient.DownloadData(filepath);
-                        webClient.UploadData(urlDominus + "/api/Categorias/uploadIcone/" + categ.IdCategoria.ToString(),
+                        webClient.UploadData(urlDominus + "/api/Categorias/uploadIcone/" + categoria.IdCategoria.ToString(),
                             WebRequestMethods.Http.Post,
                             imageBytes);
                     }

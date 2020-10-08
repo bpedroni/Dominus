@@ -9,7 +9,7 @@ namespace Dominus.WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"] is Usuario)
+            if (Session["Usuario"] != null)
             {
                 Response.Redirect("Logoff?ReturnUrl=Cadastro", true);
             }
@@ -47,7 +47,7 @@ namespace Dominus.WebApp
                 txtSenha.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtVerficarSenha.Value) || !txtVerficarSenha.Value.Equals(txtSenha.Value))
+            if (String.IsNullOrWhiteSpace(txtVerificarSenha.Value) || !txtVerificarSenha.Value.Equals(txtSenha.Value))
             {
                 lblMsg.Text = "As senhas não conferem!";
                 txtSenha.Focus();

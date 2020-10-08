@@ -16,13 +16,19 @@ namespace Dominus.WebApp
         protected void Page_Load(object sender, EventArgs e)
         {
             // Verifica se o usuário está logado:
-            if (Session["Usuario"] is Usuario usuario)
+            if (Session["Usuario"] != null)
             {
+                Usuario usuario = (Usuario)Session["Usuario"];
                 UsuarioConectado = true;
 
                 // Atualiza o nome e o saldo do usuário na página:
                 lblNomeUsuario.Text = usuario.Nome;
-                lblSaldo.Text = TransacaoManager.GetSaldo(usuario).ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR"));
+                decimal saldo = TransacaoManager.GetSaldo(usuario);
+                lblSaldo.Text = saldo.ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR"));
+                if (saldo < 0)
+                {
+                    lblSaldo.CssClass = "text-danger";
+                }
 
                 // Verifica se o usuário selecionou um período na página e atualiza o período na Session:
                 if (IsPostBack && ddListaPeriodo.SelectedIndex >= 0)

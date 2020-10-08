@@ -8,7 +8,7 @@
 
         function verificarSenhas() {
             var senha = document.getElementById("<%=txtSenha.ClientID %>");
-            var verificarSenha = document.getElementById("<%=txtVerficarSenha.ClientID %>");
+            var verificarSenha = document.getElementById("<%=txtVerificarSenha.ClientID %>");
             var msg = document.getElementById("<%=lblMsg.ClientID %>");
 
             return validarSenhas(senha, verificarSenha, msg);
@@ -45,7 +45,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="txtVerficarSenha" name="verificarSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Confirme a senha" required oninvalid="this.setCustomValidity('Repita a sua senha.')" oninput="setCustomValidity('')">
+            <input id="txtVerificarSenha" name="verificarSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Confirme a senha" required oninvalid="this.setCustomValidity('Repita a sua senha.')" oninput="setCustomValidity('')">
         </div>
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#regraSenha" aria-expanded="true" aria-controls="regraSenha">
             Regras para senha

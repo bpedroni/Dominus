@@ -5,8 +5,10 @@ namespace Dominus.DataModel.Core
 {
     public class Codificador
     {
+        // Chave secreta utilizada para proteger o texto:
         private const String CHAVE = "**&**dOmInUs**#**";
 
+        // Método utilizado para criptografar um texto fornecido:
         public static String Criptografar(String texto)
         {
             try
@@ -26,6 +28,7 @@ namespace Dominus.DataModel.Core
             }
         }
 
+        // Método utilizado para descriptografar um texto fornecido:
         public static String Descriptografar(String codigo)
         {
             try

@@ -8,12 +8,22 @@ function removerAnunciosSomee() {
 
 // Função que que compara as os textos da senha e adiciona uma mensagem de erro no caso de divergência dos valores.
 function validarSenhas(elemSenha, elemValidarSenha, elemMsg) {
-    if (elemSenha.validity.valid && elemSenha.value != elemValidarSenha.value) {
+    // Variável para testar se o formato da senha é válido:
+    var patternSenha = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+    if (!patternSenha.test(elemSenha.value)) {
+        elemSenha.classList.add('is-invalid');
+        elemMsg.textContent = 'A senha digitada não é válida!';
+        elemSenha.select();
+    }
+    else if (elemSenha.value != elemValidarSenha.value) {
+        elemSenha.classList.remove('is-invalid');
         elemValidarSenha.classList.add('is-invalid');
         elemMsg.textContent = 'As senhas não conferem!';
         elemValidarSenha.select();
     }
     else {
+        elemSenha.classList.remove('is-invalid');
         elemValidarSenha.classList.remove('is-invalid');
     }
 

@@ -51,13 +51,13 @@ namespace Dominus.WebApp
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtSenha;
 
         /// <summary>
-        /// txtVerficarSenha control.
+        /// txtVerificarSenha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtVerficarSenha;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtVerificarSenha;
 
         /// <summary>
         /// chkTermosUso control.

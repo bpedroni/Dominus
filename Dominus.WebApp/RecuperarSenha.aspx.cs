@@ -8,7 +8,7 @@ namespace Dominus.WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"] is Usuario)
+            if (Session["Usuario"] != null)
             {
                 Response.Redirect("Logoff?ReturnUrl=RecuperarSenha", true);
             }

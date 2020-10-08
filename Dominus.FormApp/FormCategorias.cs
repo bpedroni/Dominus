@@ -105,10 +105,11 @@ namespace Dominus.FormApp
         {
             DataGridView senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.RowIndex >= 0)
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
-                DataGridViewImageColumn column = (DataGridViewImageColumn)senderGrid.Columns[e.ColumnIndex];
+                DataGridViewColumn column = senderGrid.Columns[e.ColumnIndex];
                 Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
+                
                 switch (column.Name)
                 {
                     case "CategoriaEditar":

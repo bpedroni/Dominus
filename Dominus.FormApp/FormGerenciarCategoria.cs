@@ -28,7 +28,8 @@ namespace Dominus.FormApp
                     rdoBtnDespesa.Checked = Categoria.TipoFluxo == (CategoriaManager.TIPO_FLUXO_DESPESA);
                     rdoBtnDespesa.Enabled = false;
                     txtIcone.Text = Categoria.Icone;
-                    if (CategoriaManager.GetIconeCategoria(Categoria) is Image image)
+                    Image image = CategoriaManager.GetIconeCategoria(Categoria);
+                    if (image != null)
                     {
                         pictureIcone.Image = new Bitmap(image, new Size(48, 48));
                     }
@@ -122,7 +123,8 @@ namespace Dominus.FormApp
         {
             try
             {
-                if (new Bitmap(openFileDialogIcone.FileName) is Image image)
+                Image image = new Bitmap(openFileDialogIcone.FileName);
+                if (image != null)
                 {
                     pictureIcone.Image = new Bitmap(image, new Size(48, 48));
                     txtIcone.Text = openFileDialogIcone.SafeFileName;

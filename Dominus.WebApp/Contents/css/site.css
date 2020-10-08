@@ -1,4 +1,6 @@
-﻿body {
+﻿html, body {
+    margin: 0;
+    height: 100%;
     min-width: 360px;
 }
 
@@ -20,8 +22,8 @@
 
 .sidebar {
     width: 200px;
-    height: 100%;
-    position: fixed;
+    height: calc(100vh - 76px);
+    position: absolute;
     overflow: auto;
     background-color: darkslateblue;
 }

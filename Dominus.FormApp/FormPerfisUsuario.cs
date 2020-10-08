@@ -64,11 +64,15 @@ namespace Dominus.FormApp
         {
             DataGridView senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.RowIndex >= 0)
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
-                Usuario usuario = (Usuario)gridPerfisUsuario.Rows[e.RowIndex].DataBoundItem;
-                UsuarioManager.EditUsuario(usuario);
-                MessageBox.Show("O perfil do usuário " + usuario.Login + " foi atualizado com sucesso.", "Perfil atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DataGridViewColumn column = senderGrid.Columns[e.ColumnIndex];
+                if (column.Name == "UsuarioSalvar")
+                {
+                    Usuario usuario = (Usuario)gridPerfisUsuario.Rows[e.RowIndex].DataBoundItem;
+                    UsuarioManager.EditUsuario(usuario);
+                    MessageBox.Show("O perfil do usuário " + usuario.Login + " foi atualizado com sucesso.", "Perfil atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }
