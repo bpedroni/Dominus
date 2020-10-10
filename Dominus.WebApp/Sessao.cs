@@ -20,5 +20,12 @@ namespace Dominus.WebApp
             ck.Path = FormsAuthentication.FormsCookiePath;
             HttpContext.Current.Response.Cookies.Add(ck);
         }
+
+        public static void EncerrarSessao()
+        {
+            HttpContext.Current.Session.Clear();
+            HttpContext.Current.Session.Abandon();
+            FormsAuthentication.SignOut();
+        }
     }
 }

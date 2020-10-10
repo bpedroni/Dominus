@@ -117,6 +117,7 @@
             this.gridChamados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridChamados.Size = new System.Drawing.Size(510, 213);
             this.gridChamados.TabIndex = 3;
+            this.gridChamados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridChamados_CellDoubleClick);
             this.gridChamados.SelectionChanged += new System.EventHandler(this.GridChamados_SelectionChanged);
             // 
             // ChamadoIdChamado
@@ -276,6 +277,7 @@
             this.btnExibirChamado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExibirChamado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExibirChamado.UseVisualStyleBackColor = false;
+            this.btnExibirChamado.EnabledChanged += new System.EventHandler(this.BtnExibirChamado_EnabledChanged);
             this.btnExibirChamado.Click += new System.EventHandler(this.BtnExibirChamado_Click);
             // 
             // btnResponderChamado
@@ -303,6 +305,7 @@
             this.btnResponderChamado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnResponderChamado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnResponderChamado.UseVisualStyleBackColor = false;
+            this.btnResponderChamado.EnabledChanged += new System.EventHandler(this.BtnResponderChamado_EnabledChanged);
             this.btnResponderChamado.Click += new System.EventHandler(this.BtnResponderChamado_Click);
             // 
             // FormChamados

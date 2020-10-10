@@ -21,38 +21,38 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-user"></i></span>
             </div>
-            <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Insira seu nome" required oninvalid="this.setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')">
+            <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Insira seu nome" required oninvalid="this.setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100">
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
             </div>
-            <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Defina um login de acesso" required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')">
+            <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Defina um login de acesso" required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="15">
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             </div>
-            <input id="txtEmail" name="email" class="form-control rounded-right" type="email" runat="server" placeholder="Insira o seu e-mail" required oninvalid="this.setCustomValidity('Insira um endereço de e-mail.')" oninput="setCustomValidity('')">
+            <input id="txtEmail" name="email" class="form-control rounded-right" type="email" runat="server" placeholder="Insira o seu e-mail" required oninvalid="this.setCustomValidity('Insira um endereço de e-mail.')" oninput="setCustomValidity('')" maxlength="100">
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="txtSenha" name="senha" class="form-control rounded-right" type="password" runat="server" placeholder="Defina uma senha" required oninvalid="this.setCustomValidity('Insira uma senha válida.')" oninput="setCustomValidity('')" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Verifique abaixo as regras para senha">
+            <input id="txtSenha" name="senha" class="form-control rounded-right" type="password" runat="server" placeholder="Defina uma senha" required oninvalid="this.setCustomValidity('Insira uma senha válida.')" oninput="setCustomValidity('')" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Verifique abaixo as regras para senha" maxlength="20">
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="txtVerificarSenha" name="verificarSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Confirme a senha" required oninvalid="this.setCustomValidity('Repita a sua senha.')" oninput="setCustomValidity('')">
+            <input id="txtVerificarSenha" name="verificarSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Confirme a senha" required oninvalid="this.setCustomValidity('Repita a sua senha.')" oninput="setCustomValidity('')" maxlength="20">
         </div>
         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#regraSenha" aria-expanded="true" aria-controls="regraSenha">
             Regras para senha
         </button>
         <div class="collapse" id="regraSenha">
             <ul>
-                <li>Deve conter no mínimo 8 caracteres</li>
+                <li>Deve conter entre 8 e 20 caracteres</li>
                 <li>Deve conter ao menos um número</li>
                 <li>Deve conter ao menos uma letra maiúscula</li>
                 <li>Deve conter ao menos uma letra minúscula</li>

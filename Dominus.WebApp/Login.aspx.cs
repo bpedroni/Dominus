@@ -10,9 +10,12 @@ namespace Dominus.WebApp
         {
             if (Session["Usuario"] != null)
             {
-                Response.Redirect("Logoff?ReturnUrl=Login", true);
+                Sessao.EncerrarSessao();
             }
-            txtLogin.Focus();
+            if (!IsPostBack)
+            {
+                txtLogin.Focus();
+            }
         }
 
         protected void BtnLogin_Click(object sender, EventArgs e)
@@ -21,13 +24,15 @@ namespace Dominus.WebApp
             lblMsg.Text = String.Empty;
 
             // Valida se os campos de login e senha estão preenchidos:
-            if (String.IsNullOrWhiteSpace(txtLogin.Value))
+            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length > 100)
             {
+                lblMsg.Text = "O login ou e-mail deve ser informado.";
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtSenha.Value))
+            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Length > 20)
             {
+                lblMsg.Text = "A senha deve ser informada.";
                 txtSenha.Focus();
                 return;
             }

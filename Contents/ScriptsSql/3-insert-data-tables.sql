@@ -2,6 +2,8 @@ USE dominus
 GO
 
 -- Exclusão de dados das tabelas.
+DELETE FROM Chamado;
+GO
 DELETE FROM Transacao;
 GO
 DELETE FROM Usuario;
@@ -215,25 +217,25 @@ INSERT INTO Usuario (IdUsuario,Nome,Login,Email,Senha,PerfilAdministrador,DataCr
 GO
 
 INSERT INTO Categoria (IdCategoria,Nome,Descricao,TipoFluxo,Icone,DataCriacao)
-	VALUES ('56E6A62D-79F0-4D59-85EC-0262DCAAF2E0','Sem categoria','Despesa sem categoria','Despesa','sem_categoria.png',CONVERT(date,'2020-01-01',23))
-		  ,('7DC6FE5F-E44A-4A49-8861-09FBC0B91B68','Sem categoria','Receita sem categoria','Receita','sem_categoria.png',CONVERT(date,'2020-01-01',23))
+	VALUES ('56E6A62D-79F0-4D59-85EC-0262DCAAF2E0','Despesa sem categoria','Despesa sem categoria','Despesa','sem_categoria.png',CONVERT(date,'2020-01-01',23))
+		  ,('7DC6FE5F-E44A-4A49-8861-09FBC0B91B68','Receita sem categoria','Receita sem categoria','Receita','sem_categoria.png',CONVERT(date,'2020-01-01',23))
 		  ,('3FE34614-F7D7-4440-B0ED-13D673D93003','Alimentação','Gastos com alimentação / refeição','Despesa','alimentacao.png',CONVERT(date,'2020-01-01',23))
 		  ,('186BC645-4AE8-439E-AF5C-195FABC038BD','Aposentadoria','Recebimento de aposentadoria','Receita','aposentadoria.png',CONVERT(date,'2020-01-01',23))
 		  ,('271013FA-7B4F-4AF6-BD9C-3609C3DCECA4','Bares/Restaurantes','Gastos em bares ou restaurantes','Despesa','restaurante.png',CONVERT(date,'2020-01-01',23))
-		  ,('7DFBFA69-93C9-4BD4-ABC1-3A371BC65DCC','Beleza','Despesas com salões, barbearias, manicures, etc','Despesa','beleza.png',CONVERT(date,'2020-01-01',23))
+		  ,('7DFBFA69-93C9-4BD4-ABC1-3A371BC65DCC','Beleza','Despesas com salões, barbearias, manicures, etc','Despesa','belaza.png',CONVERT(date,'2020-01-01',23))
 		  ,('0DE53A45-F104-4D77-9921-47F702F61C08','Compras','Despesas de compras em geral','Despesa','compras.png',CONVERT(date,'2020-01-01',23))
 		  ,('A1A19A95-E453-4A20-83ED-5B9BB214879C','Contas Fixas','Gastos com contas de água, luz, condomínio, etc','Despesa','contas_fixas.png',CONVERT(date,'2020-01-01',23))
-		  ,('94945B37-E25A-40E0-8660-61D4866D1F39','Cuidados Pessoais','Despesas com itens ou serviços para o bem-estar','Despesa','cuidado_pessoal.png',CONVERT(date,'2020-01-01',23))
-		  ,('07CFC565-CBA5-4D4D-B62D-67B5B3088752','Cuidados Pet Estimação','Despesas com animais de estimação','Despesa','animal_estimacao.png',CONVERT(date,'2020-01-01',23))
+		  ,('94945B37-E25A-40E0-8660-61D4866D1F39','Cuidados Pessoais','Despesas com itens ou serviços para o bem-estar','Despesa','pessoal.png',CONVERT(date,'2020-01-01',23))
+		  ,('07CFC565-CBA5-4D4D-B62D-67B5B3088752','Cuidados Pet Estimação','Despesas com animais de estimação','Despesa','animais.png',CONVERT(date,'2020-01-01',23))
 		  ,('29083B64-E0CF-47DF-AEB2-74C677516279','Educação','Gastos com escolas, universidades, cursos, etc','Despesa','educacao.png',CONVERT(date,'2020-01-01',23))
 		  ,('DB6885B8-2515-4035-BFA9-7BD97122CC12','Empréstimo','Ganho com empréstimos','Receita','emprestimo.png',CONVERT(date,'2020-01-01',23))
-		  ,('4AE98CB4-5214-490C-8C1D-82470DE71DC7','Fatura de Cartão','Despesas de fatura de cartão de crédito','Despesa','cartao_credito.png',CONVERT(date,'2020-01-01',23))
+		  ,('4AE98CB4-5214-490C-8C1D-82470DE71DC7','Fatura de Cartão','Despesas de fatura de cartão de crédito','Despesa','fatura_cartao.png',CONVERT(date,'2020-01-01',23))
 		  ,('AF418A13-63E8-4F41-80A8-8598B2436DC7','Impostos','Gastos com impostos (IPVA, IPTU, etc)','Despesa','impostos.png',CONVERT(date,'2020-01-01',23))
 		  ,('5D1195DA-5FB7-4A67-88ED-8F5FC5480C8A','Investimentos Financeiros','Recebimentos de investimentos financeiros','Receita','investimento.png',CONVERT(date,'2020-01-01',23))
 		  ,('66E6B12B-0ABD-4858-9133-93646C7B4349','Lazer','Gastos com passeios, atividades recreativas, etc','Despesa','lazer.png',CONVERT(date,'2020-01-01',23))
 		  ,('39502D2A-5641-444D-974E-9E0C260E4A00','Moradia','Despesas com itens ou serviços para o imóvel','Despesa','moradia.png',CONVERT(date,'2020-01-01',23))
 		  ,('83074DF3-6A40-49C1-A516-A07D86E2B14D','Outras Rendas','Outras fontes de rendimento','Receita','outras_rendas.png',CONVERT(date,'2020-01-01',23))
-		  ,('8F5F058E-D3C7-4239-9987-B5449E1A47FD','Presentes/Doações','Gastos com presentes ou doações','Despesa','presente.png',CONVERT(date,'2020-01-01',23))
+		  ,('8F5F058E-D3C7-4239-9987-B5449E1A47FD','Presentes/Doações','Gastos com presentes ou doações','Despesa','presentes.png',CONVERT(date,'2020-01-01',23))
 		  ,('CE4A6652-1E42-4A78-8ACC-B565BB69EF21','Salário','Ganhos remunerados','Receita','salario.png',CONVERT(date,'2020-01-01',23))
 		  ,('52DD878B-6570-49C3-A869-BBA6E3A31171','Saúde','Gastos com serviços de saúde','Despesa','saude.png',CONVERT(date,'2020-01-01',23))
 		  ,('D744FF04-D4CF-4DEB-8EDA-C3034C30D9D8','Serviços','Gastos com serviços em geral','Despesa','servicos.png',CONVERT(date,'2020-01-01',23))
@@ -5259,3 +5261,11 @@ GO
 --		  ,(newid(),'57914B59-F8D3-4DC4-BFA8-7D2D1BFFA98D','8F5F058E-D3C7-4239-9987-B5449E1A47FD','Teste','Despesa',3288.14,CONVERT(date,'2020-12-31',23))
 --		  ,(newid(),'09E72DA8-7EBC-4CD1-845A-44441BDFC6CE','39502D2A-5641-444D-974E-9E0C260E4A00','Teste','Despesa',4227.48,CONVERT(date,'2020-12-31',23))
 --GO
+
+INSERT INTO Chamado (IdChamado,IdUsuario,Titulo,Mensagem,DataCriacao,IdUsuarioSuporte,MensagemResposta,DataResposta,Validado,IdChamadoAssociado)
+	VALUES ('6A77A64C-FD6E-4DF9-95D2-1B63B8B71C1E','03E6C4AC-EEB1-4B9C-A669-0043B72EA161','Categoria para bichos de estimação','Bom dia! Eu gostaria, se for possível, que o sistema tivesse uma categoria específica para gastos com animais de estimação.',CONVERT(datetime,'2020-7-16 10:26:53',20),'ed32e0de-069b-4cdb-a72a-3a4e9dad2665','Olá, Iara Paredes! Analisamos seu pedido e criamos uma categoria para despesas chamada "Cuidados Pet Estimação". Agradecemos pelo contato!',CONVERT(datetime,'2020-7-20 17:41:42',20),0,null)
+		  ,('0F0C695E-5815-4F49-8EBE-DB5C4A83A119','3A5D8D86-E17E-41A6-9129-428513DA6BA6','Problema para editar valor','Olá! Estou tentando alterar o valor de uma transação que foi lida do meu extrato bancário mas não consigo. Tem alguma forma de conseguir mudar essa transação? Obrigado',CONVERT(datetime,'2020-7-19 14:02:11',20),'ed32e0de-069b-4cdb-a72a-3a4e9dad2665','Olá, Xavier Canela! O sistema não possibilita a edição do valor de uma transação financeira adicionada através de um extrato bancário. Uma possibilidade seria o senhor adicionar uma nova transação com o valor desejado e remover a transação que deseja alterar.',CONVERT(datetime,'2020-7-20 18:06:38',20),1,null)
+		  ,('78397CDE-BD37-47FF-B1ED-04D36CDB0385','091F4418-34E1-4795-B335-0607EFF29527','Lançar meus ganhos com UBER','Boa noite! Eu sou motorista de uber e gostaria de saber onde posso colocar meus ganhos que pretendo ganhar com as corridas. Tem alguma categoria para isso?',CONVERT(datetime,'2020-7-29 20:58:32',20),null,'Olá, Xerxes Madureira!',null,0,null)
+		  ,('665D5283-0A6E-4EEF-A325-36FCE1DE4FC2','DC2EFB34-E81E-42DD-A860-404C4FF973F0','Como funciona o planejamento?','Oi. eu comecei a usar o dominus agora e quero saber como funciona o planejamento que tem no site.',CONVERT(datetime,'2020-8-3 07:43:19',20),null,'Olá, Máximo Carqueijeiro!',null,0,null)
+		  ,('EF505191-473D-40B0-9181-3E35422AB4CC','3A5D8D86-E17E-41A6-9129-428513DA6BA6','Problema para editar valor','Ok. Funcionou essa dica. Muito obrigado!',CONVERT(datetime,'2020-8-19 13:22:36',20),null,'Olá, Xavier Canela!',null,0,'0F0C695E-5815-4F49-8EBE-DB5C4A83A119')
+GO

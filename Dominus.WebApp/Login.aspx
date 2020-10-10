@@ -11,13 +11,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-user"></i></span>
             </div>
-            <input id="txtLogin" class="form-control rounded-right" type="text" runat="server" placeholder="Digite o seu login ou e-mail." required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')">
+            <input id="txtLogin" class="form-control rounded-right" type="text" runat="server" placeholder="Digite o seu login ou e-mail." required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="100">
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="txtSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Digite a sua senha." required oninvalid="this.setCustomValidity('Insira a sua senha.')" oninput="setCustomValidity('')">
+            <input id="txtSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Digite a sua senha." required oninvalid="this.setCustomValidity('Insira a sua senha.')" oninput="setCustomValidity('')" maxlength="20">
         </div>
         <a class="btn btn-link btn-block text-left" href="RecuperarSenha">Esqueci minha senha</a>
         <div class="text-center">

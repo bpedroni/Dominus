@@ -116,6 +116,12 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMensagensChamado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMensagensChamado.Designer.cs">
+      <DependentUpon>FormMensagensChamado.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPerfisUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,12 @@
     </Compile>
     <Compile Include="FormRecuperarSenha.Designer.cs">
       <DependentUpon>FormRecuperarSenha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormResponderChamado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormResponderChamado.Designer.cs">
+      <DependentUpon>FormResponderChamado.cs</DependentUpon>
     </Compile>
     <Compile Include="FormSplash.cs">
       <SubType>Form</SubType>
@@ -162,6 +174,9 @@
       <DependentUpon>FormLogin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMensagensChamado.resx">
+      <DependentUpon>FormMensagensChamado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPerfisUsuario.resx">
       <DependentUpon>FormPerfisUsuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecuperarSenha.resx">
       <DependentUpon>FormRecuperarSenha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormResponderChamado.resx">
+      <DependentUpon>FormResponderChamado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSplash.resx">
       <DependentUpon>FormSplash.cs</DependentUpon>

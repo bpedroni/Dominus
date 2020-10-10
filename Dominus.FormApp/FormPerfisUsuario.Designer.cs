@@ -59,6 +59,7 @@ namespace Dominus.FormApp
             // 
             this.txtFiltroUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.txtFiltroUsuario.Location = new System.Drawing.Point(120, 12);
+            this.txtFiltroUsuario.MaxLength = 100;
             this.txtFiltroUsuario.Name = "txtFiltroUsuario";
             this.txtFiltroUsuario.Size = new System.Drawing.Size(200, 24);
             this.txtFiltroUsuario.TabIndex = 1;

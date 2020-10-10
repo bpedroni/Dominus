@@ -11,6 +11,8 @@ namespace Dominus.DataModel.Core
 {
     public class UsuarioManager
     {
+        private static ConnectionManager connection = new ConnectionManager();
+
         public const int PERFIL_ADMINISTRADOR = 1;
         public const int PERFIL_USUARIO = 0;
 
@@ -19,7 +21,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de usuários cadastrados sistema:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Usuario> usuarios = connection.context.Usuarios.ToList();
                 connection.CloseConnection();
@@ -27,6 +28,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -103,7 +105,6 @@ namespace Dominus.DataModel.Core
                 usuario.DataCriacao = DateTime.Now;
                 usuario.PerfilAdministrador = PERFIL_USUARIO;
                 usuario.Ativo = ConnectionManager.STATUS_ATIVO;
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(usuario).State = EntityState.Added;
                 connection.context.SaveChanges();
@@ -111,6 +112,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -120,7 +122,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados do usuário fornecido:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(usuario).State = EntityState.Modified;
                 connection.context.SaveChanges();
@@ -128,6 +129,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -138,7 +140,6 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação remove o usuário fornecido alterando o seu status para inativo:
                 usuario.Ativo = ConnectionManager.STATUS_INATIVO;
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(usuario).State = EntityState.Modified;
                 connection.context.SaveChanges();
@@ -146,6 +147,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -187,6 +189,7 @@ namespace Dominus.DataModel.Core
         public static bool ValidarSenha(String senha)
         {
             bool senhaValida = senha.Length >= 8
+                && senha.Length <= 20
                 && senha.Any(char.IsUpper)
                 && senha.Any(char.IsLower)
                 && senha.Any(char.IsDigit);

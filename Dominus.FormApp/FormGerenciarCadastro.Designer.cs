@@ -77,6 +77,7 @@
             // txtNome
             // 
             this.txtNome.Location = new System.Drawing.Point(184, 22);
+            this.txtNome.MaxLength = 100;
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(290, 24);
             this.txtNome.TabIndex = 1;
@@ -93,6 +94,7 @@
             // txtLogin
             // 
             this.txtLogin.Location = new System.Drawing.Point(184, 57);
+            this.txtLogin.MaxLength = 25;
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(290, 24);
             this.txtLogin.TabIndex = 3;
@@ -109,6 +111,7 @@
             // txtSenha
             // 
             this.txtSenha.Location = new System.Drawing.Point(184, 92);
+            this.txtSenha.MaxLength = 20;
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.PasswordChar = '*';
             this.txtSenha.Size = new System.Drawing.Size(290, 24);
@@ -126,6 +129,7 @@
             // txtNovaSenha
             // 
             this.txtNovaSenha.Location = new System.Drawing.Point(184, 160);
+            this.txtNovaSenha.MaxLength = 20;
             this.txtNovaSenha.Name = "txtNovaSenha";
             this.txtNovaSenha.PasswordChar = '*';
             this.txtNovaSenha.Size = new System.Drawing.Size(290, 24);
@@ -145,6 +149,7 @@
             // txtConfirmarSenha
             // 
             this.txtConfirmarSenha.Location = new System.Drawing.Point(184, 195);
+            this.txtConfirmarSenha.MaxLength = 20;
             this.txtConfirmarSenha.Name = "txtConfirmarSenha";
             this.txtConfirmarSenha.PasswordChar = '*';
             this.txtConfirmarSenha.Size = new System.Drawing.Size(290, 24);

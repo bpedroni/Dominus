@@ -6,6 +6,8 @@ namespace Dominus.DataModel.Core
 {
     public class EstatisticaManager
     {
+        private static ConnectionManager connection = new ConnectionManager();
+
         public static List<Item> GetAnaliseUsuarios(DateTime dataInicial, DateTime dataFinal, Periodo periodo = Periodo.Mes)
         {
             try
@@ -15,10 +17,8 @@ namespace Dominus.DataModel.Core
                 DateTime inicio = new DateTime(dataInicial.Year, dataInicial.Month, dataInicial.Day, 0, 0, 0);
                 DateTime fim = new DateTime(dataFinal.Year, dataFinal.Month, dataFinal.Day, 23, 59, 59);
 
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Usuario> usuarios = connection.context.Usuarios.Where(x => x.DataCriacao >= inicio && x.DataCriacao <= fim).ToList();
-                connection.CloseConnection();
 
                 switch (periodo)
                 {
@@ -44,10 +44,12 @@ namespace Dominus.DataModel.Core
                     default:
                         break;
                 }
+                connection.CloseConnection();
                 return items;
             }
             catch (Exception)
             {
+                connection.CloseConnection();
                 return new List<Item>();
             }
         }
@@ -61,7 +63,6 @@ namespace Dominus.DataModel.Core
                 DateTime inicio = new DateTime(dataInicial.Year, dataInicial.Month, dataInicial.Day, 0, 0, 0);
                 DateTime fim = new DateTime(dataFinal.Year, dataFinal.Month, dataFinal.Day, 23, 59, 59);
 
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Transacao> transacoes = connection.context.Transacoes.Where(x => x.Data >= inicio && x.Data <= fim).ToList();
 
@@ -87,6 +88,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception)
             {
+                connection.CloseConnection();
                 return new List<Item>();
             }
         }

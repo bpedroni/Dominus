@@ -6,12 +6,13 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace Dominus.DataModel.Core
 {
     public class CategoriaManager
     {
+        private static ConnectionManager connection = new ConnectionManager();
+
         public const String TIPO_FLUXO_RECEITA = "Receita";
         public const String TIPO_FLUXO_DESPESA = "Despesa";
 
@@ -20,7 +21,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de categorias cadastradas no sistema:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Categoria> categorias = connection.context.Categorias.ToList();
                 connection.CloseConnection();
@@ -28,6 +28,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -85,7 +86,6 @@ namespace Dominus.DataModel.Core
                 categoria.IdCategoria = Guid.NewGuid();
                 categoria.DataCriacao = DateTime.Now;
                 categoria.Ativo = ConnectionManager.STATUS_ATIVO;
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(categoria).State = EntityState.Added;
                 connection.context.SaveChanges();
@@ -93,6 +93,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -102,7 +103,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados da categoria fornecida:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(categoria).State = EntityState.Modified;
                 connection.context.SaveChanges();
@@ -110,6 +110,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -120,7 +121,6 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação remove a categoria alterando o seu status para inativo:
                 categoria.Ativo = ConnectionManager.STATUS_INATIVO;
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(categoria).State = EntityState.Modified;
                 connection.context.SaveChanges();
@@ -128,6 +128,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }

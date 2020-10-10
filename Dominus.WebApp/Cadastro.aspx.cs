@@ -11,9 +11,12 @@ namespace Dominus.WebApp
         {
             if (Session["Usuario"] != null)
             {
-                Response.Redirect("Logoff?ReturnUrl=Cadastro", true);
+                Sessao.EncerrarSessao();
             }
-            txtNome.Focus();
+            if (!IsPostBack)
+            {
+                txtNome.Focus();
+            }
         }
 
         protected void TermosUso_ServerValidate(object source, ServerValidateEventArgs args)
@@ -27,23 +30,27 @@ namespace Dominus.WebApp
             lblMsg.Text = String.Empty;
 
             // Valida se os campos estão preenchidos:
-            if (String.IsNullOrWhiteSpace(txtNome.Value))
+            if (String.IsNullOrWhiteSpace(txtNome.Value) || txtNome.Value.Trim().Length > 100)
             {
+                lblMsg.Text = "O nome deve ser preenchido com até 100 caracteres.";
                 txtNome.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtLogin.Value))
+            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length > 15)
             {
+                lblMsg.Text = "O login deve ser preenchido com até 15 caracteres.";
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtEmail.Value) || !UsuarioManager.ValidarEmail(txtEmail.Value))
+            if (String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
             {
+                lblMsg.Text = "O e-mail deve ser preenchido com até 100 caracteres.";
                 txtEmail.Focus();
                 return;
             }
             if (String.IsNullOrWhiteSpace(txtSenha.Value))
             {
+                lblMsg.Text = "A senha deveser preenchida.";
                 txtSenha.Focus();
                 return;
             }
@@ -55,23 +62,24 @@ namespace Dominus.WebApp
             }
             if (!chkTermosUso.Checked)
             {
+                lblMsg.Text = "É necessário que os termos sejam aceitos.";
                 return;
             }
 
             try
             {
-                Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value);
+                Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value.Trim());
                 if (usuario != null)
                 {
-                    txtEmail.Focus();
                     lblMsg.Text = "O e-mail fornecido já possui cadastro no sistema. Utilize um outro e-mail ou recupere sua senha.";
+                    txtEmail.Focus();
                     return;
                 }
-                usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value);
+                usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value.Trim());
                 if (usuario != null)
                 {
-                    txtLogin.Focus();
                     lblMsg.Text = "O sistema já possui o login digitado. Escolha um outro nome.";
+                    txtLogin.Focus();
                     return;
                 }
                 if (!UsuarioManager.ValidarSenha(txtSenha.Value))
@@ -83,13 +91,13 @@ namespace Dominus.WebApp
 
                 UsuarioManager.AddUsuario(new Usuario()
                 {
-                    Nome = txtNome.Value,
-                    Login = txtLogin.Value,
-                    Email = txtEmail.Value,
+                    Nome = txtNome.Value.Trim(),
+                    Login = txtLogin.Value.Trim(),
+                    Email = txtEmail.Value.Trim(),
                     Senha = Codificador.Criptografar(txtSenha.Value)
                 });
 
-                usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value);
+                usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value.Trim());
                 Sessao.IniciarSessao(usuario);
 
                 Response.Redirect("Resumo", true);

@@ -37,15 +37,20 @@ namespace Dominus.DataModel.Core
         }
 
         // Método utilizado para testar a conexão com o banco de dados
-        public void TestaConexao()
+        public static void TestConnection()
         {
+            // Inicia uma instância de conexão com o banco de dados:
+            ConnectionManager connection = new ConnectionManager();
             try
             {
                 // Verifica se a conexão retorna dados e pode ser utilizada no sistema:
-                Usuario teste = context.Usuarios.FirstOrDefault();
+                connection.OpenConnection();
+                Usuario teste = connection.context.Usuarios.FirstOrDefault();
+                connection.CloseConnection();
             }
             catch (Exception)
             {
+                connection.CloseConnection();
                 // Gera uma exceção de falha na conexão com o banco de dados:
                 throw new Exception("Não foi possível fazer a conexão com o banco de dados!");
             }

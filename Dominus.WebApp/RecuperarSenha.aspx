@@ -10,7 +10,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             </div>
-            <input id="txtEmail" class="form-control rounded-right" type="email" runat="server" placeholder="Digite o seu e-mail." required oninvalid="this.setCustomValidity('Insira um e-mail.')" oninput="setCustomValidity('')">
+            <input id="txtEmail" class="form-control rounded-right" type="email" runat="server" placeholder="Digite o seu e-mail." required oninvalid="this.setCustomValidity('Insira um e-mail.')" oninput="setCustomValidity('')" maxlength="100">
         </div>
         <div class="text-center">
             <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" /><p></p>

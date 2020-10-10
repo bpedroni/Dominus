@@ -6,12 +6,13 @@ namespace Dominus.DataModel.Core
 {
     public class TransacaoManager
     {
+        private static ConnectionManager connection = new ConnectionManager();
+
         public static List<Transacao> GetTransacoes(Usuario usuario, int? mes = null)
         {
             try
             {
                 // Retorna uma lista de transações do usuário fornecido:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Transacao> transacoes = connection.context.Transacoes
                     .Where(x => x.IdUsuario == usuario.IdUsuario
@@ -22,6 +23,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -31,7 +33,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de provisões do usuário fornecido:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 List<Transacao> transacoes = connection.context.Transacoes
                     .Where(x => x.IdUsuario == usuario.IdUsuario
@@ -42,6 +43,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }

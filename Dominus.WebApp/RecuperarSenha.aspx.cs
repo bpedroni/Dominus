@@ -10,9 +10,12 @@ namespace Dominus.WebApp
         {
             if (Session["Usuario"] != null)
             {
-                Response.Redirect("Logoff?ReturnUrl=RecuperarSenha", true);
+                Sessao.EncerrarSessao();
             }
-            txtEmail.Focus();
+            if (!IsPostBack)
+            {
+                txtEmail.Focus();
+            }
         }
 
         protected void BtnRecuperarSenha_Click(object sender, EventArgs e)
@@ -22,13 +25,13 @@ namespace Dominus.WebApp
 
             try
             {
-                if (!String.IsNullOrWhiteSpace(txtEmail.Value) && !UsuarioManager.ValidarEmail(txtEmail.Value))
+                if (!String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
                 {
                     lblMsg.CssClass = "text-danger";
                     lblMsg.Text = "Endereço de e-mail inválido!";
                     return;
                 }
-                Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value);
+                Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value.Trim());
                 if (usuario == null)
                 {
                     lblMsg.CssClass = "text-danger";

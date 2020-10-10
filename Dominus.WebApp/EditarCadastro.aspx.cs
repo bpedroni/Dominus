@@ -31,17 +31,17 @@ namespace Dominus.WebApp
             lblMsg.Text = String.Empty;
 
             // Valida se os campos estão preenchidos:
-            if (String.IsNullOrWhiteSpace(txtNome.Value))
+            if (String.IsNullOrWhiteSpace(txtNome.Value) || txtNome.Value.Trim().Length > 100)
             {
                 txtNome.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtLogin.Value))
+            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length > 15)
             {
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtSenha.Value))
+            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Trim().Length > 20)
             {
                 txtSenha.Focus();
                 return;
@@ -60,7 +60,7 @@ namespace Dominus.WebApp
                     txtSenha.Focus();
                     return;
                 }
-                if (Usuario.Login != txtLogin.Value && UsuarioManager.GetUsuarioByLogin(txtLogin.Value) != null)
+                if (Usuario.Login != txtLogin.Value.Trim() && UsuarioManager.GetUsuarioByLogin(txtLogin.Value.Trim()) != null)
                 {
                     txtLogin.Focus();
                     lblMsg.Text = "O sistema já possui o login digitado. Escolha um outro nome.";
@@ -76,8 +76,8 @@ namespace Dominus.WebApp
                     }
                     Usuario.Senha = Codificador.Criptografar(txtNovaSenha.Value);
                 }
-                Usuario.Nome = txtNome.Value;
-                Usuario.Login = txtLogin.Value;
+                Usuario.Nome = txtNome.Value.Trim();
+                Usuario.Login = txtLogin.Value.Trim();
                 UsuarioManager.EditUsuario(Usuario);
 
                 Usuario = UsuarioManager.GetUsuarioByEmail(Usuario.Email);

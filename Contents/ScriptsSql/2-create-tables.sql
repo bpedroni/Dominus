@@ -127,7 +127,7 @@ CREATE TABLE Chamado (
 	Mensagem varchar(1000) NOT NULL,
 	DataCriacao datetime NOT NULL CONSTRAINT DF_Chamado_DataCriacao DEFAULT getdate(),
 	IdUsuarioSuporte uniqueidentifier NULL CONSTRAINT FK_Chamado_IdUsuarioSuporte FOREIGN KEY REFERENCES Usuario (IdUsuario),
-	MensagemResposta varchar(1000) NOT NULL,
+	MensagemResposta varchar(1000) NULL,
 	DataResposta datetime NULL,
 	Validado int NOT NULL CONSTRAINT DF_Chamado_Validado DEFAULT 0,
 	IdChamadoAssociado uniqueidentifier NULL CONSTRAINT FK_Chamado_IdChamadoAssociado FOREIGN KEY REFERENCES Chamado (IdChamado)

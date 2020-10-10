@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.Security;
 
 namespace Dominus.WebApp
 {
@@ -7,9 +6,7 @@ namespace Dominus.WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Clear();
-            Session.Abandon();
-            FormsAuthentication.SignOut();
+            Sessao.EncerrarSessao();
             string strRedirect = Request["ReturnUrl"] ?? "/";
             Response.Redirect(strRedirect, true);
         }

@@ -7,6 +7,8 @@ namespace Dominus.DataModel.Core
 {
     public class ChamadoManager
     {
+        private static ConnectionManager connection = new ConnectionManager();
+
         public const int CHAMADO_VALIDADO = 1;
         public const int CHAMADO_NAO_VALIDADO = 0;
 
@@ -15,14 +17,15 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de chamados cadastrados sistema:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
+                // Aqui são excluídos os chamados que estão associados a um novo chamado:
                 List<Chamado> chamados = connection.context.Chamados.ToList();
                 connection.CloseConnection();
                 return chamados;
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -54,6 +57,22 @@ namespace Dominus.DataModel.Core
             }
         }
 
+        public static Usuario GetUsuario(Chamado chamado)
+        {
+            Usuario usuario = UsuarioManager.GetUsuarioById(chamado.IdUsuario);
+            return usuario;
+        }
+
+        public static Usuario GetUsuarioSuporte(Chamado chamado)
+        {
+            Usuario usuario = null;
+            if (chamado.IdUsuarioSuporte != null)
+            {
+                usuario = UsuarioManager.GetUsuarioById((Guid)chamado.IdUsuarioSuporte);
+            }
+            return usuario;
+        }
+
         public static void AddChamado(Chamado chamado)
         {
             try
@@ -66,7 +85,6 @@ namespace Dominus.DataModel.Core
                 chamado.IdChamado = Guid.NewGuid();
                 chamado.DataCriacao = DateTime.Now;
                 chamado.Validado = CHAMADO_NAO_VALIDADO;
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(chamado).State = EntityState.Added;
                 connection.context.SaveChanges();
@@ -74,6 +92,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -83,7 +102,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados do chamado fornecido:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(chamado).State = EntityState.Modified;
                 connection.context.SaveChanges();
@@ -91,6 +109,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -100,7 +119,6 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação remove o chamado fornecido:
-                ConnectionManager connection = new ConnectionManager();
                 connection.OpenConnection();
                 connection.context.Entry(chamado).State = EntityState.Deleted;
                 connection.context.SaveChanges();
@@ -108,6 +126,7 @@ namespace Dominus.DataModel.Core
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }

@@ -19,10 +19,7 @@ namespace Dominus.FormApp
                 Form splash = new FormSplash();
                 splash.Show();
                 Application.DoEvents();
-                ConnectionManager connection = new ConnectionManager();
-                connection.OpenConnection();
-                connection.TestaConexao();
-                connection.CloseConnection();
+                ConnectionManager.TestConnection();
                 splash.Close();
                 Application.Run(new FormLogin());
             }

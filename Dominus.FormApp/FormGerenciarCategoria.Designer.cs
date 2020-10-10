@@ -57,6 +57,7 @@
             // txtNome
             // 
             this.txtNome.Location = new System.Drawing.Point(124, 22);
+            this.txtNome.MaxLength = 50;
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(290, 24);
             this.txtNome.TabIndex = 2;
@@ -73,6 +74,7 @@
             // txtDescricao
             // 
             this.txtDescricao.Location = new System.Drawing.Point(124, 57);
+            this.txtDescricao.MaxLength = 255;
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(290, 24);
             this.txtDescricao.TabIndex = 4;
@@ -121,6 +123,7 @@
             // 
             this.txtIcone.AllowDrop = true;
             this.txtIcone.Location = new System.Drawing.Point(124, 126);
+            this.txtIcone.MaxLength = 100;
             this.txtIcone.Name = "txtIcone";
             this.txtIcone.ReadOnly = true;
             this.txtIcone.Size = new System.Drawing.Size(193, 24);
