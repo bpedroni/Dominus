@@ -24,7 +24,12 @@ namespace Dominus.DataModel
             this.Relatorios = new HashSet<Relatorio>();
             this.Transacoes = new HashSet<Transacao>();
         }
-    
+
+        public static explicit operator Usuario(object v)
+        {
+            throw new NotImplementedException();
+        }
+
         public System.Guid IdUsuario { get; set; }
         public string Nome { get; set; }
         public string Login { get; set; }
