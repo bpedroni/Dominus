@@ -1801,6 +1801,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CategoriasController.cs" />
+    <Compile Include="Api\UsuariosController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
