@@ -1,5 +1,4 @@
 ﻿using Dominus.DataModel;
-using Dominus.DataModel.Core;
 using System;
 using System.Data;
 
@@ -30,9 +29,11 @@ namespace Dominus.WebApp
             int mes, ano;
             Double valor;
 
-            Usuario = Convert.ToString((Usuario)Session["Usuario"]);
+            // Verificar a necessidade de alterar o valor do objeto Usuario inicializado no carregamento da página (linha 18)
+            //Usuario = Convert.ToString((Usuario)Session["Usuario"]);
 
-
+            // Ver a possibilidade de criar objetos para exibir consulta
+            // Não é necessário o uso de ' para identificar a variável string em um comando sql
             String str = "select Sum(t.valor), c.nome from Transacao t" +
                 "inner join Categoria c on c.idCategoria = t.idCategoria" +
                 "where idUsuario in" +
@@ -42,5 +43,5 @@ namespace Dominus.WebApp
 
         }
     }
-    
+
 }

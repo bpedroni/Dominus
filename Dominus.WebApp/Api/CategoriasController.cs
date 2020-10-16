@@ -24,7 +24,7 @@ namespace Dominus.WebApp
         // GET api/categorias/tipo/{id} - exibe todas as categorias ativas de algum tipo de fluxo:
         [HttpGet]
         [ActionName("tipo")]
-        public List<Categoria> GetCategoriasByTipo(String id)   
+        public List<Categoria> GetCategoriasByTipo(String id)
         {
             return CategoriaManager.GetCategoriasAtivas().Where(x => x.TipoFluxo.Equals(id, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }

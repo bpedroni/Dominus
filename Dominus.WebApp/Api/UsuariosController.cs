@@ -2,9 +2,6 @@
 using Dominus.DataModel.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Dominus.WebApp.Api
@@ -17,7 +14,7 @@ namespace Dominus.WebApp.Api
             return UsuarioManager.GetUsuariosAtivos();
         }
 
-        // GET api/usuario/id/{id} - exibe o usuário solicitado pelo id
+        // GET api/usuarios/id/{id} - exibe o usuário solicitado pelo id
         [ActionName("id")]
         public Usuario Get(String id)
         {
@@ -32,14 +29,14 @@ namespace Dominus.WebApp.Api
             }
         }
 
-                // POST api/<controller>
+        // POST api/<controller>
         public void Post([FromBody] Usuario usuario)
         {
             try
             {
                 UsuarioManager.AddUsuario(usuario);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -53,7 +50,7 @@ namespace Dominus.WebApp.Api
                 usuario.IdUsuario = Guid.Parse(id);
                 UsuarioManager.EditUsuario(usuario);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -68,7 +65,7 @@ namespace Dominus.WebApp.Api
                 Usuario usuario = UsuarioManager.GetUsuarioById(guid);
                 UsuarioManager.DeleteUsuario(usuario);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
