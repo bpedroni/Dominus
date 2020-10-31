@@ -47,6 +47,7 @@ namespace Dominus.WebApp
                 {
                     // Alerta o usuário que as credenciais estão inválidas:
                     lblMsg.Text = "O login ou a senha estão inválidos.";
+                    txtSenha.Focus();
                     return;
                 }
 

@@ -9,6 +9,11 @@
     max-width: 100%;
 }
 
+#principal {
+    height: calc(100vh - 76px);
+    overflow: auto;
+}
+
 #btnUser {
     color: white;
     font-size: x-large;
@@ -19,30 +24,6 @@
     margin: 20px auto;
     max-width: 400px;
 }
-
-.sidebar {
-    width: 200px;
-    height: calc(100vh - 76px);
-    position: absolute;
-    overflow: auto;
-    background-color: darkslateblue;
-}
-
-    .sidebar a {
-        display: block;
-        color: white;
-        padding: 16px;
-        text-decoration: none;
-    }
-
-        .sidebar a.active {
-            background-color: midnightblue;
-            border-left: 10px solid orange;
-        }
-
-        .sidebar a:hover:not(.active) {
-            background-color: royalblue;
-        }
 
 .info-usuario {
     font-size: 1.4rem;
@@ -64,13 +45,29 @@
         }
 
     div.content {
-        margin-left: unset;
+        margin-left: 0px !important;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 999;
+    }
+    
+    #principal {
+        position: relative;
+        top: 76px;
+        height: calc(100vh - 76px);
+        overflow: auto;
     }
 
     .sidebar {
+        position: absolute;
+        top: 76px;
         width: 100%;
-        height: auto;
-        position: relative;
+        height: 60px;
     }
 
         .sidebar a {
@@ -87,10 +84,6 @@
             .sidebar a span {
                 display: none;
             }
-
-    div.content {
-        margin-left: 0 !important;
-    }
 }
 
 @media screen and (max-width: 575px) {

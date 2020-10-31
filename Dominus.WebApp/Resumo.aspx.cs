@@ -1,14 +1,20 @@
 ﻿using Dominus.DataModel;
+using Dominus.DataModel.Core;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Data;
-
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
 
 namespace Dominus.WebApp
 {
     public partial class Resumo : System.Web.UI.Page
     {
         protected static Usuario Usuario;
+        protected static String Periodo;
+        protected static List<Object> Transacoes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,6 +26,44 @@ namespace Dominus.WebApp
             {
                 Response.Redirect("Login?ReturnUrl=Resumo", true);
             }
+        }
+
+        protected void Page_LoadComplete(object sender, EventArgs e)
+        {
+            Periodo = Session["Periodo"]?.ToString();
+
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("PT-br"));
+            Transacoes = new List<Object>();
+
+            foreach (Transacao transacao in TransacaoManager.GetTransacoes(Usuario, periodo.Month, periodo.Year).OrderByDescending(x => x.Data))
+            {
+                Categoria categoria = CategoriaManager.GetCategoriaById(transacao.IdCategoria);
+
+                Transacoes.Add(new
+                {
+                    transacao.IdTransacao,
+                    Categoria = categoria.Nome,
+                    IconeCategoria = "Images/Categorias/" + categoria.Icone,
+                    transacao.TipoFluxo,
+                    transacao.Descricao,
+                    transacao.Data,
+                    transacao.Valor,
+                    transacao.Comentario
+                });
+            }
+
+            CarregarGridTransacoes();
+        }
+
+        protected void CarregarGridTransacoes()
+        {
+            gridTransacoes.DataSource = Transacoes.Take(3).ToList();
+            gridTransacoes.DataBind();
+        }
+
+        public static String GetTransacoes()
+        {
+            return JsonConvert.SerializeObject(Transacoes);
         }
 
         protected void pesquisa()
@@ -43,5 +87,4 @@ namespace Dominus.WebApp
 
         }
     }
-
 }

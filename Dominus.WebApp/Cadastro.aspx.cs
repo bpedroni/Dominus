@@ -50,7 +50,7 @@ namespace Dominus.WebApp
             }
             if (String.IsNullOrWhiteSpace(txtSenha.Value))
             {
-                lblMsg.Text = "A senha deveser preenchida.";
+                lblMsg.Text = "A senha deve ser preenchida.";
                 txtSenha.Focus();
                 return;
             }
@@ -62,7 +62,6 @@ namespace Dominus.WebApp
             }
             if (!chkTermosUso.Checked)
             {
-                lblMsg.Text = "É necessário que os termos sejam aceitos.";
                 return;
             }
 

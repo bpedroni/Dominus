@@ -1,10 +1,9 @@
-﻿// Função que remove os anúncios do somee do corpo da página.
-// Esta função é disparada após o carregamento da página e mantém apenas a tag form da masterpage no body.
-function removerAnunciosSomee() {
+﻿// Função que remove os anúncios do somee do corpo da página. Esta função é disparada após o carregamento da página e mantém apenas a tag form da masterpage no body.
+window.onload = function () {
     $("form").nextAll('div').remove();
     $("form").nextAll('center').remove();
     $("form").nextAll('script').remove();
-}
+};
 
 // Função que que compara as os textos da senha e adiciona uma mensagem de erro no caso de divergência dos valores.
 function validarSenhas(elemSenha, elemValidarSenha, elemMsg) {

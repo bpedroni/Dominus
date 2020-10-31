@@ -6,64 +6,52 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dominus - <%: Page.Title %></title>
+    <title>Dominus <%: Page.Title %></title>
     <link href="Contents/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Contents/lib/fontawesome/css/all.css" rel="stylesheet" />
     <link href="Contents/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Contents/css/site.css" rel="stylesheet" />
+    <% if (UsuarioConectado)
+        {%>
+    <link href="Contents/css/site-logado.css" rel="stylesheet" />
+    <%}%>
     <script src="Contents/lib/jquery/jquery-3.5.1.min.js"></script>
     <script src="Contents/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="Contents/js/site.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            removerAnunciosSomee();
-            setTimeout(function () {
-                removerAnunciosSomee();
-            }, 100);
-        });
-    </script>
-    <% if (UsuarioConectado)
-        {%>
-    <style>
-        div.content {
-            margin-left: 200px;
-        }
-    </style>
-    <%}%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form runat="server">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a class="navbar-brand" href="<%: UsuarioConectado ? "Resumo" : "./" %>">
-                <img src="Contents/img/logo_250x50.png" alt="Dominus" />
+            <a class="navbar-brand" href="<%: UsuarioConectado ? "Resumo" : "./" %>" title="Página Inicial">
+                <img src="Contents/img/logo_250x50.png" alt="Dominus" title="Logotipo Dominus" />
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button type="button" class="navbar-toggler" title="Menu" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-between" id="collapseContent">
+            <div id="collapseContent" class="collapse navbar-collapse justify-content-between">
                 <ul class="navbar-nav justify-content-start">
                     <li class="nav-item">
-                        <a class="nav-link active" href="./"><i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span></a>
+                        <a class="nav-link active" href="./" title="Página Inicial"><i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Sobre"><i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span></a>
+                        <a class="nav-link active" href="Sobre" title="Sobre o Dominus"><i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Contato"><i class="fas fa-at"></i>&nbsp;<span>Contato</span></a>
+                        <a class="nav-link active" href="Contato" title="Entre em contato"><i class="fas fa-at"></i>&nbsp;<span>Contato</span></a>
                     </li>
                 </ul>
                 <% if (UsuarioConectado)
                     {%>
                 <ul class="navbar-nav justify-content-end">
                     <li class="nav-item dropdown">
-                        <button type="button" id="btnUser" class="btn btn-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button id="btnUser" type="button" class="btn btn-dark" title="Menu do usuário" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user-circle"></i>&nbsp;<asp:Label ID="lblNomeUsuario" runat="server"></asp:Label>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnUser">
-                            <a class="dropdown-item" href="EditarCadastro">Editar Conta</a>
-                            <a class="dropdown-item" href="Logoff">Sair</a>
+                            <a class="dropdown-item" href="EditarCadastro" title="Editar conta de usuário">Editar Conta</a>
+                            <a class="dropdown-item" href="Logoff" title="Sair">Sair</a>
                         </div>
                     </li>
                 </ul>
@@ -72,10 +60,10 @@
                     {%>
                 <ul class="navbar-nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" href="Cadastro">Criar conta</a>
+                        <a class="nav-link active" href="Cadastro" title="Ir para a página de cadastro">Criar conta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Login">Login</a>
+                        <a class="nav-link active" href="Login" title="Ir para login">Login</a>
                     </li>
                 </ul>
                 <%}%>
@@ -84,14 +72,14 @@
         <% if (UsuarioConectado)
             {%>
         <div class="sidebar">
-            <a <%= Page.Request.FilePath == "/Resumo" ? "class='active'" : "" %> href="Resumo"><i class="fas fa-money-check-alt"></i>&nbsp;<span>Resumo</span></a>
-            <a <%= Page.Request.FilePath == "/Extrato" ? "class='active'" : "" %> href="Extrato"><i class="fas fa-dollar-sign"></i>&nbsp;<span>Extrato</span></a>
-            <a <%= Page.Request.FilePath == "/Planejamento" ? "class='active'" : "" %> href="Planejamento"><i class="fas fa-balance-scale"></i>&nbsp;<span>Planejamento</span></a>
-            <a <%= Page.Request.FilePath == "/Relatorios" ? "class='active'" : "" %> href="Relatorios"><i class="fas fa-chart-pie"></i>&nbsp;<span>Relatórios</span></a>
+            <a <%= Page.Request.FilePath == "/Resumo" ? "class='active'" : "" %> href="Resumo" title="Resumo financeiro"><i class="fas fa-money-check-alt"></i>&nbsp;<span>Resumo</span></a>
+            <a <%= Page.Request.FilePath == "/Extrato" ? "class='active'" : "" %> href="Extrato" title="Extrato financeiro"><i class="fas fa-dollar-sign"></i>&nbsp;<span>Extrato</span></a>
+            <a <%= Page.Request.FilePath == "/Planejamento" ? "class='active'" : "" %> href="Planejamento" title="Planejamento financeiro"><i class="fas fa-balance-scale"></i>&nbsp;<span>Planejamento</span></a>
+            <a <%= Page.Request.FilePath == "/Relatorios" ? "class='active'" : "" %> href="Relatorios" title="Relatórios"><i class="fas fa-chart-pie"></i>&nbsp;<span>Relatórios</span></a>
         </div>
         <%}%>
-        <div class="content">
-            <% if (UsuarioConectado)
+        <div id="principal" class="content">
+            <% if (UsuarioConectado && new String[] { "/Resumo", "/Extrato", "/Planejamento", "/Relatorios" }.Contains(Page.Request.FilePath))
                 {%>
             <div class="info-usuario form-row m-0 justify-content-between bg-light">
                 <div class="form-row col-sm m-2">
@@ -103,7 +91,7 @@
                 <div class="form-row col-sm m-2">
                     <span>Período:&nbsp;&nbsp;</span>
                     <b>
-                        <asp:DropDownList ID="ddListaPeriodo" CssClass="form-control" runat="server" AutoPostBack="true">
+                        <asp:DropDownList ID="ddListaPeriodo" CssClass="form-control" ToolTip="Selecione um período" runat="server" AutoPostBack="true">
                         </asp:DropDownList>
                     </b>
                 </div>
@@ -112,10 +100,6 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-        <%--<hr />
-        <footer>
-            <p>&copy; <%: DateTime.Now.Year %> - Dominus</p>
-        </footer>--%>
     </form>
 </body>
 </html>

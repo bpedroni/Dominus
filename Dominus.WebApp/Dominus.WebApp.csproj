@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D6D5ABF1-0727-4945-B8DD-CA847CEBE565}</ProjectGuid>
+    <ProjectGuid>{B384273E-B8DB-47BB-8D5C-0326AB431F7F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -106,10 +106,12 @@
   <ItemGroup>
     <Content Include="Cadastro.aspx" />
     <Content Include="Contato.aspx" />
+    <Content Include="Contents\css\site-logado.css" />
     <Content Include="Contents\css\site.css" />
     <Content Include="Contents\img\favicon.ico" />
     <Content Include="Contents\img\logo_160x120.png" />
     <Content Include="Contents\img\logo_250x50.png" />
+    <Content Include="Contents\js\dominus-chart.js" />
     <Content Include="Contents\js\site.js" />
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.min.css" />
@@ -121,6 +123,80 @@
     <Content Include="Contents\lib\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Contents\lib\bootstrap\js\bootstrap.js" />
     <Content Include="Contents\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Contents\lib\chartjs\Chart.bundle.js" />
+    <Content Include="Contents\lib\chartjs\Chart.bundle.min.js" />
+    <Content Include="Contents\lib\chartjs\Chart.css" />
+    <Content Include="Contents\lib\chartjs\Chart.js" />
+    <Content Include="Contents\lib\chartjs\Chart.min.css" />
+    <Content Include="Contents\lib\chartjs\Chart.min.js" />
+    <Content Include="Contents\lib\chartjs\samples\advanced\content-security-policy.css" />
+    <Content Include="Contents\lib\chartjs\samples\advanced\content-security-policy.html" />
+    <Content Include="Contents\lib\chartjs\samples\advanced\content-security-policy.js" />
+    <Content Include="Contents\lib\chartjs\samples\advanced\progress-bar.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\area\analyser.js" />
+    <Content Include="Contents\lib\chartjs\samples\charts\area\line-boundaries.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\area\line-datasets.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\area\line-stacked.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\area\radar.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bar\horizontal.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bar\multi-axis.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bar\stacked-group.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bar\stacked.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bar\vertical.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\bubble.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\combo-bar-line.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\doughnut.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\basic.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\interpolation-modes.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\line-styles.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\multi-axis.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\point-sizes.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\point-styles.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\skip-points.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\line\stepped.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\pie.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\polar-area.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\radar-skip-points.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\radar.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\scatter\basic.html" />
+    <Content Include="Contents\lib\chartjs\samples\charts\scatter\multi-axis.html" />
+    <Content Include="Contents\lib\chartjs\samples\favicon.ico" />
+    <Content Include="Contents\lib\chartjs\samples\index.html" />
+    <Content Include="Contents\lib\chartjs\samples\legend\callbacks.html" />
+    <Content Include="Contents\lib\chartjs\samples\legend\point-style.html" />
+    <Content Include="Contents\lib\chartjs\samples\legend\positioning.html" />
+    <Content Include="Contents\lib\chartjs\samples\logo.svg" />
+    <Content Include="Contents\lib\chartjs\samples\samples.js" />
+    <Content Include="Contents\lib\chartjs\samples\scales\filtering-labels.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\gridlines-display.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\gridlines-style.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\linear\min-max-suggested.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\linear\min-max.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\linear\step-size.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\logarithmic\line.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\logarithmic\scatter.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\multiline-labels.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\non-numeric-y.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\time\combo.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\time\financial.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\time\line-point-data.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\time\line.html" />
+    <Content Include="Contents\lib\chartjs\samples\scales\toggle-scale-type.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\bar.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\bubble.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\line.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\pie.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\polar.html" />
+    <Content Include="Contents\lib\chartjs\samples\scriptable\radar.html" />
+    <Content Include="Contents\lib\chartjs\samples\style.css" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\border.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\callbacks.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\custom-line.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\custom-pie.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\custom-points.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\interactions.html" />
+    <Content Include="Contents\lib\chartjs\samples\tooltips\positioning.html" />
+    <Content Include="Contents\lib\chartjs\samples\utils.js" />
     <Content Include="Contents\lib\fontawesome\css\all.css" />
     <Content Include="Contents\lib\fontawesome\css\all.min.css" />
     <Content Include="Contents\lib\fontawesome\css\brands.css" />
@@ -1968,6 +2044,7 @@
     <Content Include="Contents\lib\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Contents\lib\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Contents\lib\jquery\jquery-3.5.1.min.map" />
+    <Content Include="Contents\lib\chartjs\LICENSE.md" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Properties\PublishProfiles\FTPSomee.pubxml" />
