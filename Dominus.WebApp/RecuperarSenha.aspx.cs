@@ -25,7 +25,7 @@ namespace Dominus.WebApp
 
             try
             {
-                if (!String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
+                if (String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
                 {
                     lblMsg.CssClass = "text-danger";
                     lblMsg.Text = "Endereço de e-mail inválido!";

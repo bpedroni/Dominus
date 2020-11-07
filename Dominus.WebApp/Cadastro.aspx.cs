@@ -42,6 +42,12 @@ namespace Dominus.WebApp
                 txtLogin.Focus();
                 return;
             }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtLogin.Value.Trim(), @"^[a-zA-Z0-9_]+$"))
+            {
+                lblMsg.Text = "O login deve conter apenas letras, números ou '_'(sublinhado).";
+                txtLogin.Focus();
+                return;
+            }
             if (String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
             {
                 lblMsg.Text = "O e-mail deve ser preenchido com até 100 caracteres.";

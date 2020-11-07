@@ -25,10 +25,7 @@ namespace Dominus.WebApp
                 lblNomeUsuario.Text = usuario.Nome;
                 decimal saldo = TransacaoManager.GetSaldo(usuario);
                 lblSaldo.Text = saldo.ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR"));
-                if (saldo < 0)
-                {
-                    lblSaldo.CssClass = "text-danger";
-                }
+                lblSaldo.CssClass = saldo < 0 ? "text-danger" : "text-success";
 
                 // Verifica se o usuário selecionou um período na página e atualiza o período na Session:
                 if (IsPostBack && ddListaPeriodo.SelectedIndex >= 0)
@@ -55,23 +52,23 @@ namespace Dominus.WebApp
         private void AtualizaListaPeriodos(Usuario usuario)
         {
             // Define as variáveis dos extremos do período, inicializando com a data atual:
-            DateTime dataInicio = DateTime.Now;
-            DateTime dataFim = DateTime.Now;
+            DateTime dataInicio = DateTime.Now.AddMonths(-2);
+            DateTime dataFim = DateTime.Now.AddMonths(2);
 
             // Define a lista de transações do usuário:
-            List<Transacao> transacoes = TransacaoManager.GetTransacoes(usuario);
+            List<GridRowTransacao> transacoes = TransacaoManager.GetGridTransacoes(usuario);
             if (transacoes.Count > 0)
             {
                 // Define a primeira e última transações do usuário baseadas na data:
-                Transacao primeiraTransacao = transacoes.Aggregate((x1, x2) => x1.Data < x2.Data ? x1 : x2);
-                Transacao ultimaTransacao = transacoes.Aggregate((x1, x2) => x1.Data > x2.Data ? x1 : x2);
+                GridRowTransacao primeiraTransacao = transacoes.Last();
+                GridRowTransacao ultimaTransacao = transacoes.First();
 
                 // Atualiza as datas de início e fim da lista de períodos com as datas das transações:
-                if ((DateTime)primeiraTransacao.Data < DateTime.Now)
+                if ((DateTime)primeiraTransacao.Data < dataInicio)
                 {
                     dataInicio = (DateTime)primeiraTransacao.Data;
                 }
-                if ((DateTime)ultimaTransacao.Data > DateTime.Now)
+                if ((DateTime)ultimaTransacao.Data > dataFim)
                 {
                     dataFim = (DateTime)ultimaTransacao.Data;
                 }
@@ -79,7 +76,7 @@ namespace Dominus.WebApp
 
             // Limpa a lista atual e adiciona os períodos de acordo com as datas de início e fim:
             ddListaPeriodo.Items.Clear();
-            while (dataInicio.Year <= dataFim.Year && dataInicio.Month <= dataFim.Month)
+            while (dataInicio.Year < dataFim.Year || (dataInicio.Year == dataFim.Year && dataInicio.Month <= dataFim.Month))
             {
                 String data = dataInicio.ToString(@"MMMM / yyyy", new CultureInfo("PT-br"));
                 ListItem item = new ListItem(data);

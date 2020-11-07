@@ -98,6 +98,7 @@
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(290, 24);
             this.txtLogin.TabIndex = 3;
+            this.txtLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtLogin_KeyPress);
             // 
             // labelLogin
             // 

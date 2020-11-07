@@ -19,9 +19,6 @@ namespace Dominus.FormApp
         private void FormChamados_Shown(object sender, EventArgs e)
         {
             CarregarGridChamados();
-            btnExibirChamado.Enabled = gridChamados.SelectedRows.Count > 0;
-            btnResponderChamado.Enabled = gridChamados.SelectedRows.Count > 0 &&
-                gridChamados.SelectedRows[0].Cells["ChamadoRespondido"].Value?.ToString() == "Não";
         }
 
         private void CarregarGridChamados()
@@ -42,6 +39,9 @@ namespace Dominus.FormApp
                 }
                 catch (Exception) { }
             }
+            btnExibirChamado.Enabled = gridChamados.SelectedRows.Count > 0;
+            btnResponderChamado.Enabled = gridChamados.SelectedRows.Count > 0 &&
+                gridChamados.SelectedRows[0].Cells["ChamadoRespondido"].Value?.ToString() == "Não";
         }
 
         private void GridChamados_SelectionChanged(object sender, EventArgs e)

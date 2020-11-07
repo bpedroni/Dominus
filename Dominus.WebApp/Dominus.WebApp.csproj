@@ -109,9 +109,13 @@
     <Content Include="Contents\css\site-logado.css" />
     <Content Include="Contents\css\site.css" />
     <Content Include="Contents\img\favicon.ico" />
+    <Content Include="Contents\img\icon_delete.png" />
+    <Content Include="Contents\img\icon_edit.png" />
     <Content Include="Contents\img\logo_160x120.png" />
     <Content Include="Contents\img\logo_250x50.png" />
     <Content Include="Contents\js\dominus-chart.js" />
+    <Content Include="Contents\js\extrato.js" />
+    <Content Include="Contents\js\resumo.js" />
     <Content Include="Contents\js\site.js" />
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.min.css" />
@@ -1833,10 +1837,41 @@
     <Content Include="Contents\lib\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Contents\lib\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Contents\lib\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Contents\lib\jquery-mask-plugin\jquery.mask.js" />
+    <Content Include="Contents\lib\jquery-ui\AUTHORS.txt" />
+    <Content Include="Contents\lib\jquery-ui\external\jquery\jquery.js" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_444444_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_555555_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_777620_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_777777_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Contents\lib\jquery-ui\index.html" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.css" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.js" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.min.css" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="Contents\lib\jquery-ui\jquery-ui.theme.min.css" />
+    <Content Include="Contents\lib\jquery-ui\LICENSE.txt" />
     <Content Include="Contents\lib\jquery\jquery-3.5.1.js" />
     <Content Include="Contents\lib\jquery\jquery-3.5.1.min.js" />
     <Content Include="Contents\lib\modernizr\modernizr-2.8.3.js" />
+    <Content Include="Contents\lib\pivottable\pivot.css" />
+    <Content Include="Contents\lib\pivottable\pivot.js" />
+    <Content Include="Contents\lib\pivottable\pivot.min.css" />
+    <Content Include="Contents\lib\pivottable\pivot.min.js" />
+    <Content Include="Contents\lib\pivottable\pivot.pt.js" />
+    <Content Include="Contents\lib\pivottable\pivot.pt.min.js" />
+    <Content Include="Contents\lib\pivottable\plotly_renderers.js" />
+    <Content Include="Contents\lib\pivottable\plotly_renderers.min.js" />
+    <Content Include="Contents\lib\sweetalert\sweetalert.css" />
+    <Content Include="Contents\lib\sweetalert\sweetalert.js" />
+    <Content Include="Contents\lib\sweetalert\sweetalert.min.js" />
     <Content Include="EditarCadastro.aspx" />
+    <Content Include="Erro.aspx" />
     <Content Include="Extrato.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
@@ -1873,7 +1908,9 @@
     <Content Include="Relatorios.aspx" />
     <Content Include="Resumo.aspx" />
     <Content Include="Sobre.aspx" />
+    <Content Include="TermosUso.html" />
     <Content Include="Web.config" />
+    <Content Include="_404.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CategoriasController.cs" />
@@ -1901,6 +1938,13 @@
     </Compile>
     <Compile Include="EditarCadastro.aspx.designer.cs">
       <DependentUpon>EditarCadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Erro.aspx.cs">
+      <DependentUpon>Erro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Erro.aspx.designer.cs">
+      <DependentUpon>Erro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Extrato.aspx.cs">
       <DependentUpon>Extrato.aspx</DependentUpon>
@@ -1977,6 +2021,13 @@
     <Compile Include="Sobre.aspx.designer.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
     </Compile>
+    <Compile Include="_404.aspx.cs">
+      <DependentUpon>_404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="_404.aspx.designer.cs">
+      <DependentUpon>_404.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.css.map" />
@@ -2045,6 +2096,7 @@
     <Content Include="Contents\lib\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Contents\lib\jquery\jquery-3.5.1.min.map" />
     <Content Include="Contents\lib\chartjs\LICENSE.md" />
+    <Content Include="Contents\lib\jquery-ui\package.json" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Properties\PublishProfiles\FTPSomee.pubxml" />

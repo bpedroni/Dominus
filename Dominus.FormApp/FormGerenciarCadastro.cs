@@ -7,7 +7,7 @@ namespace Dominus.FormApp
 {
     public partial class FormGerenciarCadastro : Form
     {
-        private Usuario Usuario;
+        private static Usuario Usuario;
 
         public FormGerenciarCadastro(Usuario usuario)
         {
@@ -102,6 +102,14 @@ namespace Dominus.FormApp
                 lblConfirmarSenha.Visible = false;
                 txtConfirmarSenha.Visible = false;
                 Height = 260;
+            }
+        }
+
+        private void TxtLogin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsDigit(e.KeyChar) && !e.KeyChar.Equals('_') && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

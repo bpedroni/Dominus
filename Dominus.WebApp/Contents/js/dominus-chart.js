@@ -36,7 +36,8 @@
                     labels: Object.keys(dataArray),
                     datasets: [{
                         data: Object.keys(dataArray).map(function (key) { return dataArray[key]; }),
-                        backgroundColor: colors
+                        backgroundColor: colors,
+                        maxBarThickness: 32
                     }]
                 },
                 options: {
@@ -96,7 +97,8 @@
                     labels: Object.keys(dataArray),
                     datasets: [{
                         data: Object.keys(dataArray).map(function (key) { return dataArray[key]; }),
-                        backgroundColor: colors
+                        backgroundColor: colors,
+                        maxBarThickness: 32
                     }]
                 },
                 options: {

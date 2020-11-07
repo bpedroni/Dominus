@@ -4,7 +4,7 @@
 
 .sidebar {
     width: 200px;
-    height: calc(100vh - 76px);
+    height: calc(100vh - 60px);
     position: absolute;
     overflow: auto;
     background-color: darkslateblue;
@@ -28,14 +28,14 @@
 
 @media screen and (max-width: 700px) {
     #principal {
-        top: 136px;
-        height: calc(100vh - 136px);
+        top: 120px;
+        height: calc(100vh - 120px);
         overflow: auto;
     }
 
     .sidebar {
         position: absolute;
-        top: 76px;
+        top: 60px;
         width: 100%;
         height: 60px;
     }
@@ -43,6 +43,7 @@
         .sidebar a {
             float: left;
             width: 25%;
+            padding: 9px;
             text-align: center;
         }
 
@@ -52,6 +53,7 @@
             }
 
             .sidebar a span {
-                display: none;
+                display: block;
+                font-size: x-small;
             }
 }

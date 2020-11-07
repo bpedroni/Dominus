@@ -26,19 +26,20 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-user"></i></span>
             </div>
-            <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Nome" required oninvalid="this.setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100">
+            <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Nome" required oninvalid="this.setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100" />
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
             </div>
-            <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Login de acesso" required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="15">
+            <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Login de acesso" required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="15" onkeypress="validarLogin(this, event)" />
         </div>
+        <p id="msgLogin" class="text-danger" hidden><small>Digite apenas letras, números ou '_' (sublinhado)</small></p>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
-            <input id="txtSenha" name="senha" class="form-control rounded-right" type="password" runat="server" placeholder="Senha" required oninvalid="this.setCustomValidity('Informe a sua senha.')" oninput="setCustomValidity('')" maxlength="20">
+            <input id="txtSenha" name="senha" class="form-control rounded-right" type="password" runat="server" placeholder="Senha" required oninvalid="this.setCustomValidity('Informe a sua senha.')" oninput="setCustomValidity('')" maxlength="20" />
         </div>
         <div class="form-group form-check">
             <asp:CheckBox ID="chkAlterarSenha" runat="server" AutoPostBack="false" data-toggle="collapse" data-target="#alterarSenha" aria-expanded="true" aria-controls="alterarSenha" />
