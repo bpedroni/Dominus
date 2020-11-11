@@ -2,34 +2,13 @@ USE dominus
 GO
 
 -- Comandos para deletar as tabelas, caso elas existam:
-IF EXISTS(SELECT * from sys.tables WHERE name='Chamado')
-BEGIN
-    DROP TABLE Chamado;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='Relatorio')
-BEGIN
-    DROP TABLE Relatorio;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='TipoRelatorio')
-BEGIN
-    DROP TABLE TipoRelatorio;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='Transacao')
-BEGIN
-    DROP TABLE Transacao;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='Planejamento')
-BEGIN
-    DROP TABLE Planejamento;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='Categoria')
-BEGIN
-    DROP TABLE Categoria;
-END
-IF EXISTS(SELECT * from sys.tables WHERE name='Usuario')
-BEGIN
-    DROP TABLE Usuario;
-END
+DROP TABLE IF EXISTS Chamado;
+DROP TABLE IF EXISTS Relatorio;
+DROP TABLE IF EXISTS TipoRelatorio;
+DROP TABLE IF EXISTS Transacao;
+DROP TABLE IF EXISTS Planejamento;
+DROP TABLE IF EXISTS Categoria;
+DROP TABLE IF EXISTS Usuario;
 GO
 
 -- Criação da tabela Usuario.
@@ -136,4 +115,229 @@ CREATE INDEX IX_Chamado_IdChamado ON Chamado (IdChamado);
 CREATE INDEX IX_Chamado_IdUsuario ON Chamado (IdUsuario);
 CREATE INDEX IX_Chamado_IdUsuarioSuporte ON Chamado (IdUsuarioSuporte);
 CREATE INDEX IX_Chamado_IdChamadoAssociado ON Chamado (IdChamadoAssociado);
+GO
+
+-- Criação de trigger para inserção na tabela Usuario.
+CREATE OR ALTER TRIGGER trgInserirUsuario
+ON Usuario
+INSTEAD OF INSERT
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdUsuario uniqueidentifier,
+	@Nome varchar(100),
+	@Login varchar(25),
+	@Email varchar(100),
+	@Senha varchar(255),
+	@Usuario int
+	-- Criação de um cursor para percorrer cada registro inserido:
+	DECLARE cursorUsuario CURSOR FOR SELECT IdUsuario, Nome, Login, Email, Senha FROM Inserted
+	OPEN cursorUsuario
+	FETCH NEXT FROM cursorUsuario INTO @IdUsuario, @Nome, @Login, @Email, @Senha
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		-- Define o uuid, caso este seja nulo ou existente no sistema:
+		SELECT @Usuario = COUNT(IdUsuario) FROM Usuario WHERE IdUsuario = @IdUsuario
+		IF (@IdUsuario IS NULL OR @Usuario <> 0)
+		BEGIN
+			SELECT @IdUsuario = newid()
+		END
+		-- Verifica se as informações são válidas:
+		IF (@Nome IS NULL OR @Nome = '')
+		BEGIN
+			PRINT 'O nome deve ser informado.'
+		END
+		ELSE
+			BEGIN
+			IF (@Login IS NULL OR @Login = '')
+			BEGIN
+				PRINT 'Um login deve ser informado.'
+			END
+			ELSE
+			BEGIN
+				IF (@Email IS NULL OR @Email = '')
+				BEGIN
+					PRINT 'Um e-mail deve ser informado.'
+				END
+				ELSE
+				BEGIN
+					IF (@Senha IS NULL OR @Senha = '')
+					BEGIN
+						PRINT 'A senha deve ser informada.'
+					END
+					ELSE
+					BEGIN
+						-- Verifica se não existe nenhum usuário com o login fornecido:
+						SELECT @Usuario = COUNT(IdUsuario) FROM Usuario WHERE Login LIKE @Login
+						IF (@Usuario <> 0)
+						BEGIN
+							PRINT CONCAT('O login ', @Login, ' já existe. Escolha um outro login.')
+						END
+						ELSE
+						BEGIN
+							-- Verifica se não existe nenhum usuário com o e-mail fornecido:
+							SELECT @Usuario = COUNT(IdUsuario) FROM Usuario WHERE Email LIKE @Email
+							IF (@Usuario <> 0)
+							BEGIN
+								PRINT CONCAT('O e-mail ', @Login, ' já possui cadastro no sistema. Utilize um outro e-mail ou recupere sua senha.')
+							END
+							ELSE
+							BEGIN
+								BEGIN TRY
+									-- Insere o novo registro após as validações com os valores padrões para os outros campos:
+									INSERT INTO Usuario (IdUsuario,Nome,Login,Email,Senha,PerfilAdministrador,DataCriacao)
+										VALUES (@IdUsuario, @Nome, @Login, @Email, @Senha, 0, getdate())
+								END TRY
+								BEGIN CATCH
+									PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
+								END CATCH
+							END
+						END
+					END
+				END
+			END
+		END
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorUsuario INTO @IdUsuario, @Nome, @Login, @Email, @Senha
+	END
+	CLOSE cursorUsuario
+	DEALLOCATE cursorUsuario
+END
+GO
+
+-- Criação de trigger para remoção na tabela Usuario.
+CREATE OR ALTER TRIGGER trgDesativarUsuario
+ON Usuario
+INSTEAD OF DELETE
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdUsuario uniqueidentifier
+	-- Criação de um cursor para percorrer cada registro removido:
+	DECLARE cursorUsuario CURSOR FOR SELECT IdUsuario FROM Deleted
+	OPEN cursorUsuario
+	FETCH NEXT FROM cursorUsuario INTO @IdUsuario
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		BEGIN TRY
+			-- Altera o status do usuário para inativo no sistema:
+			UPDATE Usuario SET Ativo = 0, DataExclusao = getdate() WHERE IdUsuario = @IdUsuario
+		END TRY
+		BEGIN CATCH
+			PRINT 'Ocorreu algum erro inesperado ao tentar remover o registro. Contate o administrador do sistema'
+		END CATCH
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorUsuario INTO @IdUsuario
+	END
+	CLOSE cursorUsuario
+	DEALLOCATE cursorUsuario
+END
+GO
+
+-- Criação de trigger para inserção na tabela Categoria.
+CREATE OR ALTER TRIGGER trgInserirCategoria
+ON Categoria
+INSTEAD OF INSERT
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdCategoria uniqueidentifier,
+	@Nome varchar(100),
+	@Descricao varchar(25),
+	@TipoFluxo varchar(100),
+	@Icone varchar(255),
+	@Categoria int
+	-- Criação de um cursor para percorrer cada registro inserido:
+	DECLARE cursorCategoria CURSOR FOR SELECT IdCategoria, Nome, Descricao, TipoFluxo, Icone FROM Inserted
+	OPEN cursorCategoria
+	FETCH NEXT FROM cursorCategoria INTO @IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		-- Define o uuid, caso este seja nulo ou existente no sistema:
+		SELECT @Categoria = COUNT(IdCategoria) FROM Categoria WHERE IdCategoria = @IdCategoria
+		IF (@IdCategoria IS NULL OR @Categoria <> 0)
+		BEGIN
+			SELECT @IdCategoria = newid()
+		END
+		-- Verifica se as informações são válidas:
+		IF (@Nome IS NULL OR @Nome = '')
+		BEGIN
+			PRINT 'O nome deve ser informado.'
+		END
+		ELSE
+			BEGIN
+			IF (@Descricao IS NULL OR @Descricao = '')
+			BEGIN
+				PRINT 'A descrição deve ser informada.'
+			END
+			ELSE
+			BEGIN
+				IF (@TipoFluxo NOT IN ('Receita', 'Despesa'))
+				BEGIN
+					PRINT 'O tipo do fluxo admite apenas os valores "Receita" e "Despesa".'
+				END
+				ELSE
+				BEGIN
+					IF (@Icone IS NULL OR @Icone = '')
+					BEGIN
+						PRINT 'O caminho do ícone deve ser informado.'
+					END
+					ELSE
+					BEGIN
+						-- Verifica se não existe nenhuma categoria com o nome e o tipo do fluxo fornecidos:
+						SELECT @Categoria = COUNT(IdCategoria) FROM Categoria WHERE Nome LIKE @Nome AND TipoFluxo LIKE @TipoFluxo
+						IF (@Categoria <> 0)
+						BEGIN
+							PRINT CONCAT('A categoria ', @Nome, ' com o tipo ', @TipoFluxo, ' já existe. Escolha um outro nome.')
+						END
+						ELSE
+						BEGIN
+							BEGIN TRY
+								-- Insere o novo registro após as validações com os valores padrões para os outros campos:
+								INSERT INTO Categoria(IdCategoria,Nome,Descricao,TipoFluxo,Icone,DataCriacao)
+									VALUES (@IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone, getdate())
+							END TRY
+							BEGIN CATCH
+								PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
+							END CATCH
+						END
+					END
+				END
+			END
+		END
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorCategoria INTO @IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone
+	END
+	CLOSE cursorCategoria
+	DEALLOCATE cursorCategoria
+END
+GO
+
+-- Criação de trigger para remoção na tabela Categoria.
+CREATE OR ALTER TRIGGER trgDesativarCategoria
+ON Categoria
+INSTEAD OF DELETE
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdCategoria uniqueidentifier
+	-- Criação de um cursor para percorrer cada registro removido:
+	DECLARE cursorCategoria CURSOR FOR SELECT IdCategoria FROM Deleted
+	OPEN cursorCategoria
+	FETCH NEXT FROM cursorCategoria INTO @IdCategoria
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		BEGIN TRY
+			-- Altera o status da categoria para inativo no sistema:
+			UPDATE Categoria SET Ativo = 0, DataExclusao = getdate() WHERE IdCategoria = @IdCategoria
+		END TRY
+		BEGIN CATCH
+			PRINT 'Ocorreu algum erro inesperado ao tentar remover o registro. Contate o administrador do sistema'
+		END CATCH
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorCategoria INTO @IdCategoria
+	END
+	CLOSE cursorCategoria
+	DEALLOCATE cursorCategoria
+END
 GO

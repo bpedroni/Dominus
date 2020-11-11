@@ -1914,6 +1914,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CategoriasController.cs" />
+    <Compile Include="Api\TransacoesController.cs" />
     <Compile Include="Api\UsuariosController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

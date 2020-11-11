@@ -69,11 +69,12 @@ namespace Dominus.WebApp
                     txtData.Value = rowTransacao.Data.ToString(@"dd/MM/yyyy", CultureInfo.CreateSpecificCulture("pt-BR"));
                     txtValor.Value = rowTransacao.Valor.ToString("N", CultureInfo.CreateSpecificCulture("pt-BR"));
                     txtComentario.Value = rowTransacao.Comentario;
-                    rdoTransacao.Checked = rowTransacao.Provisionado == 0;
-                    rdoProvisao.Checked = rowTransacao.Provisionado == 1;
+                    rdoTransacao.Checked = rowTransacao.Provisionado == TransacaoManager.TRANSACAO_EFETUADA;
+                    rdoProvisao.Checked = rowTransacao.Provisionado == TransacaoManager.TRANSACAO_PROVISIONADA;
                     rdoReceita.Checked = rowTransacao.TipoFluxo == CategoriaManager.TIPO_FLUXO_RECEITA;
                     rdoDespesa.Checked = rowTransacao.TipoFluxo == CategoriaManager.TIPO_FLUXO_DESPESA;
                     chkRepetirMes.Checked = false;
+                    txtRepetirMes.Text = "3";
                     if (!String.IsNullOrWhiteSpace(rowTransacao.Identificacao))
                     {
                         txtValor.Disabled = true;
@@ -85,6 +86,7 @@ namespace Dominus.WebApp
 
                     if (e.CommandName.Equals("editTransacao"))
                     {
+                        divRepetirMes.Visible = false;
                         StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
                     }
                     else if (e.CommandName.Equals("deleteTransacao"))
@@ -101,8 +103,14 @@ namespace Dominus.WebApp
 
         protected void BtnSalvarTransacao_Click(object sender, EventArgs e)
         {
-            GridRowTransacao rowTransacao = Transacoes.FirstOrDefault(x => x.IdTransacao.Equals(Guid.Parse(txtIdTransacao.Value)));
-            if (rowTransacao == null)
+            divRepetirMes.Visible = true;
+
+            GridRowTransacao rowTransacao;
+            if (Guid.TryParse(txtIdTransacao.Value, out Guid guid))
+            {
+                rowTransacao = Transacoes.FirstOrDefault(x => x.IdTransacao.Equals(guid));
+            }
+            else
             {
                 rowTransacao = new GridRowTransacao
                 {
@@ -179,21 +187,27 @@ namespace Dominus.WebApp
                     StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
                     return;
                 }
+                if (chkRepetirMes.Checked && !Int32.TryParse(txtRepetirMes.Text, out int num))
+                {
+                    lblMsg.Text = "O número de meses deve ser um número inteiro. Coloque um número válido ou desmarque esta opção.";
+                    StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
+                    return;
+                }
 
                 Transacao transacao = new Transacao();
-                if (!String.IsNullOrWhiteSpace(txtIdTransacao.Value))
+                if (!rowTransacao.IdTransacao.Equals(Guid.Empty))
                 {
-                    transacao = TransacaoManager.GetTransacaoById(Usuario, Guid.Parse(txtIdTransacao.Value));
+                    transacao = TransacaoManager.GetTransacaoById(guid);
                 }
                 transacao.IdUsuario = Usuario.IdUsuario;
                 transacao.IdCategoria = Guid.Parse(txtIdCategoria.Value);
                 transacao.Descricao = txtDescricao.Value;
                 transacao.TipoFluxo = rdoReceita.Checked ? CategoriaManager.TIPO_FLUXO_RECEITA : CategoriaManager.TIPO_FLUXO_DESPESA;
                 transacao.Comentario = txtComentario.Value;
-                transacao.Provisionado = rdoProvisao.Checked ? 1 : 0;
+                transacao.Provisionado = rdoProvisao.Checked ? TransacaoManager.TRANSACAO_PROVISIONADA : TransacaoManager.TRANSACAO_EFETUADA;
                 if (String.IsNullOrWhiteSpace(transacao.Identificacao))
                 {
-                    if (transacao.Provisionado == 0)
+                    if (transacao.Provisionado == TransacaoManager.TRANSACAO_EFETUADA)
                     {
                         transacao.Valor = valor;
                         transacao.Data = data;
@@ -208,7 +222,7 @@ namespace Dominus.WebApp
                         transacao.DataProvisao = data;
                     }
                 }
-                if (!String.IsNullOrWhiteSpace(txtIdTransacao.Value))
+                if (!transacao.IdTransacao.Equals(Guid.Empty))
                 {
                     TransacaoManager.EditTransacao(transacao);
                 }
@@ -216,11 +230,11 @@ namespace Dominus.WebApp
                 {
                     TransacaoManager.AddTransacao(transacao);
                 }
-                if (chkRepetirMes.Checked)
+                if (chkRepetirMes.Checked && Int32.TryParse(txtRepetirMes.Text, out int numMeses))
                 {
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < Math.Min(numMeses, 12); i++)
                     {
-                        if (transacao.Provisionado == 0)
+                        if (transacao.Provisionado == TransacaoManager.TRANSACAO_EFETUADA)
                             transacao.Data = transacao.Data?.AddMonths(1);
                         else
                             transacao.DataProvisao = transacao.DataProvisao?.AddMonths(1);
@@ -239,11 +253,11 @@ namespace Dominus.WebApp
 
         protected void BtnDeletarTransacao_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(txtDeletarTransacao.Value))
+            if (Guid.TryParse(txtDeletarTransacao.Value, out Guid guid))
             {
                 try
                 {
-                    Transacao transacao = TransacaoManager.GetTransacaoById(Usuario, Guid.Parse(txtDeletarTransacao.Value));
+                    Transacao transacao = TransacaoManager.GetTransacaoById(guid);
                     TransacaoManager.DeleteTransacao(transacao);
 
                     UpdateSaldoScript("deletarTransacaoModal", "Lançamento removido com sucesso!");
@@ -268,7 +282,10 @@ namespace Dominus.WebApp
                 sb.Append("$('#listCategorias').val('" + rowTransacao.IdCategoria.ToString() + "');");
 
             if (!String.IsNullOrWhiteSpace(rowTransacao.IconeCategoria))
+            {
                 sb.Append("$('#imgCategoria')[0].src = '" + rowTransacao.IconeCategoria + "';");
+                sb.Append("$('#imgCategoria')[0].title = '" + rowTransacao.Categoria + "';");
+            }
 
             sb.Append("$('.fieldMoney').mask('#.##0,00', { reverse: true });");
             sb.Append("$('#txtData').datepicker({ dateFormat: 'dd/mm/yy' });");

@@ -9,17 +9,20 @@ namespace Dominus.DataModel.Core
     {
         private static ConnectionManager connection = new ConnectionManager();
 
+        public const String MODO_TRANSACAO = "Transação";
+        public const String MODO_PROVISAO = "Provisão";
+        public const int TRANSACAO_EFETUADA = 0;
+        public const int TRANSACAO_PROVISIONADA = 1;
+
         public static List<Transacao> GetTransacoes(Usuario usuario, int? mes = null, int? ano = null)
         {
             try
             {
-                // Retorna uma lista de transações do usuário fornecido:
+                // Retorna uma lista de transações e provisões do usuário fornecido:
                 connection.OpenConnection();
-                List<Transacao> transacoes = connection.context.Transacoes
-                    .Where(x => x.IdUsuario == usuario.IdUsuario
-                    && x.Data != null
-                    && (mes == null || x.Data.Value.Month == mes)
-                    && (ano == null || x.Data.Value.Year == ano)).ToList();
+                List<Transacao> transacoes = connection.context.Transacoes.Where(x => x.IdUsuario == usuario.IdUsuario
+                && ((x.Data != null && (mes == null || x.Data.Value.Month == mes) && (ano == null || x.Data.Value.Year == ano))
+                || (x.DataProvisao != null && (mes == null || x.DataProvisao.Value.Month == mes) && (ano == null || x.DataProvisao.Value.Year == ano)))).ToList();
                 connection.CloseConnection();
                 return transacoes;
             }
@@ -30,40 +33,45 @@ namespace Dominus.DataModel.Core
             }
         }
 
-        public static List<Transacao> GetProvisoes(Usuario usuario, int? mes = null, int? ano = null)
+        public static List<Transacao> GetTransacoesEfetuadas(Usuario usuario, int? mes = null, int? ano = null)
+        {
+            try
+            {
+                // Retorna uma lista de transações do usuário fornecido:
+                return GetTransacoes(usuario, mes, ano).Where(x => x.Provisionado == TRANSACAO_EFETUADA).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<Transacao> GetTransacoesProvisionadas(Usuario usuario, int? mes = null, int? ano = null)
         {
             try
             {
                 // Retorna uma lista de provisões do usuário fornecido:
-                connection.OpenConnection();
-                List<Transacao> transacoes = connection.context.Transacoes
-                    .Where(x => x.IdUsuario == usuario.IdUsuario
-                    && x.DataProvisao != null
-                    && (mes == null || x.DataProvisao.Value.Month == mes)
-                    && (ano == null || x.DataProvisao.Value.Year == ano)).ToList();
-                connection.CloseConnection();
-                return transacoes;
+                return GetTransacoes(usuario, mes, ano).Where(x => x.Provisionado == TRANSACAO_PROVISIONADA).ToList();
             }
             catch (Exception ex)
             {
-                connection.CloseConnection();
                 throw ex;
             }
         }
 
-        public static Transacao GetTransacaoById(Usuario usuario, Guid idTransacao)
+        public static Transacao GetTransacaoById(Guid idTransacao)
         {
             try
             {
-                // Verifica se existe uma categoria com o id fornecido:
-                Transacao transacao = GetTransacoes(usuario).FirstOrDefault(x => x.IdTransacao.Equals(idTransacao));
-                if (transacao == null)
-                    transacao = GetProvisoes(usuario).FirstOrDefault(x => x.IdTransacao.Equals(idTransacao));
-
+                // Verifica se existe uma transação com o usuário e o id fornecidos:
+                connection.OpenConnection();
+                Transacao transacao = connection.context.Transacoes.FirstOrDefault(x => x.IdTransacao.Equals(idTransacao));
+                connection.CloseConnection();
                 return transacao;
             }
             catch (Exception ex)
             {
+                connection.CloseConnection();
                 throw ex;
             }
         }
@@ -125,7 +133,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de transações de receita do usuário fornecido:
-                return GetTransacoes(usuario, mes, ano).Where(x => x.TipoFluxo == CategoriaManager.TIPO_FLUXO_RECEITA).ToList();
+                return GetTransacoesEfetuadas(usuario, mes, ano).Where(x => x.TipoFluxo == CategoriaManager.TIPO_FLUXO_RECEITA).ToList();
             }
             catch (Exception ex)
             {
@@ -138,7 +146,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Retorna uma lista de transações de despesa do usuário fornecido:
-                return GetTransacoes(usuario, mes, ano).Where(x => x.TipoFluxo == CategoriaManager.TIPO_FLUXO_DESPESA).ToList();
+                return GetTransacoesEfetuadas(usuario, mes, ano).Where(x => x.TipoFluxo == CategoriaManager.TIPO_FLUXO_DESPESA).ToList();
             }
             catch (Exception ex)
             {
@@ -165,7 +173,7 @@ namespace Dominus.DataModel.Core
             {
                 List<GridRowTransacao> gridTransacoes = new List<GridRowTransacao>();
 
-                foreach (Transacao transacao in GetTransacoes(usuario, mes, ano))
+                foreach (Transacao transacao in GetTransacoesEfetuadas(usuario, mes, ano))
                 {
                     Categoria categoria = CategoriaManager.GetCategoriaById(transacao.IdCategoria);
 
@@ -176,16 +184,16 @@ namespace Dominus.DataModel.Core
                         IdCategoria = transacao.IdCategoria,
                         Categoria = categoria.Nome,
                         IconeCategoria = "Images/Categorias/" + categoria.Icone,
-                        Modo = "Transação",
+                        Modo = MODO_TRANSACAO,
                         TipoFluxo = transacao.TipoFluxo,
                         Descricao = transacao.Descricao,
                         Data = (DateTime)transacao.Data,
                         Valor = (Decimal)transacao.Valor,
-                        Provisionado =transacao.Provisionado,
+                        Provisionado = transacao.Provisionado,
                         Comentario = transacao.Comentario
                     });
                 }
-                foreach (Transacao provisao in GetProvisoes(usuario, mes, ano))
+                foreach (Transacao provisao in GetTransacoesProvisionadas(usuario, mes, ano))
                 {
                     Categoria categoria = CategoriaManager.GetCategoriaById(provisao.IdCategoria);
 
@@ -196,7 +204,7 @@ namespace Dominus.DataModel.Core
                         IdCategoria = provisao.IdCategoria,
                         Categoria = categoria.Nome,
                         IconeCategoria = "Images/Categorias/" + categoria.Icone,
-                        Modo = "Provisão",
+                        Modo = MODO_PROVISAO,
                         TipoFluxo = provisao.TipoFluxo,
                         Descricao = provisao.Descricao,
                         Data = (DateTime)provisao.DataProvisao,

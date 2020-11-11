@@ -75,7 +75,7 @@ namespace Dominus.WebApp
             }
         }
 
-        // POST api/<controller>
+        // POST api/categorias - salva a categoria recebida no banco de dados:
         public void Post([FromBody] Categoria categoria)
         {
             try
@@ -125,7 +125,7 @@ namespace Dominus.WebApp
             }
         }
 
-        // PUT api/<controller>/5
+        // PUT api/categorias/{id} - edita a categoria recebida no banco de dados:
         public void Put(String id, [FromBody] Categoria categoria)
         {
             try
@@ -139,7 +139,7 @@ namespace Dominus.WebApp
             }
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/categorias/{id} - remove a categoria recebida no banco de dados:
         public void Delete(String id)
         {
             try

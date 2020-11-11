@@ -29,7 +29,26 @@ namespace Dominus.WebApp.Api
             }
         }
 
-        // POST api/<controller>
+        // GET api/usuarios/login/{id} - exibe o usuário solicitado pelo login ou e-mail
+        [HttpGet]
+        [ActionName("login")]
+        public Usuario GetByLoginOrEmail(String id)
+        {
+            try
+            {
+                Usuario usuario = UsuarioManager.GetUsuarioByLogin(id);
+                if (usuario == null)
+                    usuario = UsuarioManager.GetUsuarioByLogin(id);
+
+                return usuario;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        // POST api/transacoes - salva o usuário recebido no banco de dados:
         public void Post([FromBody] Usuario usuario)
         {
             try
@@ -42,7 +61,7 @@ namespace Dominus.WebApp.Api
             }
         }
 
-        // PUT api/<controller>/5
+        // PUT api/usuarios/{id} - edita o usuário recebido no banco de dados:
         public void Put(String id, [FromBody] Usuario usuario)
         {
             try
@@ -56,7 +75,7 @@ namespace Dominus.WebApp.Api
             }
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/usuarios/{id} - remove o usuário recebido no banco de dados:
         public void Delete(String id)
         {
             try

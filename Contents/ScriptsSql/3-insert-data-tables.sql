@@ -6,12 +6,17 @@ DELETE FROM Chamado;
 GO
 DELETE FROM Transacao;
 GO
+DISABLE TRIGGER trgDesativarUsuario ON Usuario;
 DELETE FROM Usuario;
+ENABLE TRIGGER trgDesativarUsuario ON Usuario;
 GO
+DISABLE TRIGGER trgDesativarCategoria ON Categoria;
 DELETE FROM Categoria;
+ENABLE TRIGGER trgDesativarCategoria ON Categoria;
 GO
 
 -- Criação de dados nas tabelas.
+DISABLE TRIGGER trgInserirUsuario ON Usuario;
 INSERT INTO Usuario (IdUsuario,Nome,Login,Email,Senha,PerfilAdministrador,DataCriacao)
 	VALUES ('ed32e0de-069b-4cdb-a72a-3a4e9dad2665','Administrador Geral','admin','dominus.etesp@gmail.com','KiomKipkT21JblVzKiojKipRRVF3YlRGdWRUVT0qKiYqKmRPbUluVXMqKiMqKg==',1,CONVERT(date,'2020-01-01',23))
 		  ,('0053CB14-D799-4A16-B3DD-19E5678D55F6','Quintiliana Morais','qmorais','qmorais@email.com','KiomKipkT21JblVzKiojKipJMVJsYzNSbE1qQXlNQT09KiomKipkT21JblVzKiojKio=',0,CONVERT(date,'2020-1-2',23))
@@ -215,27 +220,30 @@ INSERT INTO Usuario (IdUsuario,Nome,Login,Email,Senha,PerfilAdministrador,DataCr
 		  ,('F8939A86-6B4B-4B5B-8452-63F9FE1D66DF','Basilio Castaño','bcastano','bcastano@email.com','KiomKipkT21JblVzKiojKipJMVJsYzNSbE1qQXlNQT09KiomKipkT21JblVzKiojKio=',0,CONVERT(date,'2020-8-31',23))
 		  ,('FC7297EE-D8FD-47CF-9729-9EACD0211D58','Raoni Marcondes','rmarcondes','rmarcondes@email.com','KiomKipkT21JblVzKiojKipJMVJsYzNSbE1qQXlNQT09KiomKipkT21JblVzKiojKio=',0,CONVERT(date,'2020-8-31',23))
 GO
+ENABLE TRIGGER trgInserirUsuario ON Usuario;
+GO
 
+DISABLE TRIGGER trgInserirCategoria ON Categoria;
 INSERT INTO Categoria (IdCategoria,Nome,Descricao,TipoFluxo,Icone,DataCriacao)
 	VALUES ('56E6A62D-79F0-4D59-85EC-0262DCAAF2E0','Despesa sem categoria','Despesa sem categoria','Despesa','sem_categoria.png',CONVERT(date,'2020-01-01',23))
 		  ,('7DC6FE5F-E44A-4A49-8861-09FBC0B91B68','Receita sem categoria','Receita sem categoria','Receita','sem_categoria.png',CONVERT(date,'2020-01-01',23))
 		  ,('3FE34614-F7D7-4440-B0ED-13D673D93003','Alimentação','Gastos com alimentação / refeição','Despesa','alimentacao.png',CONVERT(date,'2020-01-01',23))
 		  ,('186BC645-4AE8-439E-AF5C-195FABC038BD','Aposentadoria','Recebimento de aposentadoria','Receita','aposentadoria.png',CONVERT(date,'2020-01-01',23))
 		  ,('271013FA-7B4F-4AF6-BD9C-3609C3DCECA4','Bares/Restaurantes','Gastos em bares ou restaurantes','Despesa','restaurante.png',CONVERT(date,'2020-01-01',23))
-		  ,('7DFBFA69-93C9-4BD4-ABC1-3A371BC65DCC','Beleza','Despesas com salões, barbearias, manicures, etc','Despesa','belaza.png',CONVERT(date,'2020-01-01',23))
+		  ,('7DFBFA69-93C9-4BD4-ABC1-3A371BC65DCC','Beleza','Despesas com salões, barbearias, manicures, etc','Despesa','beleza.png',CONVERT(date,'2020-01-01',23))
 		  ,('0DE53A45-F104-4D77-9921-47F702F61C08','Compras','Despesas de compras em geral','Despesa','compras.png',CONVERT(date,'2020-01-01',23))
 		  ,('A1A19A95-E453-4A20-83ED-5B9BB214879C','Contas Fixas','Gastos com contas de água, luz, condomínio, etc','Despesa','contas_fixas.png',CONVERT(date,'2020-01-01',23))
-		  ,('94945B37-E25A-40E0-8660-61D4866D1F39','Cuidados Pessoais','Despesas com itens ou serviços para o bem-estar','Despesa','pessoal.png',CONVERT(date,'2020-01-01',23))
-		  ,('07CFC565-CBA5-4D4D-B62D-67B5B3088752','Cuidados Pet Estimação','Despesas com animais de estimação','Despesa','animais.png',CONVERT(date,'2020-01-01',23))
+		  ,('94945B37-E25A-40E0-8660-61D4866D1F39','Cuidados Pessoais','Despesas com itens ou serviços para o bem-estar','Despesa','cuidado_pessoal.png',CONVERT(date,'2020-01-01',23))
+		  ,('07CFC565-CBA5-4D4D-B62D-67B5B3088752','Cuidados Pet Estimação','Despesas com animais de estimação','Despesa','animal_estimacao.png',CONVERT(date,'2020-01-01',23))
 		  ,('29083B64-E0CF-47DF-AEB2-74C677516279','Educação','Gastos com escolas, universidades, cursos, etc','Despesa','educacao.png',CONVERT(date,'2020-01-01',23))
 		  ,('DB6885B8-2515-4035-BFA9-7BD97122CC12','Empréstimo','Ganho com empréstimos','Receita','emprestimo.png',CONVERT(date,'2020-01-01',23))
-		  ,('4AE98CB4-5214-490C-8C1D-82470DE71DC7','Fatura de Cartão','Despesas de fatura de cartão de crédito','Despesa','fatura_cartao.png',CONVERT(date,'2020-01-01',23))
+		  ,('4AE98CB4-5214-490C-8C1D-82470DE71DC7','Fatura de Cartão','Despesas de fatura de cartão de crédito','Despesa','cartao_credito.png',CONVERT(date,'2020-01-01',23))
 		  ,('AF418A13-63E8-4F41-80A8-8598B2436DC7','Impostos','Gastos com impostos (IPVA, IPTU, etc)','Despesa','impostos.png',CONVERT(date,'2020-01-01',23))
 		  ,('5D1195DA-5FB7-4A67-88ED-8F5FC5480C8A','Investimentos Financeiros','Recebimentos de investimentos financeiros','Receita','investimento.png',CONVERT(date,'2020-01-01',23))
 		  ,('66E6B12B-0ABD-4858-9133-93646C7B4349','Lazer','Gastos com passeios, atividades recreativas, etc','Despesa','lazer.png',CONVERT(date,'2020-01-01',23))
 		  ,('39502D2A-5641-444D-974E-9E0C260E4A00','Moradia','Despesas com itens ou serviços para o imóvel','Despesa','moradia.png',CONVERT(date,'2020-01-01',23))
 		  ,('83074DF3-6A40-49C1-A516-A07D86E2B14D','Outras Rendas','Outras fontes de rendimento','Receita','outras_rendas.png',CONVERT(date,'2020-01-01',23))
-		  ,('8F5F058E-D3C7-4239-9987-B5449E1A47FD','Presentes/Doações','Gastos com presentes ou doações','Despesa','presentes.png',CONVERT(date,'2020-01-01',23))
+		  ,('8F5F058E-D3C7-4239-9987-B5449E1A47FD','Presentes/Doações','Gastos com presentes ou doações','Despesa','presente.png',CONVERT(date,'2020-01-01',23))
 		  ,('CE4A6652-1E42-4A78-8ACC-B565BB69EF21','Salário','Ganhos remunerados','Receita','salario.png',CONVERT(date,'2020-01-01',23))
 		  ,('52DD878B-6570-49C3-A869-BBA6E3A31171','Saúde','Gastos com serviços de saúde','Despesa','saude.png',CONVERT(date,'2020-01-01',23))
 		  ,('D744FF04-D4CF-4DEB-8EDA-C3034C30D9D8','Serviços','Gastos com serviços em geral','Despesa','servicos.png',CONVERT(date,'2020-01-01',23))
@@ -245,6 +253,8 @@ INSERT INTO Categoria (IdCategoria,Nome,Descricao,TipoFluxo,Icone,DataCriacao)
 		  ,('BAF82FEF-8509-4594-84EC-E045FD7EF85F','Tv/Internet/Telefone','Gastos com tv/internet/telefone','Despesa','internet.png',CONVERT(date,'2020-01-01',23))
 		  ,('25007B0B-6523-4BE9-8F42-EB7FD9A7FEBB','Vestuário','Gastos com vestuário','Despesa','roupas.png',CONVERT(date,'2020-01-01',23))
 		  ,('E22B7310-C256-43DC-8F40-F1DE9F1A6DDF','Viagem','Gastos com viagem','Despesa','viagem.png',CONVERT(date,'2020-01-01',23))
+GO
+ENABLE TRIGGER trgInserirCategoria ON Categoria;
 GO
 
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
@@ -1249,7 +1259,6 @@ INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Val
 		  ,(newid(),'21F11942-F1AD-4399-A34A-93E9A0763BAE','94945B37-E25A-40E0-8660-61D4866D1F39','Teste','Despesa',2945.64,CONVERT(date,'2020-3-14',23))
 		  ,(newid(),'5FCDF76B-7D27-41A8-AEE1-3D4FDA017754','A79C393C-BA75-461F-829C-CE412F84C6EB','Teste','Despesa',1211.72,CONVERT(date,'2020-3-14',23))
 GO
-
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
 	VALUES (newid(),'0325F4F6-B208-4487-8778-E921B1EC765A','83074DF3-6A40-49C1-A516-A07D86E2B14D','Teste','Receita',4578.87,CONVERT(date,'2020-3-14',23))
 		  ,(newid(),'F474AEC5-F10A-4578-A20A-B827278B35E6','AF418A13-63E8-4F41-80A8-8598B2436DC7','Teste','Despesa',4254.35,CONVERT(date,'2020-3-14',23))
@@ -2252,7 +2261,6 @@ INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Val
 		  ,(newid(),'5D3E13DC-6775-498C-B1AB-CAA086314390','5D1195DA-5FB7-4A67-88ED-8F5FC5480C8A','Teste','Receita',1273.99,CONVERT(date,'2020-5-26',23))
 		  ,(newid(),'6ABFA5EA-DBD7-4389-8C28-569108FD2C2C','8F5F058E-D3C7-4239-9987-B5449E1A47FD','Teste','Despesa',2746.64,CONVERT(date,'2020-5-26',23))
 GO
-
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
 	VALUES (newid(),'7642B141-5FC6-419F-A9DF-EB89ECCC4031','6F2395FF-D4D2-477D-BE79-D14D64AAAC2D','Teste','Despesa',1748.36,CONVERT(date,'2020-5-26',23))
 		  ,(newid(),'1D550FF9-4F03-4F91-9346-065B3C26BEE4','A1A19A95-E453-4A20-83ED-5B9BB214879C','Teste','Despesa',4107.42,CONVERT(date,'2020-5-26',23))
@@ -3255,7 +3263,6 @@ INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Val
 		  ,(newid(),'7FD25E31-3EAF-4174-A12F-630B9FA1474D','66E6B12B-0ABD-4858-9133-93646C7B4349','Teste','Despesa',2078.52,CONVERT(date,'2020-8-10',23))
 		  ,(newid(),'9328CD6B-D46D-4BA5-8E03-D9807B57DCC1','66E6B12B-0ABD-4858-9133-93646C7B4349','Teste','Despesa',3093.39,CONVERT(date,'2020-8-10',23))
 GO
-
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
 	VALUES (newid(),'8FA03554-9B62-4A71-A90D-BE4D213E6236','4AE98CB4-5214-490C-8C1D-82470DE71DC7','Teste','Despesa',4734.16,CONVERT(date,'2020-8-10',23))
 		  ,(newid(),'F5E48004-48E9-4CDF-968B-3484AD6792CB','66E6B12B-0ABD-4858-9133-93646C7B4349','Teste','Despesa',4547.56,CONVERT(date,'2020-8-10',23))
@@ -4258,7 +4265,6 @@ INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Val
 		  ,(newid(),'091F4418-34E1-4795-B335-0607EFF29527','DB6885B8-2515-4035-BFA9-7BD97122CC12','Teste','Receita',2461.81,CONVERT(date,'2020-10-22',23))
 		  ,(newid(),'366BBB48-4D0E-4151-B83A-6569BC7C9523','A79C393C-BA75-461F-829C-CE412F84C6EB','Teste','Despesa',345.55,CONVERT(date,'2020-10-22',23))
 GO
-
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
 	VALUES (newid(),'00AF16C9-FFDF-40CA-AE9F-3D47F0077AB0','29083B64-E0CF-47DF-AEB2-74C677516279','Teste','Despesa',808.2,CONVERT(date,'2020-10-22',23))
 		  ,(newid(),'AAA52A68-A170-4813-8052-E15554193FDC','83074DF3-6A40-49C1-A516-A07D86E2B14D','Teste','Receita',2315.87,CONVERT(date,'2020-10-22',23))
