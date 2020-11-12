@@ -1,10 +1,11 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,7 +31,7 @@ namespace Dominus.WebApp
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Length > 20)
+            if (String.IsNullOrWhiteSpace(txtSenha.Value))
             {
                 lblMsg.Text = "A senha deve ser informada.";
                 txtSenha.Focus();

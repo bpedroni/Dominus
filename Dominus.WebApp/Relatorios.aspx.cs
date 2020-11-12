@@ -1,9 +1,10 @@
 ﻿using Dominus.DataModel;
 using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class Relatorios : System.Web.UI.Page
+    public partial class Relatorios : Page
     {
         protected static Usuario Usuario;
 

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 
 namespace Dominus.DataModel.Core
 {
@@ -128,6 +132,68 @@ namespace Dominus.DataModel.Core
             {
                 connection.CloseConnection();
                 throw ex;
+            }
+        }
+
+        public static void EnviarMensagemContato(String nome, String email, String assunto, String mensagem)
+        {
+            try
+            {
+                // Envio da mensagem do usuário ao e-mail do administrador do sistema:
+                SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+                String msg = String.Format(
+                    "A aplicação registrou um novo contato!" + Environment.NewLine + Environment.NewLine +
+                    "****************************************************************************************************" + Environment.NewLine +
+                    "Nome do usuário: " + nome + Environment.NewLine +
+                    "E-mail de contato: " + email + Environment.NewLine +
+                    "Título da mensagem: " + assunto + Environment.NewLine +
+                    "Mensagem enviada: " + Environment.NewLine + mensagem + Environment.NewLine +
+                    "****************************************************************************************************"
+                );
+                EnviarEmail(section.Network.UserName, "Novo Contato DOMINUS: " + assunto, msg);
+
+                // Envio de confirmacao do contato ao e-mail fornecido pelo usuário:
+                msg = String.Format(
+                     "Olá, " + nome + "!" + Environment.NewLine + Environment.NewLine +
+                    "A equipe Dominus regitrou o seu contato e o retornaremos assim que possível." + Environment.NewLine + Environment.NewLine +
+                    "****************************************************************************************************" + Environment.NewLine +
+                    "Título da mensagem: " + assunto + Environment.NewLine +
+                    "Mensagem enviada: " + Environment.NewLine + mensagem + Environment.NewLine +
+                    "****************************************************************************************************" + Environment.NewLine + Environment.NewLine +
+                    "Este é um envio automático de e-mail. Não é necessário respondê-lo"
+                 );
+                EnviarEmail(email, "Recebemos sua mensagem!", msg);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void EnviarEmail(String email, String titulo, String mensagem)
+        {
+            try
+            {
+                MailMessage mailMessage = new MailMessage
+                {
+                    Subject = titulo,
+                    Body = mensagem
+                };
+                mailMessage.To.Add(email);
+
+                SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                using (SmtpClient client = new SmtpClient(section.Network.Host, section.Network.Port))
+                {
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(section.Network.UserName, section.Network.Password);
+                    client.EnableSsl = section.Network.EnableSsl;
+                    client.Send(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

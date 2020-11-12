@@ -1,10 +1,11 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class RecuperarSenha : System.Web.UI.Page
+    public partial class RecuperarSenha : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,19 +23,18 @@ namespace Dominus.WebApp
         {
             // Limpa a mensagem de alerta, caso haja algum texto:
             lblMsg.Text = String.Empty;
+            lblMsg.CssClass = "text-danger";
 
             try
             {
                 if (String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
                 {
-                    lblMsg.CssClass = "text-danger";
                     lblMsg.Text = "Endereço de e-mail inválido!";
                     return;
                 }
                 Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value.Trim());
                 if (usuario == null)
                 {
-                    lblMsg.CssClass = "text-danger";
                     lblMsg.Text = "E-mail não cadastrado no sistema!";
                     return;
                 }

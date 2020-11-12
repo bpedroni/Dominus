@@ -12,6 +12,7 @@
 #principal {
     height: calc(100vh - 60px);
     overflow: auto;
+    background-color: lightblue;
 }
 
 #btnUser {
@@ -22,7 +23,7 @@
 
 .formulario {
     margin: 20px auto;
-    max-width: 400px;
+    max-width: 500px;
 }
 
 .info-usuario {

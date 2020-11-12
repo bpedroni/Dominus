@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class Resumo : System.Web.UI.Page
+    public partial class Resumo : Page
     {
         protected static Usuario Usuario;
         protected static String Periodo;
@@ -35,7 +36,7 @@ namespace Dominus.WebApp
         {
             Periodo = Session["Periodo"]?.ToString();
 
-            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("PT-br"));
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("pt-BR"));
             Transacoes = TransacaoManager.GetGridTransacoes(Usuario, periodo.Month, periodo.Year).Where(x => x.Modo == TransacaoManager.MODO_TRANSACAO).ToList();
 
             gridTransacoes.DataSource = Transacoes.Take(3).ToList();

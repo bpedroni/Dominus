@@ -1,10 +1,11 @@
 ﻿using Dominus.DataModel;
 using Dominus.DataModel.Core;
 using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class EditarCadastro : System.Web.UI.Page
+    public partial class EditarCadastro : Page
     {
         protected static Usuario Usuario;
 
@@ -33,16 +34,19 @@ namespace Dominus.WebApp
             // Valida se os campos estão preenchidos:
             if (String.IsNullOrWhiteSpace(txtNome.Value) || txtNome.Value.Trim().Length > 100)
             {
+                lblMsg.Text = "O nome deve ser preenchido (até 100 caracteres).";
                 txtNome.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length > 15)
+            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length < 4 || txtLogin.Value.Trim().Length > 15)
             {
+                lblMsg.Text = "O login deve ser preenchido (de 4 até 15 caracteres).";
                 txtLogin.Focus();
                 return;
             }
-            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Trim().Length > 20)
+            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Trim().Length < 8 || txtSenha.Value.Trim().Length > 20)
             {
+                lblMsg.Text = "A senha deve ser preenchida (de 8 até 20 caracteres).";
                 txtSenha.Focus();
                 return;
             }
@@ -87,7 +91,6 @@ namespace Dominus.WebApp
             }
             catch (Exception ex)
             {
-                Usuario = (Usuario)Session["Usuario"];
                 throw ex;
             }
         }

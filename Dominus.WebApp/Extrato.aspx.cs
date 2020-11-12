@@ -39,9 +39,9 @@ namespace Dominus.WebApp
 
         protected void CarregarGridTransacoes()
         {
-            Periodo = Session["Periodo"]?.ToString();
+            Periodo = Session["Periodo"].ToString();
 
-            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("PT-br"));
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("pt-BR"));
             Transacoes = TransacaoManager.GetGridTransacoes(Usuario, periodo.Month, periodo.Year);
 
             gridTransacoes.DataSource = Transacoes;
@@ -55,9 +55,9 @@ namespace Dominus.WebApp
 
         protected void GridTransacoes_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
             try
             {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
                 Guid idTransacao = (Guid)gridTransacoes.DataKeys[rowIndex].Value;
                 GridRowTransacao rowTransacao = Transacoes.FirstOrDefault(x => x.IdTransacao.Equals(idTransacao));
 
@@ -86,7 +86,6 @@ namespace Dominus.WebApp
 
                     if (e.CommandName.Equals("editTransacao"))
                     {
-                        divRepetirMes.Visible = false;
                         StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
                     }
                     else if (e.CommandName.Equals("deleteTransacao"))
@@ -103,8 +102,6 @@ namespace Dominus.WebApp
 
         protected void BtnSalvarTransacao_Click(object sender, EventArgs e)
         {
-            divRepetirMes.Visible = true;
-
             GridRowTransacao rowTransacao;
             if (Guid.TryParse(txtIdTransacao.Value, out Guid guid))
             {

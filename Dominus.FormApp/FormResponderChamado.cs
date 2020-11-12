@@ -2,6 +2,7 @@
 using Dominus.DataModel.Core;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Dominus.FormApp
@@ -35,7 +36,7 @@ namespace Dominus.FormApp
 
         private void BtnEnviar_Click(object sender, System.EventArgs e)
         {
-            // Valida se o campo de resposta est preenchido:
+            // Valida se o campo de resposta está preenchido:
             if (String.IsNullOrWhiteSpace(txtResposta.Text))
             {
                 MessageBox.Show("A resposta não pode ser nula.", "A resposta é obrigatória!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -50,6 +51,19 @@ namespace Dominus.FormApp
                 Chamado.DataResposta = DateTime.Now;
 
                 ChamadoManager.EditChamado(Chamado);
+
+                // Envia a mensagem de resposta ao e-mail do usuário que abriu o chamado:
+                String msg = String.Format(
+                    txtResposta.Text + Environment.NewLine + Environment.NewLine +
+                    "****************************************************************************************************" + Environment.NewLine +
+                    "Acesse o site do dominus e gerencie este retorno, enviando uma nova mensagem ou deixando o seu OK." + Environment.NewLine + Environment.NewLine +
+                    "Resposta enviada ao contato realizado em " + Chamado.DataCriacao.ToString(@"dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("pt-BR")) + Environment.NewLine +
+                    "Mensagem enviada: " + Environment.NewLine + Chamado.Mensagem + Environment.NewLine +
+                    "****************************************************************************************************" + Environment.NewLine + Environment.NewLine +
+                    "Este é um envio automático de e-mail. Não é necessário respondê-lo"
+                );
+                Usuario usuario = UsuarioManager.GetUsuarioById(Chamado.IdUsuario);
+                ChamadoManager.EnviarEmail(usuario.Email, "Retorno Dominus: " + Chamado.Titulo, msg);
 
                 DialogResult = DialogResult.OK;
                 Close();

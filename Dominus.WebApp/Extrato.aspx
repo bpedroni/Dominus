@@ -9,62 +9,64 @@
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager ID="ScriptManagerTransacao" runat="server"></asp:ScriptManager>
-    <asp:UpdatePanel ID="upGridTransacoes" runat="server">
-        <ContentTemplate>
-            <div class="card border">
-                <div class="card-body p-0">
-                    <div class="card-header ">
-                        <h5 class="text-center">Lançamentos no mês</h5>
-                    </div>
-                    <div class="text-right mx-3 my-1">
-                        <button type="button" class="btn btn-info" runat="server" data-toggle="modal" data-target="#gerenciarTransacaoModal" title="Adicionar Novo Lançamento" onclick="limparFormTransacao()">Adicionar Lançamento</button>
-                    </div>
-                    <asp:GridView ID="gridTransacoes" CssClass="table table-striped p-0 border rounded" OnRowCommand="GridTransacoes_RowCommand" EmptyDataText="Não há transações registradas para o período" EmptyDataRowStyle-CssClass="col font-weight-bold text-center" runat="server" AutoGenerateColumns="False" DataKeyNames="IdTransacao">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Tipo" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
-                                <ItemTemplate>
-                                    <small><%# DataBinder.Eval(Container.DataItem, "TipoFluxo") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Modo" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
-                                <ItemTemplate>
-                                    <small><%# DataBinder.Eval(Container.DataItem, "Modo") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Categoria" ControlStyle-CssClass="col">
-                                <ItemTemplate>
-                                    <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' />
-                                    &nbsp;<small class="d-block d-md-inline"><%# DataBinder.Eval(Container.DataItem, "Categoria") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Descrição" ControlStyle-CssClass="col">
-                                <ItemTemplate>
-                                    <small><%# DataBinder.Eval(Container.DataItem, "Descricao") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Data" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-md-table-cell" HeaderStyle-CssClass="d-none d-md-table-cell">
-                                <ItemTemplate>
-                                    <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Valor" ControlStyle-CssClass="col">
-                                <ItemTemplate>
-                                    <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Comentário" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
-                                <ItemTemplate>
-                                    <small><%# DataBinder.Eval(Container.DataItem, "Comentario") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:ButtonField CommandName="editTransacao" ButtonType="Image" ImageUrl="Contents/img/icon_edit.png"></asp:ButtonField>
-                            <asp:ButtonField CommandName="deleteTransacao" ButtonType="Image" ImageUrl="Contents/img/icon_delete.png"></asp:ButtonField>
-                        </Columns>
-                    </asp:GridView>
-                </div>
+    <div class="row m-2 w-100 mx-auto">
+        <div class="col card p-0 m-2 bg-light shadow rounded">
+            <div class="card-header">
+                <h5 class="text-center">Lançamentos no mês</h5>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+            <div class="card-body p-0">
+                <div class="text-right mx-3 my-1">
+                    <button type="button" class="btn btn-info" runat="server" data-toggle="modal" data-target="#gerenciarTransacaoModal" title="Adicionar Novo Lançamento" onclick="limparFormTransacao()">Adicionar Lançamento</button>
+                </div>
+                <asp:UpdatePanel ID="upGridTransacoes" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="gridTransacoes" CssClass="table table-striped p-0 border rounded" OnRowCommand="GridTransacoes_RowCommand" EmptyDataText="Não há transações registradas para o período" EmptyDataRowStyle-CssClass="col font-weight-bold text-center" runat="server" AutoGenerateColumns="False" DataKeyNames="IdTransacao">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Tipo" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
+                                    <ItemTemplate>
+                                        <small><%# DataBinder.Eval(Container.DataItem, "TipoFluxo") %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Modo" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
+                                    <ItemTemplate>
+                                        <small><%# DataBinder.Eval(Container.DataItem, "Modo") %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Categoria" ControlStyle-CssClass="col">
+                                    <ItemTemplate>
+                                        <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' />
+                                        &nbsp;<small class="d-block d-md-inline"><%# DataBinder.Eval(Container.DataItem, "Categoria") %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Descrição" ControlStyle-CssClass="col">
+                                    <ItemTemplate>
+                                        <small><%# DataBinder.Eval(Container.DataItem, "Descricao") %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Data" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-md-table-cell" HeaderStyle-CssClass="d-none d-md-table-cell">
+                                    <ItemTemplate>
+                                        <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Valor" ControlStyle-CssClass="col">
+                                    <ItemTemplate>
+                                        <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Comentário" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
+                                    <ItemTemplate>
+                                        <small><%# DataBinder.Eval(Container.DataItem, "Comentario") %></small>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:ButtonField CommandName="editTransacao" ButtonType="Image" ImageUrl="Contents/img/icon_edit.png"></asp:ButtonField>
+                                <asp:ButtonField CommandName="deleteTransacao" ButtonType="Image" ImageUrl="Contents/img/icon_delete.png"></asp:ButtonField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
     <div id="gerenciarTransacaoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gerenciarTransacaoTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -142,12 +144,16 @@
                                         <input id="txtData" class="form-control" type="text" runat="server" clientidmode="static" required readonly />
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div id="divRepetirMes" runat="server" clientidmode="static" class="form-group row">
                                     <label for="repetirmes" class="col-3 col-form-label"></label>
                                     <div class="col-9">
                                         <div class="form-check">
                                             <input id="chkRepetirMes" type="checkbox" class="form-check-input" runat="server" clientidmode="static">
-                                            <label class="form-check-label" for="chkRepetirMes">Repetir nos 3 meses seguintes</label>
+                                            <label class="form-check-label" for="chkRepetirMes">
+                                                Repetir nos
+                                                <asp:TextBox ID="txtRepetirMes" type="number" min="1" max="12" runat="server" TextMode="Number" Text="3"></asp:TextBox>
+                                                meses seguintes
+                                            </label>
                                         </div>
                                     </div>
                                 </div>

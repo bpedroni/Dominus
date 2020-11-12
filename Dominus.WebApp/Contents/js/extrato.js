@@ -21,7 +21,8 @@ listarCategorias = function (tipo) {
             lista.forEach(function (categoria) {
                 select.append($('<option>', {
                     value: categoria.IdCategoria,
-                    text: categoria.Nome
+                    text: categoria.Nome,
+                    title: categoria.Descricao
                 }))
             });
         }
@@ -34,6 +35,7 @@ selecionarCategoria = function (idCategoria) {
     if (categoria.length > 0) {
         $('#txtIdCategoria').val(idCategoria);
         $('#imgCategoria')[0].src = 'Images/Categorias/' + categoria[0].Icone;
+        $('#imgCategoria')[0].title = categoria[0].Nome;
     }
 }
 

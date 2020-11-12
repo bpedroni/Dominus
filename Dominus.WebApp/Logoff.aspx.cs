@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Web.UI;
 
 namespace Dominus.WebApp
 {
-    public partial class Logoff : System.Web.UI.Page
+    public partial class Logoff : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
