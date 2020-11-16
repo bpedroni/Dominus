@@ -9,25 +9,27 @@
 
 namespace Dominus.DataModel
 {
+    using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class Transacao
     {
-        public System.Guid IdTransacao { get; set; }
-        public System.Guid IdUsuario { get; set; }
-        public System.Guid IdCategoria { get; set; }
+        public Guid IdTransacao { get; set; }
+        public Guid IdUsuario { get; set; }
+        public Guid IdCategoria { get; set; }
         public string Identificacao { get; set; }
         public string Descricao { get; set; }
         public string TipoFluxo { get; set; }
         public Nullable<decimal> Valor { get; set; }
-        public Nullable<System.DateTime> Data { get; set; }
+        public Nullable<DateTime> Data { get; set; }
         public string Comentario { get; set; }
         public int Provisionado { get; set; }
         public Nullable<decimal> ValorProvisao { get; set; }
-        public Nullable<System.DateTime> DataProvisao { get; set; }
-    
+        public Nullable<DateTime> DataProvisao { get; set; }
+
+        [JsonIgnore]
         public virtual Categoria Categoria { get; set; }
+        [JsonIgnore]
         public virtual Usuario Usuario { get; set; }
     }
 }

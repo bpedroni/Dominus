@@ -108,6 +108,8 @@
     <Content Include="Contato.aspx" />
     <Content Include="Contents\css\site-logado.css" />
     <Content Include="Contents\css\site.css" />
+    <Content Include="Contents\img\erro.png" />
+    <Content Include="Contents\img\erro404.png" />
     <Content Include="Contents\img\favicon.ico" />
     <Content Include="Contents\img\financas.png" />
     <Content Include="Contents\img\icon_delete.png" />

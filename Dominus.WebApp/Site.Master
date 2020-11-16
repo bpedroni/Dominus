@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dominus <%: Page.Title %></title>
+    <title><%: Page.Title %></title>
     <link href="Contents/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Contents/lib/fontawesome/css/all.css" rel="stylesheet" />
     <link href="Contents/lib/jquery-ui/jquery-ui.css" rel="stylesheet" />
@@ -85,19 +85,21 @@
         <div id="principal" class="content">
             <% if (UsuarioConectado && new String[] { "/Resumo", "/Extrato", "/Planejamento" }.Contains(Page.Request.FilePath))
                 {%>
-            <div class="info-usuario form-row m-0 justify-content-between bg-light">
-                <div class="form-row col-sm m-2">
+            <div class="info-usuario form-row m-0 bg-light">
+                <div class="form-row col col-lg-auto m-2 justify-content-center">
                     <span>Saldo atual:&nbsp;&nbsp;</span>
                     <b>
                         <asp:Label ID="lblSaldo" CssClass="text-success" runat="server" ClientIDMode="Static" Text="R$ 0,00"></asp:Label>
                     </b>
                 </div>
-                <div class="form-row col-sm m-2">
+                <div class="form-row col-lg m-2 justify-content-center">
                     <span>Período:&nbsp;&nbsp;</span>
-                    <b>
+                    <asp:LinkButton ID="btnMesAnterior" CssClass="btn btn-outline-dark" runat="server" ToolTip="Mês anterior" OnClick="BtnMesAnterior_Click"><i class="fas fa-chevron-left"></i></asp:LinkButton>
+                    &nbsp;<b>
                         <asp:DropDownList ID="ddListaPeriodo" CssClass="form-control" ToolTip="Selecione um período" runat="server" AutoPostBack="true">
                         </asp:DropDownList>
-                    </b>
+                    </b>&nbsp;
+                    <asp:LinkButton ID="btnMesSeguinte" CssClass="btn btn-outline-dark" runat="server" ToolTip="Mês seguinte" OnClick="BtnMesSeguinte_Click"><i class="fas fa-chevron-right"></i></asp:LinkButton>
                 </div>
             </div>
             <%}%>

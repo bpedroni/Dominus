@@ -2,6 +2,8 @@
 using Dominus.DataModel.Core;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace Dominus.WebApp.Api
@@ -42,7 +44,11 @@ namespace Dominus.WebApp.Api
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao criar transação",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -56,7 +62,11 @@ namespace Dominus.WebApp.Api
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao editar transação",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -65,13 +75,16 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Guid guid = Guid.Parse(id);
-                Transacao transacao = TransacaoManager.GetTransacaoById(guid);
+                Transacao transacao = TransacaoManager.GetTransacaoById(Guid.Parse(id));
                 TransacaoManager.DeleteTransacao(transacao);
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao remover transação",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
     }

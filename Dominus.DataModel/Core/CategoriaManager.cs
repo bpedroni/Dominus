@@ -78,14 +78,14 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                if (GetCategoriaByNomeETipo(categoria.Nome, categoria.TipoFluxo) != null)
-                {
-                    throw new Exception("O sistema já possui uma categoria com o nome '" + categoria.Nome + "'.");
-                }
                 // A aplicação gera uma nova categoria com as definições padrões:
+                ValidarDadosCategoria(categoria);
                 categoria.IdCategoria = Guid.NewGuid();
+                categoria.Nome = categoria.Nome.Trim();
+                categoria.Descricao = categoria.Descricao.Trim();
                 categoria.DataCriacao = DateTime.Now;
                 categoria.Ativo = ConnectionManager.STATUS_ATIVO;
+
                 connection.OpenConnection();
                 connection.context.Entry(categoria).State = EntityState.Added;
                 connection.context.SaveChanges();
@@ -103,8 +103,17 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados da categoria fornecida:
+                Categoria old = GetCategoriaById(categoria.IdCategoria);
+                if (old == null)
+                    throw new Exception("Categoria não encontrada no sistema.");
+
+                ValidarDadosCategoria(categoria, old);
+                old.Nome = categoria.Nome.Trim();
+                old.Descricao = categoria.Descricao.Trim();
+                old.TipoFluxo = categoria.TipoFluxo;
+
                 connection.OpenConnection();
-                connection.context.Entry(categoria).State = EntityState.Modified;
+                connection.context.Entry(old).State = EntityState.Modified;
                 connection.context.SaveChanges();
                 connection.CloseConnection();
             }
@@ -120,9 +129,14 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação remove a categoria alterando o seu status para inativo:
-                categoria.Ativo = ConnectionManager.STATUS_INATIVO;
+                Categoria old = GetCategoriaById(categoria.IdCategoria);
+                if (old == null)
+                    throw new Exception("Categoria não encontrada no sistema.");
+
+                old.Ativo = ConnectionManager.STATUS_INATIVO;
+
                 connection.OpenConnection();
-                connection.context.Entry(categoria).State = EntityState.Modified;
+                connection.context.Entry(old).State = EntityState.Modified;
                 connection.context.SaveChanges();
                 connection.CloseConnection();
             }
@@ -131,6 +145,24 @@ namespace Dominus.DataModel.Core
                 connection.CloseConnection();
                 throw ex;
             }
+        }
+
+        private static void ValidarDadosCategoria(Categoria categoria, Categoria old = null)
+        {
+            if (String.IsNullOrWhiteSpace(categoria.Nome) || categoria.Nome.Trim().Length > 50)
+                throw new CategoriaNomeException("O nome deve ser preenchido (até 50 caracteres).");
+
+            if ((old == null || !categoria.Nome.Trim().Equals(old.Nome) || !categoria.TipoFluxo.Equals(old.TipoFluxo)) && GetCategoriaByNomeETipo(categoria.Nome.Trim(), categoria.TipoFluxo) != null)
+                throw new CategoriaNomeException("O sistema já possui uma categoria com o nome e o tipo de fluxo indicados.");
+
+            if (String.IsNullOrWhiteSpace(categoria.Descricao) || categoria.Descricao.Trim().Length > 255)
+                throw new CategoriaDescricaoException("A descrição deve ser preenchida (até 255 caracteres).");
+
+            if (!categoria.TipoFluxo.Equals(TIPO_FLUXO_RECEITA) && !categoria.TipoFluxo.Equals(TIPO_FLUXO_DESPESA))
+                throw new CategoriaTipoFluxoException("O tipo de fluxo deve ser 'Receita' ou 'Despesa'.");
+
+            if (String.IsNullOrWhiteSpace(categoria.Icone) || categoria.Icone.Trim().Length > 100)
+                throw new CategoriaIconeException("O ícone deve conter o nome de uma imagem no formato PNG (até 100 caracteres).");
         }
 
         public static Image GetIconeCategoria(Categoria categoria)
@@ -182,6 +214,42 @@ namespace Dominus.DataModel.Core
             {
                 throw ex;
             }
+        }
+
+        public class CategoriaNomeException : Exception
+        {
+            public CategoriaNomeException() { }
+
+            public CategoriaNomeException(string message) : base(message) { }
+
+            public CategoriaNomeException(string message, Exception inner) : base(message, inner) { }
+        }
+
+        public class CategoriaDescricaoException : Exception
+        {
+            public CategoriaDescricaoException() { }
+
+            public CategoriaDescricaoException(string message) : base(message) { }
+
+            public CategoriaDescricaoException(string message, Exception inner) : base(message, inner) { }
+        }
+
+        public class CategoriaTipoFluxoException : Exception
+        {
+            public CategoriaTipoFluxoException() { }
+
+            public CategoriaTipoFluxoException(string message) : base(message) { }
+
+            public CategoriaTipoFluxoException(string message, Exception inner) : base(message, inner) { }
+        }
+
+        public class CategoriaIconeException : Exception
+        {
+            public CategoriaIconeException() { }
+
+            public CategoriaIconeException(string message) : base(message) { }
+
+            public CategoriaIconeException(string message, Exception inner) : base(message, inner) { }
         }
     }
 }

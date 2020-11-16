@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Dominus.DataModel.Core
@@ -31,7 +32,7 @@ namespace Dominus.DataModel.Core
                     case Periodo.Mes:
                         foreach (var item in usuarios.GroupBy(x => x.DataCriacao.Month).OrderBy(x => x.Key))
                         {
-                            String mes = new DateTime(2000, item.Key, 1).ToString(@"MMMM", new System.Globalization.CultureInfo("PT-br"));
+                            String mes = new DateTime(2000, item.Key, 1).ToString(@"MMMM", CultureInfo.GetCultureInfo("pt-BR"));
                             items.Add(new Item { Categoria = mes, Valor = usuarios.Count(x => x.DataCriacao.Month == item.Key) });
                         }
                         break;

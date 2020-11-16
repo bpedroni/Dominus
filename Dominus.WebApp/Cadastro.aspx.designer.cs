@@ -69,15 +69,6 @@ namespace Dominus.WebApp
         protected global::System.Web.UI.WebControls.CheckBox chkTermosUso;
 
         /// <summary>
-        /// vTermosUso control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator vTermosUso;
-
-        /// <summary>
         /// lblMsg control.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,15 @@ namespace Dominus.WebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsg;
+
+        /// <summary>
+        /// loading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loading;
 
         /// <summary>
         /// btnCadastrar control.

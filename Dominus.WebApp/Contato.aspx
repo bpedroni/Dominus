@@ -1,6 +1,25 @@
 ﻿<%@ Page Title="Contato" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contato.aspx.cs" Inherits="Dominus.WebApp.Contato" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function validarForm(button) {
+            var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            msg.textContent = '';
+
+            var nome = document.getElementById("<%=txtNome.ClientID %>");
+            var email = document.getElementById("<%=txtEmail.ClientID %>");
+            var assunto = document.getElementById("<%=txtAssunto.ClientID %>");
+            var mensagem = document.getElementById("<%=txtMensagem.ClientID %>");
+
+            if (!nome.validity.valid || !email.validity.valid || !assunto.validity.valid || !mensagem.validity.valid) {
+                return false;
+            }
+
+            $('#loading')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="card shadow rounded formulario">
@@ -32,8 +51,9 @@
             <div class="text-center">
                 <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" /><p></p>
             </div>
-            <div class="text-right">
-                <asp:Button ID="btnEnviar" CssClass="btn btn-primary btn-lg" runat="server" Text="Enviar" ToolTip="Enviar mensagem" OnClick="BtnEnviar_Click" />
+            <div class="d-flex justify-content-end">
+                <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+                <asp:Button ID="btnEnviar" CssClass="btn btn-primary btn-lg" runat="server" Text="Enviar Mensagem" ToolTip="Enviar mensagem" OnClientClick="validarForm(this);" OnClick="BtnEnviar_Click" />
             </div>
         </div>
     </div>

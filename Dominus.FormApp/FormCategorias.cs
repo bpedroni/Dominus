@@ -12,6 +12,8 @@ namespace Dominus.FormApp
 {
     public partial class FormCategorias : Form
     {
+        public List<Icone> Icones;
+
         public FormCategorias()
         {
             InitializeComponent();
@@ -28,7 +30,32 @@ namespace Dominus.FormApp
 
         private void FormCategorias_Shown(object sender, EventArgs e)
         {
+            Icones = new List<Icone>();
+
             CarregarGridCategorias();
+            if (ConnectionManager.VerificaSiteOnLine())
+            {
+                foreach (DataGridViewRow row in gridCategorias.Rows)
+                {
+                    Categoria categoria = (Categoria)row.DataBoundItem;
+                    DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
+
+                    Image image = CategoriaManager.GetIconeCategoria(categoria);
+                    if (image != null)
+                    {
+                        iconeCell.Value = new Bitmap(image, new Size(18, 18));
+                        Icones.Add(new Icone
+                        {
+                            IdCategoria = categoria.IdCategoria,
+                            Bitmap = (Bitmap)iconeCell.Value
+                        });
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Não foi possível carregar os ícones das categorias.", "Ícones não carregados!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void CarregarGridCategorias(String nome = null)
@@ -39,23 +66,15 @@ namespace Dominus.FormApp
                 x.Nome.ToLower().Contains(nome.ToLower()))
             .OrderBy(x => x.Nome).ToList();
 
-            if (ConnectionManager.VerificaSiteOnLine())
+            foreach (DataGridViewRow row in gridCategorias.Rows)
             {
-                foreach (DataGridViewRow row in gridCategorias.Rows)
-                {
-                    Categoria categoria = (Categoria)row.DataBoundItem;
-                    DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
+                Categoria categoria = (Categoria)row.DataBoundItem;
+                DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
 
-                    if (CategoriaManager.GetIconeCategoria(categoria) != null)
-                    {
-                        Image image = CategoriaManager.GetIconeCategoria(categoria);
-                        iconeCell.Value = new Bitmap(image, new Size(18, 18));
-                    }
+                if (Icones.Count > 0)
+                {
+                    iconeCell.Value = Icones.FirstOrDefault(x => x.IdCategoria == categoria.IdCategoria)?.Bitmap;
                 }
-            }
-            else
-            {
-                MessageBox.Show("Não foi possível carregar os ícones das categorias.", "Ícones não carregados!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -64,6 +83,15 @@ namespace Dominus.FormApp
             FormGerenciarCategoria form = new FormGerenciarCategoria(categoria);
             if (form.ShowDialog() == DialogResult.OK)
             {
+                Image image = CategoriaManager.GetIconeCategoria(categoria);
+                if (image != null)
+                {
+                    Icone icone = Icones.FirstOrDefault(x => x.IdCategoria == categoria.IdCategoria);
+                    if (icone != null)
+                    {
+                        icone.Bitmap = new Bitmap(image, new Size(18, 18));
+                    }
+                }
                 CarregarGridCategorias(txtFiltroCategoria.Text);
                 MessageBox.Show("A categoria foi editada com sucesso.", "Categoria atualizada!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -88,6 +116,28 @@ namespace Dominus.FormApp
             if (form.ShowDialog() == DialogResult.OK)
             {
                 CarregarGridCategorias(txtFiltroCategoria.Text);
+
+                if (ConnectionManager.VerificaSiteOnLine())
+                {
+                    foreach (DataGridViewRow row in gridCategorias.Rows)
+                    {
+                        Categoria categoria = (Categoria)row.DataBoundItem;
+                        if (Icones.FirstOrDefault(x => x.IdCategoria == categoria.IdCategoria) == null)
+                        {
+                            Image image = CategoriaManager.GetIconeCategoria(categoria);
+                            if (image != null)
+                            {
+                                DataGridViewImageCell iconeCell = (DataGridViewImageCell)row.Cells["Image"];
+                                iconeCell.Value = new Bitmap(image, new Size(18, 18));
+                                Icones.Add(new Icone
+                                {
+                                    IdCategoria = categoria.IdCategoria,
+                                    Bitmap = (Bitmap)iconeCell.Value
+                                });
+                            }
+                        }
+                    }
+                }
                 MessageBox.Show("A categoria foi inserida com sucesso.", "Categoria nova incluída!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -109,7 +159,7 @@ namespace Dominus.FormApp
             {
                 DataGridViewColumn column = senderGrid.Columns[e.ColumnIndex];
                 Categoria categoria = (Categoria)gridCategorias.Rows[e.RowIndex].DataBoundItem;
-                
+
                 switch (column.Name)
                 {
                     case "CategoriaEditar":
@@ -127,5 +177,11 @@ namespace Dominus.FormApp
                 }
             }
         }
+    }
+
+    public class Icone
+    {
+        public Guid IdCategoria { get; set; }
+        public Bitmap Bitmap { get; set; }
     }
 }

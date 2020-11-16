@@ -84,7 +84,11 @@ namespace Dominus.WebApp
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao criar categoria",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -135,7 +139,11 @@ namespace Dominus.WebApp
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao editar categoria",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -144,13 +152,16 @@ namespace Dominus.WebApp
         {
             try
             {
-                Guid guid = Guid.Parse(id);
-                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
+                Categoria categoria = CategoriaManager.GetCategoriaById(Guid.Parse(id));
                 CategoriaManager.DeleteCategoria(categoria);
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao remover categoria",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
     }

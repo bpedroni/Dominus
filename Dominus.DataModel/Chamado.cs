@@ -21,22 +21,25 @@ namespace Dominus.DataModel
             this.ChamadoPrincipal = new HashSet<Chamado>();
         }
     
-        public System.Guid IdChamado { get; set; }
-        public System.Guid IdUsuario { get; set; }
+        public Guid IdChamado { get; set; }
+        public Guid IdUsuario { get; set; }
         public string Titulo { get; set; }
         public string Mensagem { get; set; }
-        public System.DateTime DataCriacao { get; set; }
-        public Nullable<System.Guid> IdUsuarioSuporte { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public Nullable<Guid> IdUsuarioSuporte { get; set; }
         public string MensagemResposta { get; set; }
-        public Nullable<System.DateTime> DataResposta { get; set; }
+        public Nullable<DateTime> DataResposta { get; set; }
         public int Validado { get; set; }
-        public Nullable<System.Guid> IdChamadoAssociado { get; set; }
+        public Nullable<Guid> IdChamadoAssociado { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chamado> ChamadoPrincipal { get; set; }
+        [JsonIgnore]
         public virtual Chamado ChamadoAssociado { get; set; }
+        [JsonIgnore]
         public virtual Usuario Usuario { get; set; }
+        [JsonIgnore]
         public virtual Usuario UsuarioSuporte { get; set; }
     }
 }

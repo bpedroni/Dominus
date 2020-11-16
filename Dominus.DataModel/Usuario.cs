@@ -12,7 +12,7 @@ namespace Dominus.DataModel
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,14 +25,14 @@ namespace Dominus.DataModel
             this.Transacoes = new HashSet<Transacao>();
         }
 
-        public System.Guid IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; }
         public string Nome { get; set; }
         public string Login { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PerfilAdministrador { get; set; }
-        public System.DateTime DataCriacao { get; set; }
-        public Nullable<System.DateTime> DataExclusao { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public Nullable<DateTime> DataExclusao { get; set; }
         public int Ativo { get; set; }
 
         [JsonIgnore]

@@ -2,6 +2,14 @@
     margin-left: 200px;
 }
 
+#principal {
+    background-color: beige;
+}
+
+.info-usuario {
+    font-size: 1.4rem;
+}
+
 .sidebar {
     width: 200px;
     height: calc(100vh - 60px);
@@ -26,11 +34,20 @@
             background-color: royalblue;
         }
 
+@media screen and (max-width: 900px) {
+    .info-usuario {
+        font-size: 1.3rem;
+    }
+}
+
 @media screen and (max-width: 700px) {
     #principal {
         top: 120px;
         height: calc(100vh - 120px);
         overflow: auto;
+    }
+    .info-usuario {
+        font-size: 1.2rem;
     }
 
     .sidebar {
@@ -49,11 +66,18 @@
 
             .sidebar a.active {
                 border-left: unset;
-                border-bottom: 4px solid orange;
+                border-bottom: 3px solid orange;
             }
 
             .sidebar a span {
                 display: block;
                 font-size: x-small;
             }
+}
+
+@media screen and (max-width: 500px) {
+
+    .info-usuario {
+        font-size: 1.1rem;
+    }
 }

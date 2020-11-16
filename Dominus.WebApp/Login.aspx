@@ -1,6 +1,23 @@
-﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Dominus.WebApp.Login" %>
+﻿<%@ Page Title="Entrar no Dominus" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Dominus.WebApp.Login" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function validarForm(button) {
+            var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            msg.textContent = '';
+
+            var login = document.getElementById("<%=txtLogin.ClientID %>");
+            var senha = document.getElementById("<%=txtSenha.ClientID %>");
+
+            if (!login.validity.valid || !senha.validity.valid) {
+                return false;
+            }
+
+            $('#loading')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="card shadow rounded formulario">
@@ -27,8 +44,9 @@
             <div class="text-center">
                 <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" /><p></p>
             </div>
-            <div class="text-right">
-                <asp:Button ID="btnLogin" CssClass="btn btn-primary btn-lg" runat="server" Text="Login" ToolTip="Realizar o login" OnClick="BtnLogin_Click" />
+            <div class="d-flex justify-content-end">
+                <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+                <asp:Button ID="btnLogin" CssClass="btn btn-primary btn-lg" runat="server" Text="Login" ToolTip="Realizar o login" OnClientClick="validarForm(this);" OnClick="BtnLogin_Click" />
             </div>
             <br />
             <div class="text-center">

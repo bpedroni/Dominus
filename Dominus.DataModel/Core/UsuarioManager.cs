@@ -92,19 +92,16 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                if (GetUsuarioByLogin(usuario.Login) != null)
-                {
-                    throw new Exception("O sistema já possui um usuário com o login '" + usuario.Login + "'.");
-                }
-                if (GetUsuarioByEmail(usuario.Email) != null)
-                {
-                    throw new Exception("O sistema já possui um usuário com o e-mail '" + usuario.Email + "'.");
-                }
                 // A aplicação gera um novo usuário com as definições padrões:
+                ValidarDadosUsuario(usuario);
                 usuario.IdUsuario = Guid.NewGuid();
+                usuario.Nome = usuario.Nome.Trim();
+                usuario.Login = usuario.Login.Trim();
+                usuario.Email = usuario.Email.Trim();
                 usuario.DataCriacao = DateTime.Now;
                 usuario.PerfilAdministrador = PERFIL_USUARIO;
                 usuario.Ativo = ConnectionManager.STATUS_ATIVO;
+
                 connection.OpenConnection();
                 connection.context.Entry(usuario).State = EntityState.Added;
                 connection.context.SaveChanges();
@@ -122,8 +119,17 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação atualiza os dados do usuário fornecido:
+                Usuario old = GetUsuarioById(usuario.IdUsuario);
+                if (old == null)
+                    throw new Exception("Usuário não encontrado no sistema.");
+
+                ValidarDadosUsuario(usuario, old);
+                old.Nome = usuario.Nome.Trim();
+                old.Login = usuario.Login.Trim();
+                old.Senha = usuario.Senha;
+
                 connection.OpenConnection();
-                connection.context.Entry(usuario).State = EntityState.Modified;
+                connection.context.Entry(old).State = EntityState.Modified;
                 connection.context.SaveChanges();
                 connection.CloseConnection();
             }
@@ -139,9 +145,14 @@ namespace Dominus.DataModel.Core
             try
             {
                 // A aplicação remove o usuário fornecido alterando o seu status para inativo:
-                usuario.Ativo = ConnectionManager.STATUS_INATIVO;
+                Usuario old = GetUsuarioById(usuario.IdUsuario);
+                if (old == null)
+                    throw new Exception("Usuário não encontrado no sistema.");
+
+                old.Ativo = ConnectionManager.STATUS_INATIVO;
+
                 connection.OpenConnection();
-                connection.context.Entry(usuario).State = EntityState.Modified;
+                connection.context.Entry(old).State = EntityState.Modified;
                 connection.context.SaveChanges();
                 connection.CloseConnection();
             }
@@ -150,6 +161,50 @@ namespace Dominus.DataModel.Core
                 connection.CloseConnection();
                 throw ex;
             }
+        }
+
+        public static void EditPerfilUsuario(List<Usuario> usuarios)
+        {
+            try
+            {
+                // A aplicação atualiza apenas o PerfilAdministrador do usuário fornecido:
+                connection.OpenConnection();
+                foreach (Usuario usuario in usuarios)
+                {
+                    connection.context.Entry(usuario).State = EntityState.Modified;
+                }
+                connection.context.SaveChanges();
+                connection.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                connection.CloseConnection();
+                throw ex;
+            }
+        }
+
+        private static void ValidarDadosUsuario(Usuario usuario, Usuario old = null)
+        {
+            if (String.IsNullOrWhiteSpace(usuario.Nome) || usuario.Nome.Trim().Length > 100)
+                throw new UsuarioNomeException("O nome deve ser preenchido (até 100 caracteres).");
+
+            if (String.IsNullOrWhiteSpace(usuario.Login) || usuario.Login.Trim().Length < 4 || usuario.Login.Trim().Length > 15)
+                throw new UsuarioLoginException("O login deve ser preenchido (de 4 até 15 caracteres).");
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(usuario.Login.Trim(), @"^[a-zA-Z0-9_]+$"))
+                throw new UsuarioLoginException("O login deve conter apenas letras, números ou '_'(sublinhado).");
+
+            if ((old == null || !usuario.Login.Trim().Equals(old.Login)) && GetUsuarioByLogin(usuario.Login.Trim()) != null)
+                throw new UsuarioLoginException("O sistema já possui um usuário com o login '" + usuario.Login.Trim() + "'. Escolha um outro nome.");
+
+            if (String.IsNullOrWhiteSpace(usuario.Email) || usuario.Email.Trim().Length > 100 || !ValidarEmail(usuario.Email))
+                throw new UsuarioEmailException("O e-mail deve ser preenchido com um endereço válido (até 100 caracteres).");
+
+            if ((old == null || !usuario.Email.Trim().Equals(old.Email)) && GetUsuarioByEmail(usuario.Email.Trim()) != null)
+                throw new UsuarioEmailException("O sistema já possui um usuário com o e-mail '" + usuario.Email.Trim() + "'.");
+
+            if (String.IsNullOrWhiteSpace(Codificador.Descriptografar(usuario.Senha)) || Codificador.Descriptografar(usuario.Senha).Length < 8 || Codificador.Descriptografar(usuario.Senha).Length > 20)
+                throw new UsuarioSenhaException("A senha deve ser preenchida e deve atender à política de segurança.");
         }
 
         public static Usuario ValidarUsuario(String login, String senha)
@@ -228,5 +283,41 @@ namespace Dominus.DataModel.Core
                 throw new Exception(ex.Message);
             }
         }
+    }
+
+    public class UsuarioNomeException : Exception
+    {
+        public UsuarioNomeException() { }
+
+        public UsuarioNomeException(string message) : base(message) { }
+
+        public UsuarioNomeException(string message, Exception inner) : base(message, inner) { }
+    }
+
+    public class UsuarioLoginException : Exception
+    {
+        public UsuarioLoginException() { }
+
+        public UsuarioLoginException(string message) : base(message) { }
+
+        public UsuarioLoginException(string message, Exception inner) : base(message, inner) { }
+    }
+
+    public class UsuarioEmailException : Exception
+    {
+        public UsuarioEmailException() { }
+
+        public UsuarioEmailException(string message) : base(message) { }
+
+        public UsuarioEmailException(string message, Exception inner) : base(message, inner) { }
+    }
+
+    public class UsuarioSenhaException : Exception
+    {
+        public UsuarioSenhaException() { }
+
+        public UsuarioSenhaException(string message) : base(message) { }
+
+        public UsuarioSenhaException(string message, Exception inner) : base(message, inner) { }
     }
 }

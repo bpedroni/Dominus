@@ -27,82 +27,24 @@ namespace Dominus.WebApp
 
         protected void BtnCadastrar_Click(object sender, EventArgs e)
         {
-            // Limpa a mensagem de alerta, caso haja algum texto:
-            lblMsg.Text = String.Empty;
-
-            // Valida se os campos estão preenchidos:
-            if (String.IsNullOrWhiteSpace(txtNome.Value) || txtNome.Value.Trim().Length > 100)
-            {
-                lblMsg.Text = "O nome deve ser preenchido (até 100 caracteres).";
-                txtNome.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtLogin.Value) || txtLogin.Value.Trim().Length < 4 || txtLogin.Value.Trim().Length > 15)
-            {
-                lblMsg.Text = "O login deve ser preenchido (de 4 até 15 caracteres).";
-                txtLogin.Focus();
-                return;
-            }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtLogin.Value.Trim(), @"^[a-zA-Z0-9_]+$"))
-            {
-                lblMsg.Text = "O login deve conter apenas letras, números ou '_'(sublinhado).";
-                txtLogin.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtEmail.Value) || txtEmail.Value.Trim().Length > 100 || !UsuarioManager.ValidarEmail(txtEmail.Value))
-            {
-                lblMsg.Text = "O e-mail deve ser preenchido (até 100 caracteres).";
-                txtEmail.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtSenha.Value) || txtSenha.Value.Trim().Length < 8 || txtSenha.Value.Trim().Length > 20)
-            {
-                lblMsg.Text = "A senha deve ser preenchida (de 8 até 20 caracteres).";
-                txtSenha.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtVerificarSenha.Value) || !txtVerificarSenha.Value.Equals(txtSenha.Value))
-            {
-                lblMsg.Text = "As senhas não conferem!";
-                txtSenha.Focus();
-                return;
-            }
-            if (!chkTermosUso.Checked)
-            {
-                return;
-            }
-
             try
             {
-                Usuario usuario = UsuarioManager.GetUsuarioByEmail(txtEmail.Value.Trim());
-                if (usuario != null)
-                {
-                    lblMsg.Text = "O e-mail fornecido já possui cadastro no sistema. Utilize um outro e-mail ou recupere sua senha.";
-                    txtEmail.Focus();
-                    return;
-                }
-                usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value.Trim());
-                if (usuario != null)
-                {
-                    lblMsg.Text = "O sistema já possui o login digitado. Escolha um outro nome.";
-                    txtLogin.Focus();
-                    return;
-                }
-                if (!UsuarioManager.ValidarSenha(txtSenha.Value))
-                {
-                    lblMsg.Text = "A senha fornecida não atende à política de senhas do Dominus";
-                    txtSenha.Focus();
-                    return;
-                }
+                // Limpa a mensagem de alerta, caso haja algum texto:
+                lblMsg.Text = String.Empty;
 
-                UsuarioManager.AddUsuario(new Usuario()
+                if (!chkTermosUso.Checked)
+                {
+                    lblMsg.Text = "É necessário aceitar os termos de uso!";
+                    return;
+                }
+                Usuario usuario = new Usuario()
                 {
                     Nome = txtNome.Value.Trim(),
                     Login = txtLogin.Value.Trim(),
                     Email = txtEmail.Value.Trim(),
                     Senha = Codificador.Criptografar(txtSenha.Value)
-                });
-
+                };
+                UsuarioManager.AddUsuario(usuario);
                 usuario = UsuarioManager.GetUsuarioByLogin(txtLogin.Value.Trim());
                 Sessao.IniciarSessao(usuario);
 
@@ -110,7 +52,24 @@ namespace Dominus.WebApp
             }
             catch (Exception ex)
             {
-                throw ex;
+                switch (ex.GetType().Name)
+                {
+                    case "UsuarioNomeException":
+                        txtNome.Focus();
+                        break;
+                    case "UsuarioLoginException":
+                        txtLogin.Focus();
+                        break;
+                    case "UsuarioEmailException":
+                        txtEmail.Focus();
+                        break;
+                    case "UsuarioSenhaException":
+                        txtSenha.Focus();
+                        break;
+                    default:
+                        throw ex;
+                }
+                lblMsg.Text = ex.Message;
             }
         }
     }

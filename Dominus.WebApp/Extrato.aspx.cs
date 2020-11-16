@@ -41,7 +41,7 @@ namespace Dominus.WebApp
         {
             Periodo = Session["Periodo"].ToString();
 
-            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("pt-BR"));
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
             Transacoes = TransacaoManager.GetGridTransacoes(Usuario, periodo.Month, periodo.Year);
 
             gridTransacoes.DataSource = Transacoes;
@@ -51,6 +51,12 @@ namespace Dominus.WebApp
         public static String GetCategorias()
         {
             return JsonConvert.SerializeObject(Categorias);
+        }
+
+        public static String GetInicioPeriodo()
+        {
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+            return periodo.ToString(@"dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"));
         }
 
         protected void GridTransacoes_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
@@ -66,8 +72,8 @@ namespace Dominus.WebApp
                     txtIdTransacao.Value = idTransacao.ToString();
                     txtIdCategoria.Value = rowTransacao.IdCategoria.ToString();
                     txtDescricao.Value = rowTransacao.Descricao;
-                    txtData.Value = rowTransacao.Data.ToString(@"dd/MM/yyyy", CultureInfo.CreateSpecificCulture("pt-BR"));
-                    txtValor.Value = rowTransacao.Valor.ToString("N", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    txtData.Value = rowTransacao.Data.ToString(@"dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+                    txtValor.Value = rowTransacao.Valor.ToString("N", CultureInfo.GetCultureInfo("pt-BR"));
                     txtComentario.Value = rowTransacao.Comentario;
                     rdoTransacao.Checked = rowTransacao.Provisionado == TransacaoManager.TRANSACAO_EFETUADA;
                     rdoProvisao.Checked = rowTransacao.Provisionado == TransacaoManager.TRANSACAO_PROVISIONADA;
@@ -120,27 +126,7 @@ namespace Dominus.WebApp
                 // Limpa a mensagem de alerta, caso haja algum texto:
                 lblMsg.Text = String.Empty;
 
-                // Valida se os campos obrigatórios estão preenchidos:
-                if (String.IsNullOrWhiteSpace(txtDescricao.Value) || txtDescricao.Value.Trim().Length > 100)
-                {
-                    txtDescricao.Focus();
-                    lblMsg.Text = "A descrição deve ser preenchida.";
-                    StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
-                    return;
-                }
-                if (String.IsNullOrWhiteSpace(txtValor.Value))
-                {
-                    txtValor.Focus();
-                    lblMsg.Text = "O valor deve ser preenchido.";
-                    StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
-                    return;
-                }
-                Decimal valor;
-                try
-                {
-                    valor = Decimal.Parse(txtValor.Value.Replace(".", ""), CultureInfo.CreateSpecificCulture("pt-BR"));
-                }
-                catch (Exception)
+                if (!Decimal.TryParse(txtValor.Value.Replace(".", ""), NumberStyles.AllowDecimalPoint, CultureInfo.GetCultureInfo("pt-BR"), out Decimal valor))
                 {
                     txtValor.Focus();
                     lblMsg.Text = "Insira um número válido para o valor.";
@@ -159,28 +145,14 @@ namespace Dominus.WebApp
                     StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
                     return;
                 }
-                if (String.IsNullOrWhiteSpace(txtIdCategoria.Value))
-                {
-                    lblMsg.Text = "A categoria deve ser definida.";
-                    StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
-                    return;
-                }
-                if (String.IsNullOrWhiteSpace(txtData.Value))
-                {
-                    txtData.Focus();
-                    lblMsg.Text = "A data deve ser preenchida.";
-                    StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
-                    return;
-                }
                 DateTime data;
                 try
                 {
-                    data = DateTime.ParseExact(txtData.Value, @"dd/MM/yyyy", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    data = DateTime.ParseExact(txtData.Value, @"dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"));
                 }
                 catch (Exception)
                 {
-                    txtValor.Focus();
-                    lblMsg.Text = "Insira uma data válida para o lançamento (dd/mm/aaaa).";
+                    lblMsg.Text = "A data deve ser preenchida com uma data válida (dd/mm/aaaa).";
                     StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
                     return;
                 }
@@ -241,9 +213,23 @@ namespace Dominus.WebApp
                 }
                 UpdateSaldoScript("gerenciarTransacaoModal", "Lançamento salvo com sucesso!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ShowMessageErrorScript("Ocorreu um erro ao salvar o lançamento. Entre em contato com o administrador!");
+                switch (ex.GetType().Name)
+                {
+                    case "TransacaoUsuarioException":
+                    case "TransacaoCategoriaException":
+                    case "TransacaoDescricaoException":
+                    case "TransacaoValorException":
+                    case "TransacaoDataException":
+                    case "TransacaoTipoFluxoException":
+                    case "TransacaoComentarioException":
+                        ShowMessageErrorScript(ex.Message);
+                        break;
+                    default:
+                        ShowMessageErrorScript("Ocorreu um erro ao salvar o lançamento. Entre em contato com o administrador!");
+                        break;
+                }
                 StartComponentsScript("gerenciarTransacaoModal", rowTransacao);
             }
         }
@@ -297,7 +283,7 @@ namespace Dominus.WebApp
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#lblSaldo').text('" + saldo.ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR")) + "');");
+            sb.Append("$('#lblSaldo').text('" + saldo.ToString("C2", CultureInfo.GetCultureInfo("pt-BR")) + "');");
             sb.Append("$('#lblSaldo')[0].className = '" + (saldo < 0 ? "text-danger" : "text-success") + "';");
             sb.Append("swal({ title: 'Concluído', text: '" + message + "!', type: 'success', timer: 2000 });");
             sb.Append("$('#" + modal + "').modal('hide');");

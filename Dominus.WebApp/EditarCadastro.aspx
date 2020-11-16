@@ -1,21 +1,33 @@
-﻿<%@ Page Title="Editar Cadastro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarCadastro.aspx.cs" Inherits="Dominus.WebApp.EditarCadastro" %>
+﻿<%@ Page Title="Edite o seu Cadastro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarCadastro.aspx.cs" Inherits="Dominus.WebApp.EditarCadastro" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        function verificarSenhas() {
+        function validarForm(button) {
+            var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            msg.textContent = '';
+
+            var nome = document.getElementById("<%=txtNome.ClientID %>");
+            var login = document.getElementById("<%=txtLogin.ClientID %>");
+            var senha = document.getElementById("<%=txtSenha.ClientID %>");
+            if (!nome.validity.valid || !login.validity.valid || !senha.validity.valid) {
+                return;
+            }
             var alterarSenha = document.getElementById("<%=chkAlterarSenha.ClientID %>");
             var novaSenha = document.getElementById("<%=txtNovaSenha.ClientID %>");
             var verificarSenha = document.getElementById("<%=txtVerificarSenha.ClientID %>");
-            var msg = document.getElementById("<%=lblMsg.ClientID %>");
 
-            if (!alterarSenha.checked) {
-                novaSenha.required = false;
-                verificarSenha.required = false;
-                return true;
+            novaSenha.required = false;
+            verificarSenha.required = false;
+            if (alterarSenha.checked) {
+                if (!validarSenhas(novaSenha, verificarSenha, msg)) {
+                    return false;
+                }
+                novaSenha.required = true;
+                verificarSenha.required = true;
             }
-            novaSenha.required = true;
-            verificarSenha.required = true;
-            return validarSenhas(novaSenha, verificarSenha, msg);
+            $('#loading')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
         }
     </script>
 </asp:Content>
@@ -74,7 +86,8 @@
             <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" /><p></p>
         </div>
         <div class="text-right">
-            <asp:Button ID="btnEditarCadastro" CssClass="btn btn-primary btn-lg" runat="server" Text="Salvar alterações" OnClientClick="return verificarSenhas();" OnClick="BtnEditarCadastro_Click" />
+            <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+            <asp:Button ID="btnEditarCadastro" CssClass="btn btn-primary btn-lg" runat="server" Text="Salvar alterações" OnClientClick="return validarForm(this);" OnClick="BtnEditarCadastro_Click" />
         </div>
         <br />
     </div>

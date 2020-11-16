@@ -24,7 +24,7 @@ namespace Dominus.WebApp
                 // Atualiza o nome e o saldo do usuário na página:
                 lblNomeUsuario.Text = usuario.Nome;
                 decimal saldo = TransacaoManager.GetSaldo(usuario);
-                lblSaldo.Text = saldo.ToString("C2", CultureInfo.CreateSpecificCulture("pt-BR"));
+                lblSaldo.Text = saldo.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
                 lblSaldo.CssClass = saldo < 0 ? "text-danger" : "text-success";
 
                 // Verifica se o usuário selecionou um período na página e atualiza o período na Session:
@@ -51,9 +51,15 @@ namespace Dominus.WebApp
         // Método que carrega a lista de períodos das transações do usuário:
         private void AtualizaListaPeriodos(Usuario usuario)
         {
+            DateTime periodo = DateTime.Now;
+            if (Session["Periodo"] != null)
+            {
+                periodo = DateTime.ParseExact(Session["Periodo"].ToString(), @"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+            }
+
             // Define as variáveis dos extremos do período, inicializando com a data atual:
-            DateTime dataInicio = DateTime.Now.AddMonths(-2);
-            DateTime dataFim = DateTime.Now.AddMonths(2);
+            DateTime dataInicio = DateTime.Now.AddMonths(-2) < periodo ? DateTime.Now.AddMonths(-2) : periodo;
+            DateTime dataFim = DateTime.Now.AddMonths(2) > periodo ? DateTime.Now.AddMonths(2) : periodo;
 
             // Define a lista de transações do usuário:
             List<GridRowTransacao> transacoes = TransacaoManager.GetGridTransacoes(usuario);
@@ -78,11 +84,38 @@ namespace Dominus.WebApp
             ddListaPeriodo.Items.Clear();
             while (dataInicio.Year < dataFim.Year || (dataInicio.Year == dataFim.Year && dataInicio.Month <= dataFim.Month))
             {
-                String data = dataInicio.ToString(@"MMMM / yyyy", new CultureInfo("PT-br"));
+                String data = dataInicio.ToString(@"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
                 ListItem item = new ListItem(data);
                 ddListaPeriodo.Items.Add(item);
                 dataInicio = dataInicio.AddMonths(1);
             }
+        }
+
+        protected void BtnMesAnterior_Click(object sender, EventArgs e)
+        {
+            // Altera o período do escopo, baseado na Session do usuário, para o mês anterior:
+            CalculaMesPeriodo(-1);
+        }
+
+        protected void BtnMesSeguinte_Click(object sender, EventArgs e)
+        {
+            // Altera o período do escopo, baseado na Session do usuário, para o mês seguinte:
+            CalculaMesPeriodo(1);
+        }
+
+        private void CalculaMesPeriodo(int mes)
+        {
+            DateTime periodo = DateTime.ParseExact(ddListaPeriodo.SelectedValue, @"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+            String novoPeriodo = periodo.AddMonths(mes).ToString(@"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+
+            // Insere o novo período na lista no caso de não conter este período na lista:
+            if (!ddListaPeriodo.DataValueField.Contains(novoPeriodo))
+            {
+                ddListaPeriodo.Items.Add(novoPeriodo);
+            }
+            // Altera o período do escopo na Session do usuário e atualiza a seleção na lista:
+            Session["Periodo"] = novoPeriodo;
+            ddListaPeriodo.SelectedValue = novoPeriodo;
         }
     }
 }

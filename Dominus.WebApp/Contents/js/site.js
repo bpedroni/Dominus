@@ -10,7 +10,8 @@ function validarLogin(elem, evt) {
     var regex = new RegExp("^[a-zA-Z0-9_]*$");
     var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);
 
-    if (regex.test(str)) {
+    if (regex.test(str) || evt.charCode == 13) {
+        $('#msgLogin')[0].hidden = true;
         return true;
     }
     else {
@@ -30,7 +31,6 @@ function validarSenhas(elemSenha, elemValidarSenha, elemMsg) {
 
     if (!patternSenha.test(elemSenha.value)) {
         elemSenha.classList.add('is-invalid');
-        elemMsg.textContent = 'A senha digitada não é válida!';
         elemSenha.select();
     }
     else if (elemSenha.value != elemValidarSenha.value) {
@@ -44,5 +44,5 @@ function validarSenhas(elemSenha, elemValidarSenha, elemMsg) {
         elemValidarSenha.classList.remove('is-invalid');
     }
 
-    return elemSenha.value == elemValidarSenha.value;
+    return !elemSenha.classList.contains('is-invalid') && elemSenha.value == elemValidarSenha.value;
 }

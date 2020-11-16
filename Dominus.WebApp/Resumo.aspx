@@ -44,12 +44,12 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Data" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-md-table-cell" HeaderStyle-CssClass="d-none d-md-table-cell">
                             <ItemTemplate>
-                                <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) %></small>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Valor" ControlStyle-CssClass="col">
                             <ItemTemplate>
-                                <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) %></small>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Comentário" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">

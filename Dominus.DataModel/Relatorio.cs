@@ -9,19 +9,21 @@
 
 namespace Dominus.DataModel
 {
+    using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class Relatorio
     {
-        public System.Guid IdRelatorio { get; set; }
-        public System.Guid IdTipoRelatorio { get; set; }
-        public System.Guid IdUsuario { get; set; }
+        public Guid IdRelatorio { get; set; }
+        public Guid IdTipoRelatorio { get; set; }
+        public Guid IdUsuario { get; set; }
         public string Nome { get; set; }
         public string InfoLinha { get; set; }
         public string InfoColuna { get; set; }
-    
+
+        [JsonIgnore]
         public virtual TipoRelatorio TipoRelatorio { get; set; }
+        [JsonIgnore]
         public virtual Usuario Usuario { get; set; }
     }
 }

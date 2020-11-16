@@ -47,7 +47,7 @@ limparFormTransacao = function () {
     $('#rdoReceita').click();
     $('#rdoTransacao').click();
     $('#txtIdCategoria').val($('#listCategorias').val());
-    $('#txtData').val('');
+    $('#txtData').val(_dataPeriodo);
     $('#txtComentario').val('');
     $('.fieldMoney').mask('#.##0,00', { reverse: true });
     $('#txtData').datepicker({ dateFormat: 'dd/mm/yy' });

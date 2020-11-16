@@ -42,6 +42,15 @@ namespace Dominus.WebApp
         protected global::System.Web.UI.WebControls.Label lblSaldo;
 
         /// <summary>
+        /// btnMesAnterior control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnMesAnterior;
+
+        /// <summary>
         /// ddListaPeriodo control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace Dominus.WebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddListaPeriodo;
+
+        /// <summary>
+        /// btnMesSeguinte control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnMesSeguinte;
 
         /// <summary>
         /// MainContent control.

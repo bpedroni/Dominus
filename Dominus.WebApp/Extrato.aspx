@@ -5,6 +5,7 @@
     <script src="Contents/js/extrato.js?ts=<%: new HtmlString(DateTime.Now.Ticks.ToString()) %>"></script>
     <script type="text/javascript">
         window._categorias = <%: new HtmlString(GetCategorias()) %>;
+        window._dataPeriodo = '<%: new HtmlString(GetInicioPeriodo()) %>';
     </script>
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -34,7 +35,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Categoria" ControlStyle-CssClass="col">
                                     <ItemTemplate>
-                                        <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' />
+                                        <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "DescricaoCategoria") %>' />
                                         &nbsp;<small class="d-block d-md-inline"><%# DataBinder.Eval(Container.DataItem, "Categoria") %></small>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -45,12 +46,12 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Data" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-md-table-cell" HeaderStyle-CssClass="d-none d-md-table-cell">
                                     <ItemTemplate>
-                                        <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                        <small><%# ((DateTime)DataBinder.Eval(Container.DataItem, "Data")).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) %></small>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Valor" ControlStyle-CssClass="col">
                                     <ItemTemplate>
-                                        <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("pt-BR")) %></small>
+                                        <small><%# ((Decimal)DataBinder.Eval(Container.DataItem, "Valor")).ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) %></small>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Comentário" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">

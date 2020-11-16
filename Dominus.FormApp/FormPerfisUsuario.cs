@@ -52,11 +52,13 @@ namespace Dominus.FormApp
 
         private void BtnAtualizarPerfis_Click(object sender, EventArgs e)
         {
+            List<Usuario> usuarios = new List<Usuario>();
             foreach (DataGridViewRow row in gridPerfisUsuario.Rows)
             {
                 Usuario usuario = (Usuario)row.DataBoundItem;
-                UsuarioManager.EditUsuario(usuario);
+                usuarios.Add(usuario);
             }
+            UsuarioManager.EditPerfilUsuario(usuarios);
             MessageBox.Show("Os perfis foram atualizados com sucesso.", "Perfis atualizados!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -69,8 +71,10 @@ namespace Dominus.FormApp
                 DataGridViewColumn column = senderGrid.Columns[e.ColumnIndex];
                 if (column.Name == "UsuarioSalvar")
                 {
+                    List<Usuario> usuarios = new List<Usuario>();
                     Usuario usuario = (Usuario)gridPerfisUsuario.Rows[e.RowIndex].DataBoundItem;
-                    UsuarioManager.EditUsuario(usuario);
+                    usuarios.Add(usuario);
+                    UsuarioManager.EditPerfilUsuario(usuarios);
                     MessageBox.Show("O perfil do usuário " + usuario.Login + " foi atualizado com sucesso.", "Perfil atualizado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

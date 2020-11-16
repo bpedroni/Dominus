@@ -26,8 +26,11 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Fecha a conexão com o banco de dados:
-                context.Dispose();
-                context = null;
+                if (context != null)
+                {
+                    context.Dispose();
+                    context = null;
+                }
 
             }
             catch (Exception)

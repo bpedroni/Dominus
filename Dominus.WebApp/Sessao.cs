@@ -11,7 +11,7 @@ namespace Dominus.WebApp
         public static void IniciarSessao(Usuario usuario)
         {
             HttpContext.Current.Session["Usuario"] = usuario;
-            HttpContext.Current.Session["Periodo"] = DateTime.Now.ToString(@"MMMM / yyyy", new CultureInfo("PT-br"));
+            HttpContext.Current.Session["Periodo"] = DateTime.Now.ToString(@"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
 
             FormsAuthenticationTicket tkt = new FormsAuthenticationTicket(1, usuario.Login, DateTime.Now, DateTime.Now.AddMinutes(30), true, usuario.Nome);
             string cookiestr = FormsAuthentication.Encrypt(tkt);

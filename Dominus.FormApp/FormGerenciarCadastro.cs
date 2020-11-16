@@ -27,55 +27,66 @@ namespace Dominus.FormApp
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(txtNome.Text))
-            {
-                MessageBox.Show("Preencha o seu nome.", "O nome de usuário é obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNome.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtLogin.Text))
-            {
-                MessageBox.Show("Preencha o seu login.", "O login de usuário é obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtLogin.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtSenha.Text) || Codificador.Criptografar(txtSenha.Text) != Usuario.Senha)
-            {
-                MessageBox.Show("A senha digitada não corresponde à senha cadastrada.", "O senha fornecida não confere!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtSenha.Focus();
-                return;
-            }
-
             try
             {
-                if (txtLogin.Text != Usuario.Login && UsuarioManager.GetUsuarioByLogin(txtLogin.Text) != null)
+                Usuario usuario = new Usuario
                 {
-                    MessageBox.Show("O novo login digitado já pertence a outro usuário no sistema.", "Alteração de login inválida!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtLogin.Focus();
+                    IdUsuario = Usuario.IdUsuario,
+                    Nome = txtNome.Text.Trim(),
+                    Login = txtLogin.Text.Trim(),
+                    Email = Usuario.Email,
+                    Senha = Codificador.Criptografar(txtSenha.Text)
+                };
+
+                if (usuario.Senha != Usuario.Senha)
+                {
+                    MessageBox.Show("A senha digitada não corresponde à senha cadastrada.", "Revise o preenchimento da senha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSenha.Focus();
                     return;
                 }
                 if (chkBoxAlterarSenha.Checked)
                 {
-                    if (txtNovaSenha.Text != txtConfirmarSenha.Text)
+                    if (!txtConfirmarSenha.Text.Equals(txtNovaSenha.Text))
                     {
-                        MessageBox.Show("A nova senha digitada está diferente do campo de validação.", "As senhas digitadas não conferem!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("A nova senha digitada está diferente do campo de validação.", "As senhas digitadas não conferem", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtNovaSenha.Focus();
                         return;
                     }
-                    Usuario.Senha = Codificador.Criptografar(txtNovaSenha.Text);
+                    usuario.Senha = Codificador.Criptografar(txtNovaSenha.Text);
                 }
 
-                Usuario.Nome = txtNome.Text;
-                Usuario.Login = txtLogin.Text;
-
-                UsuarioManager.EditUsuario(Usuario);
-                LoginInfo.Usuario = Usuario;
+                UsuarioManager.EditUsuario(usuario);
+                LoginInfo.Usuario = UsuarioManager.GetUsuarioById(usuario.IdUsuario);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao atualizar cadastro. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.GetType().Name)
+                {
+                    case "UsuarioNomeException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento do nome", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtNome.Focus();
+                        break;
+                    case "UsuarioLoginException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento do login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtLogin.Focus();
+                        break;
+                    case "UsuarioSenhaException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento da senha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (chkBoxAlterarSenha.Checked)
+                        {
+                            txtNovaSenha.Focus();
+                        }
+                        else
+                        {
+                            txtSenha.Focus();
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("Erro ao atualizar cadastro. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
         }
 

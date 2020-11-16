@@ -1,17 +1,33 @@
-﻿<%@ Page Title="Cadastro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cadastro.aspx.cs" Inherits="Dominus.WebApp.Cadastro" %>
+﻿<%@ Page Title="Cadastre-se no Dominus" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cadastro.aspx.cs" Inherits="Dominus.WebApp.Cadastro" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function validarTermosUso(sender, args) {
-            args.IsValid = document.getElementById("<%=chkTermosUso.ClientID %>").checked == true;
+            args.IsValid = document.getElementById("<%=chkTermosUso.ClientID %>").checked;
         }
 
-        function verificarSenhas() {
-            var senha = document.getElementById("<%=txtSenha.ClientID %>");
-            var verificarSenha = document.getElementById("<%=txtVerificarSenha.ClientID %>");
+        function validarForm(button) {
             var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            msg.textContent = '';
 
-            return validarSenhas(senha, verificarSenha, msg);
+            var nome = document.getElementById("<%=txtNome.ClientID %>");
+            var login = document.getElementById("<%=txtLogin.ClientID %>");
+            var email = document.getElementById("<%=txtEmail.ClientID %>");
+            var senha = document.getElementById("<%=txtSenha.ClientID %>");
+            if (!nome.validity.valid || !login.validity.valid || !email.validity.valid || !senha.validity.valid) {
+                return;
+            }
+            var verificarSenha = document.getElementById("<%=txtVerificarSenha.ClientID %>");
+            if (!validarSenhas(senha, verificarSenha, msg)) {
+                return false;
+            }
+            if (!document.getElementById("<%=chkTermosUso.ClientID %>").checked) {
+                msg.textContent = 'É necessário aceitar os termos de uso!';
+                return false;
+            }
+            $('#loading')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
         }
     </script>
 </asp:Content>
@@ -71,14 +87,12 @@
                 </label>
                 <br />
                 <div class="text-center">
-                    <asp:CustomValidator ID="vTermosUso" CssClass="text-center text-danger" runat="server" ErrorMessage="É necessário aceitar os termos de uso!" ClientValidationFunction="validarTermosUso" OnServerValidate="TermosUso_ServerValidate"></asp:CustomValidator>
-                </div>
-                <div class="text-center">
                     <asp:Label ID="lblMsg" CssClass="text-danger" runat="server" />
                 </div>
             </div>
-            <div class="text-right">
-                <asp:Button ID="btnCadastrar" CssClass="btn btn-primary btn-lg" runat="server" Text="Cadastrar" ToolTip="Realizar o cadastro" OnClientClick="return verificarSenhas();" OnClick="BtnCadastrar_Click" />
+            <div class="d-flex justify-content-end">
+                <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+                <asp:Button ID="btnCadastrar" CssClass="btn btn-primary btn-lg" runat="server" Text="Cadastrar" ToolTip="Realizar o cadastro" OnClientClick="return validarForm(this);" OnClick="BtnCadastrar_Click" />
             </div>
             <br />
             <div class="text-center">

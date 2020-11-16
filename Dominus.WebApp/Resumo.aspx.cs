@@ -36,7 +36,7 @@ namespace Dominus.WebApp
         {
             Periodo = Session["Periodo"]?.ToString();
 
-            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", new CultureInfo("pt-BR"));
+            DateTime periodo = DateTime.ParseExact(Periodo, @"MMMM / yyyy", CultureInfo.GetCultureInfo("pt-BR"));
             Transacoes = TransacaoManager.GetGridTransacoes(Usuario, periodo.Month, periodo.Year).Where(x => x.Modo == TransacaoManager.MODO_TRANSACAO).ToList();
 
             gridTransacoes.DataSource = Transacoes.Take(3).ToList();

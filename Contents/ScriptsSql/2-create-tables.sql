@@ -19,7 +19,7 @@ CREATE TABLE Usuario (
 	Email varchar(100) NOT NULL CONSTRAINT AK_Usuario_Email UNIQUE,
 	Senha varchar(255) NOT NULL,
 	PerfilAdministrador int NOT NULL CONSTRAINT DF_Usuario_PerfilAdministrador DEFAULT 0,
-	DataCriacao datetime NOT NULL CONSTRAINT DF_Usuario_DataCriacao DEFAULT getdate(),
+	DataCriacao datetime NOT NULL CONSTRAINT DF_Usuario_DataCriacao DEFAULT dateadd(HOUR, -3, getutcdate()),
 	DataExclusao datetime NULL,
 	Ativo int NOT NULL CONSTRAINT DF_Usuario_Ativo DEFAULT 1
 );
@@ -33,7 +33,7 @@ CREATE TABLE Categoria (
 	Descricao varchar(255) NOT NULL,
 	TipoFluxo varchar(10) NOT NULL CONSTRAINT CK_Categoria_TipoFluxo CHECK (TipoFluxo IN ('Receita', 'Despesa')),
 	Icone varchar(100) NOT NULL,
-	DataCriacao datetime NOT NULL CONSTRAINT DF_Categoria_DataCriacao DEFAULT getdate(),
+	DataCriacao datetime NOT NULL CONSTRAINT DF_Categoria_DataCriacao DEFAULT dateadd(HOUR, -3, getutcdate()),
 	DataExclusao datetime NULL,
 	Ativo int NOT NULL CONSTRAINT DF_Categoria_Ativo DEFAULT 1,
 	CONSTRAINT AK_Categoria_Nome_TipoFluxo UNIQUE (Nome, TipoFluxo)
@@ -69,7 +69,7 @@ CREATE TABLE Planejamento (
 	Mes int NOT NULL CONSTRAINT CK_Planejamento_Mes CHECK (Mes in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)),
 	Ano int NOT NULL,
 	Valor decimal(11,2) NOT NULL,
-	DataAtualizacao datetime NOT NULL CONSTRAINT DF_Planejamento_DataAtualizacao DEFAULT getdate(),
+	DataAtualizacao datetime NOT NULL CONSTRAINT DF_Planejamento_DataAtualizacao DEFAULT dateadd(HOUR, -3, getutcdate()),
 	CONSTRAINT AK_Planejamento_CategUsuMesAno UNIQUE (IdUsuario, IdCategoria, Mes, Ano)
 );
 CREATE INDEX IX_Planejamento_IdPlanejamento ON Planejamento (IdPlanejamento);
@@ -104,7 +104,7 @@ CREATE TABLE Chamado (
 	IdUsuario uniqueidentifier NOT NULL CONSTRAINT FK_Chamado_IdUsuario FOREIGN KEY REFERENCES Usuario (IdUsuario),
 	Titulo varchar(50) NOT NULL,
 	Mensagem varchar(1000) NOT NULL,
-	DataCriacao datetime NOT NULL CONSTRAINT DF_Chamado_DataCriacao DEFAULT getdate(),
+	DataCriacao datetime NOT NULL CONSTRAINT DF_Chamado_DataCriacao DEFAULT dateadd(HOUR, -3, getutcdate()),
 	IdUsuarioSuporte uniqueidentifier NULL CONSTRAINT FK_Chamado_IdUsuarioSuporte FOREIGN KEY REFERENCES Usuario (IdUsuario),
 	MensagemResposta varchar(1000) NULL,
 	DataResposta datetime NULL,
@@ -148,7 +148,7 @@ AS BEGIN
 			PRINT 'O nome deve ser informado.'
 		END
 		ELSE
-			BEGIN
+		BEGIN
 			IF (@Login IS NULL OR @Login = '')
 			BEGIN
 				PRINT 'Um login deve ser informado.'
@@ -179,14 +179,14 @@ AS BEGIN
 							SELECT @Usuario = COUNT(IdUsuario) FROM Usuario WHERE Email LIKE @Email
 							IF (@Usuario <> 0)
 							BEGIN
-								PRINT CONCAT('O e-mail ', @Login, ' já possui cadastro no sistema. Utilize um outro e-mail ou recupere sua senha.')
+								PRINT CONCAT('O e-mail ', @Email, ' já possui cadastro no sistema. Utilize um outro e-mail ou recupere sua senha.')
 							END
 							ELSE
 							BEGIN
 								BEGIN TRY
 									-- Insere o novo registro após as validações com os valores padrões para os outros campos:
 									INSERT INTO Usuario (IdUsuario,Nome,Login,Email,Senha,PerfilAdministrador,DataCriacao)
-										VALUES (@IdUsuario, @Nome, @Login, @Email, @Senha, 0, getdate())
+										VALUES (@IdUsuario, @Nome, @Login, @Email, @Senha, 0, dateadd(HOUR, -3, getutcdate()))
 								END TRY
 								BEGIN CATCH
 									PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
@@ -199,6 +199,88 @@ AS BEGIN
 		END
 		-- Atualiza o cursor:
 		FETCH NEXT FROM cursorUsuario INTO @IdUsuario, @Nome, @Login, @Email, @Senha
+	END
+	CLOSE cursorUsuario
+	DEALLOCATE cursorUsuario
+END
+GO
+
+-- Criação de trigger para edição na tabela Usuario.
+CREATE OR ALTER TRIGGER trgEditarUsuario
+ON Usuario
+INSTEAD OF UPDATE
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdUsuario uniqueidentifier,
+	@Nome varchar(100),
+	@Login varchar(25),
+	@Senha varchar(255),
+	@PerfilAdministrador int,
+	@Ativo int,
+	@Usuario int
+	-- Criação de um cursor para percorrer cada registro inserido:
+	DECLARE cursorUsuario CURSOR FOR SELECT IdUsuario, Nome, Login, Senha, PerfilAdministrador, Ativo FROM Inserted
+	OPEN cursorUsuario
+	FETCH NEXT FROM cursorUsuario INTO @IdUsuario, @Nome, @Login, @Senha, @PerfilAdministrador, @Ativo
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		-- Verifica se as informações são válidas:
+		IF (@PerfilAdministrador IS NULL OR @PerfilAdministrador <> 1)
+		BEGIN
+			SELECT @PerfilAdministrador = 0
+		END
+		IF (@Ativo IS NULL OR @Ativo <> 0)
+		BEGIN
+			SELECT @Ativo = 1
+		END
+		IF (@IdUsuario IS NULL)
+		BEGIN
+			PRINT 'O usuário não foi encontrado no sistema.'
+		END
+		ELSE
+		BEGIN
+			IF (@Nome IS NULL OR @Nome = '')
+			BEGIN
+				PRINT 'O nome deve ser informado.'
+			END
+			ELSE
+			BEGIN
+				IF (@Login IS NULL OR @Login = '')
+				BEGIN
+					PRINT 'Um login deve ser informado.'
+				END
+				ELSE
+				BEGIN
+					IF (@Senha IS NULL OR @Senha = '')
+					BEGIN
+						PRINT 'A senha deve ser informada.'
+					END
+					ELSE
+					BEGIN
+						-- Verifica se não existe nenhum usuário com o login fornecido:
+						SELECT @Usuario = COUNT(IdUsuario) FROM Usuario WHERE IdUsuario <> @IdUsuario AND Login LIKE @Login
+						IF (@Usuario <> 0)
+						BEGIN
+							PRINT CONCAT('O login ', @Login, ' já existe. Escolha um outro login.')
+						END
+						ELSE
+						BEGIN
+							BEGIN TRY
+								-- Edita o registro após as validações com os valores padrões para os outros campos:
+								UPDATE Usuario SET Nome = @Nome, Login = @Login, Senha = @Senha, PerfilAdministrador = @PerfilAdministrador, Ativo = @Ativo
+									WHERE IdUsuario = @IdUsuario
+							END TRY
+							BEGIN CATCH
+								PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
+							END CATCH
+						END
+					END
+				END
+			END
+		END
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorUsuario INTO @IdUsuario, @Nome, @Login, @Senha, @PerfilAdministrador, @Ativo
 	END
 	CLOSE cursorUsuario
 	DEALLOCATE cursorUsuario
@@ -221,7 +303,7 @@ AS BEGIN
 	BEGIN
 		BEGIN TRY
 			-- Altera o status do usuário para inativo no sistema:
-			UPDATE Usuario SET Ativo = 0, DataExclusao = getdate() WHERE IdUsuario = @IdUsuario
+			UPDATE Usuario SET Ativo = 0, DataExclusao = dateadd(HOUR, -3, getutcdate()) WHERE IdUsuario = @IdUsuario
 		END TRY
 		BEGIN CATCH
 			PRINT 'Ocorreu algum erro inesperado ao tentar remover o registro. Contate o administrador do sistema'
@@ -242,10 +324,10 @@ AS BEGIN
 	-- Criação das variáveis:
 	DECLARE
 	@IdCategoria uniqueidentifier,
-	@Nome varchar(100),
-	@Descricao varchar(25),
-	@TipoFluxo varchar(100),
-	@Icone varchar(255),
+	@Nome varchar(50),
+	@Descricao varchar(255),
+	@TipoFluxo varchar(10),
+	@Icone varchar(100),
 	@Categoria int
 	-- Criação de um cursor para percorrer cada registro inserido:
 	DECLARE cursorCategoria CURSOR FOR SELECT IdCategoria, Nome, Descricao, TipoFluxo, Icone FROM Inserted
@@ -295,7 +377,7 @@ AS BEGIN
 							BEGIN TRY
 								-- Insere o novo registro após as validações com os valores padrões para os outros campos:
 								INSERT INTO Categoria(IdCategoria,Nome,Descricao,TipoFluxo,Icone,DataCriacao)
-									VALUES (@IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone, getdate())
+									VALUES (@IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone, dateadd(HOUR, -3, getutcdate()))
 							END TRY
 							BEGIN CATCH
 								PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
@@ -307,6 +389,91 @@ AS BEGIN
 		END
 		-- Atualiza o cursor:
 		FETCH NEXT FROM cursorCategoria INTO @IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone
+	END
+	CLOSE cursorCategoria
+	DEALLOCATE cursorCategoria
+END
+GO
+
+-- Criação de trigger para edição na tabela Categoria.
+CREATE OR ALTER TRIGGER trgEditarCategoria
+ON Categoria
+INSTEAD OF UPDATE
+AS BEGIN
+	-- Criação das variáveis:
+	DECLARE
+	@IdCategoria uniqueidentifier,
+	@Nome varchar(50),
+	@Descricao varchar(255),
+	@TipoFluxo varchar(10),
+	@Icone varchar(100),
+	@Ativo int,
+	@Categoria int
+	-- Criação de um cursor para percorrer cada registro inserido:
+	DECLARE cursorCategoria CURSOR FOR SELECT IdCategoria, Nome, Descricao, TipoFluxo, Icone, Ativo FROM Inserted
+	OPEN cursorCategoria
+	FETCH NEXT FROM cursorCategoria INTO @IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone, @Ativo
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		-- Verifica se as informações são válidas:
+		IF (@Ativo IS NULL OR @Ativo <> 0)
+		BEGIN
+			SELECT @Ativo = 1
+		END
+		IF (@IdCategoria IS NULL)
+		BEGIN
+			PRINT 'A categoria não foi encontrada no sistema.'
+		END
+		ELSE
+		BEGIN
+			IF (@Nome IS NULL OR @Nome = '')
+			BEGIN
+				PRINT 'O nome deve ser informado.'
+			END
+			ELSE
+				BEGIN
+				IF (@Descricao IS NULL OR @Descricao = '')
+				BEGIN
+					PRINT 'A descrição deve ser informada.'
+				END
+				ELSE
+				BEGIN
+					IF (@TipoFluxo NOT IN ('Receita', 'Despesa'))
+					BEGIN
+						PRINT 'O tipo do fluxo admite apenas os valores "Receita" e "Despesa".'
+					END
+					ELSE
+					BEGIN
+						IF (@Icone IS NULL OR @Icone = '')
+						BEGIN
+							PRINT 'O caminho do ícone deve ser informado.'
+						END
+						ELSE
+						BEGIN
+							-- Verifica se não existe nenhuma categoria com o nome e o tipo do fluxo fornecidos:
+							SELECT @Categoria = COUNT(IdCategoria) FROM Categoria WHERE IdCategoria <> @IdCategoria AND Nome LIKE @Nome AND TipoFluxo LIKE @TipoFluxo
+							IF (@Categoria <> 0)
+							BEGIN
+								PRINT CONCAT('A categoria ', @Nome, ' com o tipo ', @TipoFluxo, ' já existe. Escolha um outro nome.')
+							END
+							ELSE
+							BEGIN
+								BEGIN TRY
+									-- Edita o registro após as validações com os valores padrões para os outros campos:
+									UPDATE Categoria SET Nome = @Nome, Descricao = @Descricao, TipoFluxo = @TipoFluxo, Icone = @Icone, Ativo = @Ativo
+										WHERE IdCategoria = @IdCategoria
+								END TRY
+								BEGIN CATCH
+									PRINT 'Ocorreu algum erro inesperado ao tentar inserir o registro. Verifique os dados ou contate o administrador do sistema'
+								END CATCH
+							END
+						END
+					END
+				END
+			END
+		END
+		-- Atualiza o cursor:
+		FETCH NEXT FROM cursorCategoria INTO @IdCategoria, @Nome, @Descricao, @TipoFluxo, @Icone, @Ativo
 	END
 	CLOSE cursorCategoria
 	DEALLOCATE cursorCategoria
@@ -329,7 +496,7 @@ AS BEGIN
 	BEGIN
 		BEGIN TRY
 			-- Altera o status da categoria para inativo no sistema:
-			UPDATE Categoria SET Ativo = 0, DataExclusao = getdate() WHERE IdCategoria = @IdCategoria
+			UPDATE Categoria SET Ativo = 0, DataExclusao = dateadd(HOUR, -3, getutcdate()) WHERE IdCategoria = @IdCategoria
 		END TRY
 		BEGIN CATCH
 			PRINT 'Ocorreu algum erro inesperado ao tentar remover o registro. Contate o administrador do sistema'

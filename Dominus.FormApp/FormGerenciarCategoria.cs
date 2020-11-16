@@ -47,49 +47,30 @@ namespace Dominus.FormApp
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(txtNome.Text))
-            {
-                MessageBox.Show("Preencha o nome da categoria.", "O nome da categoria é obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNome.Focus();
-                return;
-            }
-            if (!rdoBtnDespesa.Checked && !rdoBtnReceita.Checked)
-            {
-                MessageBox.Show("Escolha o tipo defluxo da categoria.", "O tipo de fluxo da categoria é obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtDescricao.Text))
-            {
-                MessageBox.Show("Preencha a descrição da categoria.", "A descrição da categoria é obrigatória!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDescricao.Focus();
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(txtIcone.Text))
-            {
-                MessageBox.Show("Escolha um ícone para a categoria.", "O ícone da categoria é obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtIcone.Focus();
-                return;
-            }
             try
             {
-                Categoria.Nome = txtNome.Text.Trim();
-                Categoria.Descricao = txtDescricao.Text.Trim();
-                Categoria.TipoFluxo = rdoBtnReceita.Checked ? CategoriaManager.TIPO_FLUXO_RECEITA : CategoriaManager.TIPO_FLUXO_DESPESA;
-                Categoria.Icone = txtIcone.Text.Trim();
+                Categoria categoria = new Categoria
+                {
+                    Nome = txtNome.Text.Trim(),
+                    Descricao = txtDescricao.Text.Trim(),
+                    TipoFluxo = rdoBtnReceita.Checked ? CategoriaManager.TIPO_FLUXO_RECEITA : rdoBtnDespesa.Checked ? CategoriaManager.TIPO_FLUXO_DESPESA : "",
+                    Icone = txtIcone.Text
+                };
 
                 if (Categoria.IdCategoria == Guid.Empty)
                 {
-                    CategoriaManager.AddCategoria(Categoria);
+                    CategoriaManager.AddCategoria(categoria);
                 }
                 else
                 {
-                    CategoriaManager.EditCategoria(Categoria);
+                    categoria.IdCategoria = Categoria.IdCategoria;
+                    CategoriaManager.EditCategoria(categoria);
                 }
                 if (!String.IsNullOrWhiteSpace(openFileDialogIcone.FileName))
                 {
                     try
                     {
-                        if (!CategoriaManager.SaveIconeCategoria(Categoria, openFileDialogIcone.FileName))
+                        if (!CategoriaManager.SaveIconeCategoria(categoria, openFileDialogIcone.FileName))
                         {
                             MessageBox.Show("Não foi possível salvar a imagem selecionada.", "Erro ao salvar ícone!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -104,7 +85,27 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao salvar categoria. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.GetType().Name)
+                {
+                    case "CategoriaNomeException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento do nome", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtNome.Focus();
+                        break;
+                    case "CategoriaTipoFluxoException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento da senha", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case "CategoriaDescricaoException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento da descrição", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtDescricao.Focus();
+                        break;
+                    case "CategoriaIconeException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento do ícone", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtIcone.Focus();
+                        break;
+                    default:
+                        MessageBox.Show("Erro ao salvar categoria. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
         }
 

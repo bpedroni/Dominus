@@ -2,6 +2,8 @@
 using Dominus.DataModel.Core;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace Dominus.WebApp.Api
@@ -57,7 +59,11 @@ namespace Dominus.WebApp.Api
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao criar usuario",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -71,7 +77,11 @@ namespace Dominus.WebApp.Api
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao editar usuario",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
 
@@ -80,13 +90,16 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Guid guid = Guid.Parse(id);
-                Usuario usuario = UsuarioManager.GetUsuarioById(guid);
+                Usuario usuario = UsuarioManager.GetUsuarioById(Guid.Parse(id));
                 UsuarioManager.DeleteUsuario(usuario);
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                {
+                    ReasonPhrase = "Erro ao remover usuario",
+                    Content = new StringContent(ex.Message)
+                });
             }
         }
     }

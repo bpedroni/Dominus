@@ -12,7 +12,7 @@ namespace Dominus.DataModel
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class TipoRelatorio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +20,8 @@ namespace Dominus.DataModel
         {
             this.Relatorios = new HashSet<Relatorio>();
         }
-    
-        public System.Guid IdTipoRelatorio { get; set; }
+
+        public Guid IdTipoRelatorio { get; set; }
         public string Tipo { get; set; }
         public string Descricao { get; set; }
 
