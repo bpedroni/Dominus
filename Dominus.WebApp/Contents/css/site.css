@@ -34,9 +34,34 @@
     min-height: 300px;
 }
 
+.blinking {
+    font-size: 1rem;
+    font-weight: bolder;
+    animation: blinkingText 2s infinite;
+}
+
+@keyframes blinkingText {
+    0% {
+        color: #000;
+        background-color: #ffc107;
+    }
+    50% {
+        color: #fff;
+        background-color: #dc3545;
+    }
+    100% {
+        color: #000;
+        background-color: #ffc107;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .nav-link span {
         display: none;
+    }
+
+    .nav-link .blinking {
+        display: inline;
     }
 }
 

@@ -19,6 +19,7 @@ namespace Dominus.FormApp
         private void FormChamados_Shown(object sender, EventArgs e)
         {
             CarregarGridChamados();
+            timer.Start();
         }
 
         private void CarregarGridChamados()
@@ -99,6 +100,15 @@ namespace Dominus.FormApp
             {
                 CarregarGridChamados();
             }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                CarregarGridChamados();
+            }
+            catch (Exception) { }
         }
     }
 }

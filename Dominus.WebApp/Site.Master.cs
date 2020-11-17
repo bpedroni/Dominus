@@ -27,6 +27,15 @@ namespace Dominus.WebApp
                 lblSaldo.Text = saldo.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
                 lblSaldo.CssClass = saldo < 0 ? "text-danger" : "text-success";
 
+                // Verifica se o usuário possui chamados respondidos e não validados e exibe um alerta ao usuário:
+                List<Chamado> chamados = ChamadoManager.GetChamadosAbertosRespondidos(usuario);
+                if (chamados.Count > 0)
+                {
+                    lblChamados.Visible = true;
+                    lblChamados.Text = chamados.Count.ToString();
+                    linkContato.Title = "Você tem mensagem(s) respondida(s)";
+                }
+
                 // Verifica se o usuário selecionou um período na página e atualiza o período na Session:
                 if (IsPostBack && ddListaPeriodo.SelectedIndex >= 0)
                 {

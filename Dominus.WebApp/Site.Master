@@ -37,13 +37,20 @@
             <div id="collapseContent" class="collapse navbar-collapse justify-content-between">
                 <ul class="navbar-nav justify-content-start">
                     <li class="nav-item">
-                        <a class="nav-link active" href="./" title="Página Inicial"><i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span></a>
+                        <a class="nav-link active" href="./" title="Página Inicial">
+                            <i class="fas fa-home"></i>&nbsp;<span>Página Inicial</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Sobre" title="Sobre o Dominus"><i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span></a>
+                        <a class="nav-link active" href="Sobre" title="Sobre o Dominus">
+                            <i class="fas fa-info-circle"></i>&nbsp;<span>Sobre</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Contato" title="Entre em contato"><i class="fas fa-at"></i>&nbsp;<span>Contato</span></a>
+                        <a class="nav-link active" id="linkContato" href="Contato" runat="server" title="Entre em contato">
+                            <i class="fas fa-at"></i>&nbsp;<span>Contato</span>
+                            <asp:Label ID="lblChamados" CssClass="blinking badge badge-pill" Visible="false" runat="server" ClientIDMode="Static" Text="0"></asp:Label>
+                        </a>
                     </li>
                 </ul>
                 <% if (UsuarioConectado)

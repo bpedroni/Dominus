@@ -13,44 +13,50 @@ namespace Dominus.FormApp
 
         public FormResponderChamado(Chamado chamado)
         {
-            InitializeComponent();
-            Chamado = chamado;
-            if (Chamado != null)
+            try
             {
-                lblTituloMensagem.Text = Chamado.Titulo;
+                Chamado = chamado;
+                if (Chamado != null)
+                {
+                    InitializeComponent();
 
-                Usuario usuario = ChamadoManager.GetUsuario(Chamado);
-                lblUsuario.Text = "  - " + usuario.Nome + ":";
+                    lblTituloMensagem.Text = Chamado.Titulo;
+                    lblUsuario.Text = "  - " + ChamadoManager.GetUsuario(Chamado).Nome + ":";
+                    txtMensagem.Text = Chamado.Mensagem;
+                    txtMensagem.Height += txtMensagem.GetPositionFromCharIndex(txtMensagem.Text.Length - 1).Y + 3 + txtMensagem.Font.Height - txtMensagem.ClientSize.Height;
+                    txtResposta.Text = Chamado.MensagemResposta;
 
-                txtMensagem.Text = Chamado.Mensagem;
-                txtMensagem.Height += txtMensagem.GetPositionFromCharIndex(txtMensagem.Text.Length - 1).Y + 3 + txtMensagem.Font.Height - txtMensagem.ClientSize.Height;
-
-                int correcao = txtMensagem.Height - 20;
-
-                lblResposta.Location = new Point(15, 92 + correcao);
-
-                txtResposta.Location = new Point(17, 114 + correcao);
-                txtResposta.Height -= correcao;
+                    int correcao = txtMensagem.Height - 20;
+                    lblResposta.Location = new Point(15, 92 + correcao);
+                    txtResposta.Location = new Point(17, 114 + correcao);
+                    txtResposta.Height -= correcao;
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum chamado foi encontrado para ser respondido.", "Chamado não encontrado.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao abrir o formulário de chamado. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnEnviar_Click(object sender, System.EventArgs e)
         {
             // Valida se o campo de resposta está preenchido:
-            if (String.IsNullOrWhiteSpace(txtResposta.Text))
+            if (String.IsNullOrWhiteSpace(txtResposta.Text.Replace(Chamado.MensagemResposta, String.Empty)))
             {
                 MessageBox.Show("A resposta não pode ser nula.", "A resposta é obrigatória!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtResposta.Focus();
                 return;
             }
-
             try
             {
-                Chamado.MensagemResposta = txtResposta.Text;
                 Chamado.IdUsuarioSuporte = LoginInfo.Usuario.IdUsuario;
-                Chamado.DataResposta = DateTime.Now;
+                Chamado.MensagemResposta = txtResposta.Text.Trim();
 
-                ChamadoManager.EditChamado(Chamado);
+                ChamadoManager.EditRespostaChamado(Chamado);
 
                 // Envia a mensagem de resposta ao e-mail do usuário que abriu o chamado:
                 String msg = String.Format(
@@ -70,7 +76,22 @@ namespace Dominus.FormApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao enviar resposta. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.GetType().Name)
+                {
+                    case "ChamadoUsuarioException":
+                        MessageBox.Show(ex.Message, "Erro ao encontrar o usuário", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case "ChamadoTituloException":
+                        MessageBox.Show(ex.Message, "Erro ao encontrar o título da mensagem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case "ChamadoMensagemException":
+                        MessageBox.Show(ex.Message, "Revise o preenchimento da resposta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtResposta.Focus();
+                        break;
+                    default:
+                        MessageBox.Show("Erro ao enviar resposta. " + Environment.NewLine + ex.Message, "Erro!!! Contate o administrador do sistema.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
         }
 
