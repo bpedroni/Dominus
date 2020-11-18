@@ -82,7 +82,10 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação gera uma nova transação com as definições padrões:
                 ValidarDadosTransacao(transacao);
-                transacao.IdTransacao = Guid.NewGuid();
+                if (transacao.IdTransacao == Guid.Empty)
+                {
+                    transacao.IdTransacao = Guid.NewGuid();
+                }
                 transacao.Descricao = transacao.Descricao.Trim();
                 transacao.Comentario = transacao.Comentario.Trim();
                 connection.OpenConnection();

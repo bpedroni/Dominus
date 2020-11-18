@@ -26,7 +26,7 @@ namespace Dominus.WebApp
         [ActionName("tipo")]
         public List<Categoria> GetCategoriasByTipo(String id)
         {
-            return CategoriaManager.GetCategoriasAtivas().Where(x => x.TipoFluxo.Equals(id, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            return CategoriaManager.GetCategoriasAtivas().Where(x => x.TipoFluxo.Equals(id.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
         // GET api/categorias/id/{id} - exibe a categoria solicitada pelo id
@@ -35,7 +35,7 @@ namespace Dominus.WebApp
         {
             try
             {
-                Guid guid = Guid.Parse(id);
+                Guid guid = Guid.Parse(id.Trim());
                 return CategoriaManager.GetCategoriaById(guid);
             }
             catch (Exception)
@@ -53,8 +53,7 @@ namespace Dominus.WebApp
             {
                 String path = HttpContext.Current.Server.MapPath("~/Images/Categorias/");
 
-                Guid guid = Guid.Parse(id);
-                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
+                Categoria categoria = CategoriaManager.GetCategoriaById(Guid.Parse(id.Trim()));
 
                 String icone = path + categoria?.Icone;
                 if (File.Exists(icone))
@@ -76,15 +75,20 @@ namespace Dominus.WebApp
         }
 
         // POST api/categorias - salva a categoria recebida no banco de dados:
-        public void Post([FromBody] Categoria categoria)
+        public Categoria Post([FromBody] Categoria categoria)
         {
             try
             {
+                if (categoria.IdCategoria == Guid.Empty)
+                {
+                    categoria.IdCategoria = Guid.NewGuid();
+                }
                 CategoriaManager.AddCategoria(categoria);
+                return CategoriaManager.GetCategoriaById(categoria.IdCategoria);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao criar categoria",
                     Content = new StringContent(ex.Message)
@@ -101,8 +105,7 @@ namespace Dominus.WebApp
             {
                 String path = HttpContext.Current.Server.MapPath("~/Images/Categorias/");
 
-                Guid guid = Guid.Parse(id);
-                Categoria categoria = CategoriaManager.GetCategoriaById(guid);
+                Categoria categoria = CategoriaManager.GetCategoriaById(Guid.Parse(id.Trim()));
 
                 byte[] data = Request.Content.ReadAsByteArrayAsync().Result;
                 using (MemoryStream ms = new MemoryStream(data))
@@ -130,16 +133,17 @@ namespace Dominus.WebApp
         }
 
         // PUT api/categorias/{id} - edita a categoria recebida no banco de dados:
-        public void Put(String id, [FromBody] Categoria categoria)
+        public Categoria Put(String id, [FromBody] Categoria categoria)
         {
             try
             {
-                categoria.IdCategoria = Guid.Parse(id);
+                categoria.IdCategoria = Guid.Parse(id.Trim());
                 CategoriaManager.EditCategoria(categoria);
+                return CategoriaManager.GetCategoriaById(categoria.IdCategoria);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao editar categoria",
                     Content = new StringContent(ex.Message)
@@ -152,12 +156,12 @@ namespace Dominus.WebApp
         {
             try
             {
-                Categoria categoria = CategoriaManager.GetCategoriaById(Guid.Parse(id));
+                Categoria categoria = CategoriaManager.GetCategoriaById(Guid.Parse(id.Trim()));
                 CategoriaManager.DeleteCategoria(categoria);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao remover categoria",
                     Content = new StringContent(ex.Message)

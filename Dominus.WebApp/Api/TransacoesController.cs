@@ -21,7 +21,7 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Guid guid = Guid.Parse(id);
+                Guid guid = Guid.Parse(id.Trim());
                 Usuario usuario = UsuarioManager.GetUsuarioById(guid);
                 if (usuario != null)
                 {
@@ -36,15 +36,20 @@ namespace Dominus.WebApp.Api
         }
 
         // POST api/transacoes - salva a transação recebida no banco de dados:
-        public void Post([FromBody] Transacao transacao)
+        public Transacao Post([FromBody] Transacao transacao)
         {
             try
             {
+                if (transacao.IdTransacao == Guid.Empty)
+                {
+                    transacao.IdTransacao = Guid.NewGuid();
+                }
                 TransacaoManager.AddTransacao(transacao);
+                return TransacaoManager.GetTransacaoById(transacao.IdTransacao);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao criar transação",
                     Content = new StringContent(ex.Message)
@@ -53,16 +58,17 @@ namespace Dominus.WebApp.Api
         }
 
         // PUT api/transacoes/{id} - edita a transação recebida no banco de dados:
-        public void Put(String id, [FromBody] Transacao transacao)
+        public Transacao Put(String id, [FromBody] Transacao transacao)
         {
             try
             {
-                transacao.IdTransacao = Guid.Parse(id);
+                transacao.IdTransacao = Guid.Parse(id.Trim());
                 TransacaoManager.EditTransacao(transacao);
+                return TransacaoManager.GetTransacaoById(transacao.IdTransacao);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao editar transação",
                     Content = new StringContent(ex.Message)
@@ -75,12 +81,12 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Transacao transacao = TransacaoManager.GetTransacaoById(Guid.Parse(id));
+                Transacao transacao = TransacaoManager.GetTransacaoById(Guid.Parse(id.Trim()));
                 TransacaoManager.DeleteTransacao(transacao);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao remover transação",
                     Content = new StringContent(ex.Message)

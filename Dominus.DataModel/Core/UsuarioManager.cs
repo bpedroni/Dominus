@@ -94,7 +94,10 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação gera um novo usuário com as definições padrões:
                 ValidarDadosUsuario(usuario);
-                usuario.IdUsuario = Guid.NewGuid();
+                if (usuario.IdUsuario == Guid.Empty)
+                {
+                    usuario.IdUsuario = Guid.NewGuid();
+                }
                 usuario.Nome = usuario.Nome.Trim();
                 usuario.Login = usuario.Login.Trim();
                 usuario.Email = usuario.Email.Trim();

@@ -22,7 +22,7 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Guid guid = Guid.Parse(id);
+                Guid guid = Guid.Parse(id.Trim());
                 return UsuarioManager.GetUsuarioById(guid);
             }
             catch (Exception)
@@ -38,9 +38,9 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Usuario usuario = UsuarioManager.GetUsuarioByLogin(id);
+                Usuario usuario = UsuarioManager.GetUsuarioByLogin(id.Trim());
                 if (usuario == null)
-                    usuario = UsuarioManager.GetUsuarioByLogin(id);
+                    usuario = UsuarioManager.GetUsuarioByEmail(id.Trim());
 
                 return usuario;
             }
@@ -51,15 +51,16 @@ namespace Dominus.WebApp.Api
         }
 
         // POST api/transacoes - salva o usuário recebido no banco de dados:
-        public void Post([FromBody] Usuario usuario)
+        public Usuario Post([FromBody] Usuario usuario)
         {
             try
             {
                 UsuarioManager.AddUsuario(usuario);
+                return UsuarioManager.GetUsuarioByEmail(usuario.Email.Trim());
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao criar usuario",
                     Content = new StringContent(ex.Message)
@@ -68,16 +69,17 @@ namespace Dominus.WebApp.Api
         }
 
         // PUT api/usuarios/{id} - edita o usuário recebido no banco de dados:
-        public void Put(String id, [FromBody] Usuario usuario)
+        public Usuario Put(String id, [FromBody] Usuario usuario)
         {
             try
             {
-                usuario.IdUsuario = Guid.Parse(id);
+                usuario.IdUsuario = Guid.Parse(id.Trim());
                 UsuarioManager.EditUsuario(usuario);
+                return UsuarioManager.GetUsuarioById(usuario.IdUsuario);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao editar usuario",
                     Content = new StringContent(ex.Message)
@@ -90,12 +92,12 @@ namespace Dominus.WebApp.Api
         {
             try
             {
-                Usuario usuario = UsuarioManager.GetUsuarioById(Guid.Parse(id));
+                Usuario usuario = UsuarioManager.GetUsuarioById(Guid.Parse(id.Trim()));
                 UsuarioManager.DeleteUsuario(usuario);
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
                 {
                     ReasonPhrase = "Erro ao remover usuario",
                     Content = new StringContent(ex.Message)

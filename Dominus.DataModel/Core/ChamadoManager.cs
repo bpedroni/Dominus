@@ -127,7 +127,10 @@ namespace Dominus.DataModel.Core
                 // A aplicação gera um novo chamado com as definições padrões:
                 ValidarDadosChamado(chamado);
                 Usuario usuario = GetUsuario(chamado);
-                chamado.IdChamado = Guid.NewGuid();
+                if (chamado.IdChamado == Guid.Empty)
+                {
+                    chamado.IdChamado = Guid.NewGuid();
+                }
                 chamado.Titulo = chamado.Titulo.Trim();
                 chamado.Mensagem = chamado.Mensagem.Trim();
                 chamado.DataCriacao = DateTime.Now;
