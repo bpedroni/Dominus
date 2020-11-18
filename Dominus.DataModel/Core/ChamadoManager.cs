@@ -262,7 +262,7 @@ namespace Dominus.DataModel.Core
                 // Envio de confirmacao do contato ao e-mail fornecido pelo usuário:
                 msg = String.Format(
                      "Olá, " + nome + "!" + Environment.NewLine + Environment.NewLine +
-                    "A equipe Dominus regitrou o seu contato e o retornaremos assim que possível." + Environment.NewLine + Environment.NewLine +
+                    "A equipe Dominus registrou o seu contato e o retornaremos assim que possível." + Environment.NewLine + Environment.NewLine +
                     "****************************************************************************************************" + Environment.NewLine +
                     "Título da mensagem: " + titulo + Environment.NewLine +
                     "Mensagem enviada: " + Environment.NewLine + mensagem + Environment.NewLine +
@@ -292,7 +292,7 @@ namespace Dominus.DataModel.Core
 
                 using (SmtpClient client = new SmtpClient(section.Network.Host, section.Network.Port))
                 {
-                    client.UseDefaultCredentials = false;
+                    client.UseDefaultCredentials = section.Network.DefaultCredentials;
                     client.Credentials = new NetworkCredential(section.Network.UserName, section.Network.Password);
                     client.EnableSsl = section.Network.EnableSsl;
                     client.Send(mailMessage);

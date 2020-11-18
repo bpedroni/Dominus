@@ -22,6 +22,11 @@ namespace Dominus.FormApp
             timer.Start();
         }
 
+        private void FormChamados_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer.Stop();
+        }
+
         private void CarregarGridChamados()
         {
             List<Chamado> chamados = ChamadoManager.GetChamadosAbertos();

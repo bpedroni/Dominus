@@ -272,7 +272,7 @@ namespace Dominus.DataModel.Core
 
                 using (SmtpClient client = new SmtpClient(section.Network.Host, section.Network.Port))
                 {
-                    client.UseDefaultCredentials = false;
+                    client.UseDefaultCredentials = section.Network.DefaultCredentials;
                     client.Credentials = new NetworkCredential(section.Network.UserName, section.Network.Password);
                     client.EnableSsl = section.Network.EnableSsl;
                     client.Send(mailMessage);
