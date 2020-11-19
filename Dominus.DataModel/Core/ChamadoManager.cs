@@ -133,7 +133,7 @@ namespace Dominus.DataModel.Core
                 }
                 chamado.Titulo = chamado.Titulo.Trim();
                 chamado.Mensagem = chamado.Mensagem.Trim();
-                chamado.DataCriacao = DateTime.Now;
+                chamado.DataCriacao = DateTime.UtcNow.AddHours(-3);
                 chamado.Validado = CHAMADO_NAO_VALIDADO;
                 chamado.MensagemResposta = "Olá, " + usuario.Nome + "!";
                 connection.OpenConnection();
@@ -170,7 +170,7 @@ namespace Dominus.DataModel.Core
                 if (old.IdUsuarioSuporte != null)
                 {
                     old.MensagemResposta = chamado.MensagemResposta;
-                    old.DataResposta = DateTime.Now;
+                    old.DataResposta = DateTime.UtcNow.AddHours(-3);
                 }
                 connection.OpenConnection();
                 connection.context.Entry(old).State = EntityState.Modified;

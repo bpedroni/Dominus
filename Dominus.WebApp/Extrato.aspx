@@ -6,6 +6,27 @@
     <script type="text/javascript">
         window._categorias = <%: new HtmlString(GetCategorias()) %>;
         window._dataPeriodo = '<%: new HtmlString(GetInicioPeriodo()) %>';
+
+        function validarForm(button) {
+            var msg = document.getElementById("<%=lblMsg.ClientID %>");
+            msg.textContent = '';
+
+            var descricao = document.getElementById("<%=txtDescricao.ClientID %>");
+            var valor = document.getElementById("<%=txtValor.ClientID %>");
+
+            if (!descricao.validity.valid || !valor.validity.valid) {
+                return false;
+            }
+
+            $('#loading')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
+        }
+        function removerTransacao(button) {
+            $('#loadingRemover')[0].hidden = false;
+            setTimeout(function () { button.disabled = true; }, 100);
+            return true;
+        }
     </script>
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -119,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tipofluxo" class="col-3 col-form-label">Modo</label>
+                                    <label for="modo" class="col-3 col-form-label">Modo</label>
                                     <div class="col-9">
                                         <div class="form-check form-check-inline">
                                             <input id="rdoTransacao" class="form-check-input" type="radio" runat="server" clientidmode="static" name="rdoModo" value="0" />
@@ -170,7 +191,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnSalvarTransacao" CssClass="btn btn-success" runat="server" Text="Salvar" ToolTip="Salvar lançamento" OnClick="BtnSalvarTransacao_Click" />
+                            <span id="loading" class="mr-2 text-success" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+                            <asp:Button ID="btnSalvarTransacao" CssClass="btn btn-success" runat="server" Text="Salvar" ToolTip="Salvar lançamento" OnClientClick="validarForm(this);" OnClick="BtnSalvarTransacao_Click" />
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         </div>
                     </ContentTemplate>
@@ -204,7 +226,8 @@
                             <p>Deseja realmente excluir o lançamento selecionado?</p>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnDeletarTransacao" CssClass="btn btn-danger" runat="server" Text="Remover" ToolTip="Remover lançamento" OnClick="BtnDeletarTransacao_Click" />
+                            <span id="loadingRemover" class="mr-2 text-danger" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
+                            <asp:Button ID="btnDeletarTransacao" CssClass="btn btn-danger" runat="server" Text="Remover" ToolTip="Remover lançamento" OnClientClick="removerTransacao(this);" OnClick="BtnDeletarTransacao_Click" />
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         </div>
                     </ContentTemplate>

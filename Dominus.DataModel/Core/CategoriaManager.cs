@@ -86,7 +86,7 @@ namespace Dominus.DataModel.Core
                 }
                 categoria.Nome = categoria.Nome.Trim();
                 categoria.Descricao = categoria.Descricao.Trim();
-                categoria.DataCriacao = DateTime.Now;
+                categoria.DataCriacao = DateTime.UtcNow.AddHours(-3);
                 categoria.Ativo = ConnectionManager.STATUS_ATIVO;
 
                 connection.OpenConnection();

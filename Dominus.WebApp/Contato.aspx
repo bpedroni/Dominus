@@ -7,10 +7,12 @@
             if (Boolean($("#<%=lblNovaMsg.ClientID %>").text())) {
                 openModalMsg($('#txtRespChamado').val());
             }
-            debugger;
         });
 
         function validarForm(button) {
+            if (Boolean(document.getElementById("<%=txtEnviarNovaMsg.ClientID %>")))
+                document.getElementById("<%=txtEnviarNovaMsg.ClientID %>").required = false;
+
             var msg = document.getElementById("<%=lblMsg.ClientID %>");
             msg.textContent = '';
 

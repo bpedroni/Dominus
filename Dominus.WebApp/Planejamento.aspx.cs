@@ -16,6 +16,7 @@ namespace Dominus.WebApp
             }
             else
             {
+                Usuario = null;
                 Response.Redirect("Login?ReturnUrl=Planejamento", true);
             }
         }

@@ -33,7 +33,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Categoria" ControlStyle-CssClass="col">
                             <ItemTemplate>
-                                <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' />
+                                <img src='<%# DataBinder.Eval(Container.DataItem, "IconeCategoria") %>' height="24" width="24" alt='<%# DataBinder.Eval(Container.DataItem, "Categoria") %>' title='<%# DataBinder.Eval(Container.DataItem, "DescricaoCategoria") %>' />
                                 &nbsp;<small class="d-block d-md-inline"><%# DataBinder.Eval(Container.DataItem, "Categoria") %></small>
                             </ItemTemplate>
                         </asp:TemplateField>

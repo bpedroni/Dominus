@@ -65,7 +65,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com o login fornecido:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.Equals(login, StringComparison.CurrentCultureIgnoreCase));
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Login.Equals(login.Trim(), StringComparison.CurrentCultureIgnoreCase));
                 return usuario;
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace Dominus.DataModel.Core
             try
             {
                 // Verifica se existe um usuário com o e-mail fornecido:
-                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
+                Usuario usuario = GetUsuarios().FirstOrDefault(x => x.Email.Equals(email.Trim(), StringComparison.CurrentCultureIgnoreCase));
                 return usuario;
             }
             catch (Exception ex)
@@ -101,7 +101,7 @@ namespace Dominus.DataModel.Core
                 usuario.Nome = usuario.Nome.Trim();
                 usuario.Login = usuario.Login.Trim();
                 usuario.Email = usuario.Email.Trim();
-                usuario.DataCriacao = DateTime.Now;
+                usuario.DataCriacao = DateTime.UtcNow.AddHours(-3);
                 usuario.PerfilAdministrador = PERFIL_USUARIO;
                 usuario.Ativo = ConnectionManager.STATUS_ATIVO;
 

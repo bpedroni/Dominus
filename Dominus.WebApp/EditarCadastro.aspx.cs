@@ -22,6 +22,7 @@ namespace Dominus.WebApp
             }
             else
             {
+                Usuario = null;
                 Response.Redirect("Login", true);
             }
         }

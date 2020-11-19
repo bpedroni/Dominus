@@ -39,6 +39,7 @@ namespace Dominus.WebApp
             }
             else
             {
+                Usuario = null;
                 if (!IsPostBack)
                 {
                     txtNome.Focus();

@@ -177,6 +177,15 @@ namespace Dominus.WebApp
         protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
+        /// loading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loading;
+
+        /// <summary>
         /// btnSalvarTransacao control.
         /// </summary>
         /// <remarks>
@@ -202,6 +211,15 @@ namespace Dominus.WebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtDeletarTransacao;
+
+        /// <summary>
+        /// loadingRemover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loadingRemover;
 
         /// <summary>
         /// btnDeletarTransacao control.

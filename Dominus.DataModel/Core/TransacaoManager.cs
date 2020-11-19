@@ -63,7 +63,7 @@ namespace Dominus.DataModel.Core
         {
             try
             {
-                // Verifica se existe uma transação com o usuário e o id fornecidos:
+                // Verifica se existe uma transação com o id fornecido:
                 connection.OpenConnection();
                 Transacao transacao = connection.context.Transacoes.FirstOrDefault(x => x.IdTransacao.Equals(idTransacao));
                 connection.CloseConnection();
@@ -175,7 +175,7 @@ namespace Dominus.DataModel.Core
             if (transacao.Provisionado == TRANSACAO_PROVISIONADA)
             {
                 if (transacao.ValorProvisao == null)
-                    throw new TransacaoValorException("A valor deve ser preenchido com um número decimal.");
+                    throw new TransacaoValorException("O valor deve ser preenchido com um número decimal.");
 
                 if (transacao.DataProvisao == null)
                     throw new TransacaoDataException("A data deve ser preenchida com uma data válida.");
@@ -183,7 +183,7 @@ namespace Dominus.DataModel.Core
             else
             {
                 if (transacao.Valor == null)
-                    throw new TransacaoValorException("A valor deve ser preenchido com um número decimal.");
+                    throw new TransacaoValorException("O valor deve ser preenchido com um número decimal.");
 
                 if (transacao.Data == null)
                     throw new TransacaoDataException("A data deve ser preenchida com uma data válida.");
@@ -193,7 +193,6 @@ namespace Dominus.DataModel.Core
 
             if (transacao.Comentario.Trim().Length > 255)
                 throw new TransacaoDescricaoException("O comentário pode ter no máximo 255 caracteres).");
-
         }
 
         public static List<Transacao> GetReceitas(Usuario usuario, int? mes = null, int? ano = null)
