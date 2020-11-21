@@ -8,7 +8,7 @@
     <ProjectGuid>{976949CD-F11C-452A-9287-46FDE48F229F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Dominus.FormApp</RootNamespace>
-    <AssemblyName>Dominus.FormApp</AssemblyName>
+    <AssemblyName>Dominus</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -54,7 +54,7 @@
     <ApplicationIcon>Resources\icone.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>5448E894B38F0DB62567546CD3478C0374625B83</ManifestCertificateThumbprint>
@@ -64,6 +64,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Dominus.FormApp.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -215,7 +221,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Dominus.FormApp_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -69,25 +69,25 @@
                 <h5 class="text-center">Registre seu contato</h5>
             </div>
             <div class="card-body">
-                <div class="form-group input-group" title="Insira o seu nome">
+                <div class="form-group input-group my-2" title="Insira o seu nome">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-user"></i></span>
                     </div>
                     <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Insira seu nome" required oninvalid="setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100" />
                 </div>
-                <div class="form-group input-group" title="Insira o seu e-mail">
+                <div class="form-group input-group my-2" title="Insira o seu e-mail">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
                     <input id="txtEmail" name="email" class="form-control rounded-right" type="email" runat="server" placeholder="Insira o seu e-mail" required oninvalid="setCustomValidity('Insira um endereço de e-mail.')" oninput="setCustomValidity('')" maxlength="100" />
                 </div>
-                <div class="form-group input-group" title="Insira o assunto da mensagem">
+                <div class="form-group input-group my-2" title="Insira o assunto da mensagem">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-comment"></i></span>
                     </div>
                     <input id="txtAssunto" name="assunto" class="form-control rounded-right" type="text" runat="server" placeholder="Insira o assunto da mensagem" required oninvalid="setCustomValidity('Insira o assunto da mensagem.')" oninput="setCustomValidity('')" maxlength="50" />
                 </div>
-                <div class="form-group input-group" title="Insira a mensagem">
+                <div class="form-group input-group my-2" title="Insira a mensagem">
                     <textarea id="txtMensagem" name="assunto" class="form-control rounded-right" rows="5" runat="server" placeholder="Insira a mensagem" required oninvalid="setCustomValidity('Insira a mensagem.')" oninput="setCustomValidity('')" maxlength="1000"></textarea>
                 </div>
                 <div class="text-center">
@@ -112,13 +112,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-none form-group row">
+                    <div class="d-none form-group row my-2">
                         <label for="idRespChamado" class="col-3 col-form-label">Id Chamado</label>
                         <div class="col-9">
                             <input id="txtRespChamado" class="form-control" type="text" runat="server" clientidmode="static" readonly />
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row my-2">
                         <label for="idEnviarNovaMsg" class="col-3 col-form-label">Mensagem</label>
                         <div class="col-9">
                             <textarea id="txtEnviarNovaMsg" class="form-control rounded-right" rows="5" runat="server" placeholder="Insira a sua nova mensagem" oninvalid="setCustomValidity('Insira a mensagem.')" oninput="setCustomValidity('')" maxlength="1000"></textarea>

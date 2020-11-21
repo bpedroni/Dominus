@@ -10,13 +10,13 @@
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row m-2 w-100 mx-auto">
-        <div class="col-lg-4 col-md-6 p-2">
+        <div class="col-lg-4 col-md-6 chartArea">
             <canvas id="chartReceitas" class="bg-light shadow rounded"></canvas>
         </div>
-        <div class="col-lg-4 col-md-6 p-2">
+        <div class="col-lg-4 col-md-6 chartArea">
             <canvas id="chartDespesas" class="bg-light shadow rounded"></canvas>
         </div>
-        <div class="col-lg-4 p-2">
+        <div class="col-lg-4 chartArea">
             <canvas id="chartFluxos" class="bg-light shadow rounded"></canvas>
         </div>
         <div class="col card p-0 m-2 bg-light shadow rounded">
@@ -24,7 +24,7 @@
                 <h5 class="text-center">Últimos Lançamentos</h5>
             </div>
             <div class="card-body p-0">
-                <asp:GridView ID="gridTransacoes" CssClass="table table-striped p-0 border rounded" EmptyDataText="Não há transações registradas para o período" EmptyDataRowStyle-CssClass="col font-weight-bold text-center" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="gridTransacoes" CssClass="table table-sm table-striped p-0 border rounded" HeaderStyle-CssClass="table-info" EmptyDataText="Não há transações registradas para o período" EmptyDataRowStyle-CssClass="col font-weight-bold text-center" runat="server" AutoGenerateColumns="False">
                     <Columns>
                         <asp:TemplateField HeaderText="Tipo" ControlStyle-CssClass="col" ItemStyle-CssClass="d-none d-lg-table-cell" HeaderStyle-CssClass="d-none d-lg-table-cell">
                             <ItemTemplate>
@@ -62,6 +62,9 @@
                 <div class="text-right mx-3 my-1">
                     <a class="btn btn-info" href="Extrato" title="Extrato Financeiro">
                         <i class="fas fa-dollar-sign"></i>&nbsp;Ir Para Extrato Financeiro
+                    </a>
+                    <a class="btn btn-info" href="Planejamento" title="Planejamento">
+                        <i class="fas fa-balance-scale"></i>&nbsp;Ir Para Planejamento
                     </a>
                 </div>
             </div>

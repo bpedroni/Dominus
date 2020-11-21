@@ -34,6 +34,10 @@
             background-color: royalblue;
         }
 
+.chartArea {
+    height: 180px;
+}
+
 @media screen and (max-width: 900px) {
     .info-usuario {
         font-size: 1.3rem;

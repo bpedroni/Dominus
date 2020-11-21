@@ -15,10 +15,10 @@ namespace Dominus.WebApp
 {
     public class CategoriasController : ApiController
     {
-        // GET api/categorias - exibe todas as categorias ativas:
+        // GET api/categorias - exibe todas as categorias:
         public List<Categoria> Get()
         {
-            return CategoriaManager.GetCategoriasAtivas();
+            return CategoriaManager.GetCategorias();
         }
 
         // GET api/categorias/tipo/{id} - exibe todas as categorias ativas de algum tipo de fluxo:

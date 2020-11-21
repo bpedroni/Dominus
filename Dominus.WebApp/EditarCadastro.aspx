@@ -34,20 +34,20 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="shadow p-3 mb-5 bg-white rounded formulario">
         <a class="btn btn-link btn-block text-left" href="Resumo"><i class="fas fa-long-arrow-alt-left"></i>Voltar para o resumo financeiro</a><p></p>
-        <div class="form-group input-group">
+        <div class="form-group input-group my-2">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-user"></i></span>
             </div>
             <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Nome" required oninvalid="this.setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100" />
         </div>
-        <div class="form-group input-group">
+        <div class="form-group input-group my-2">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
             </div>
             <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Login de acesso" required oninvalid="this.setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="15" onkeypress="validarLogin(this, event)" />
         </div>
-        <p id="msgLogin" class="text-danger" hidden><small>Digite apenas letras, números ou '_' (sublinhado)</small></p>
-        <div class="form-group input-group">
+        <p id="msgLogin" class="alert alert-danger" hidden><small>Digite apenas letras, números ou '_' (sublinhado)</small></p>
+        <div class="form-group input-group my-2">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
@@ -58,13 +58,13 @@
             <label class="form-check-label" for="chkAlterarSenha">Alterar senha</label>
         </div>
         <div <%= chkAlterarSenha.Checked ? "class='expand'" : "class='collapse'" %> id="alterarSenha">
-            <div class="form-group input-group">
+            <div class="form-group input-group my-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
                 <input id="txtNovaSenha" name="novaSenha" class="form-control rounded-right" type="password" runat="server" placeholder="Digite uma nova senha" maxlength="20">
             </div>
-            <div class="form-group input-group">
+            <div class="form-group input-group my-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
@@ -89,6 +89,5 @@
             <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
             <asp:Button ID="btnEditarCadastro" CssClass="btn btn-primary btn-lg" runat="server" Text="Salvar alterações" OnClientClick="return validarForm(this);" OnClick="BtnEditarCadastro_Click" />
         </div>
-        <br />
     </div>
 </asp:Content>

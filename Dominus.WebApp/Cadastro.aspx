@@ -37,32 +37,32 @@
             <h5 class="text-center">Cadastro</h5>
         </div>
         <div class="card-body">
-            <div class="form-group input-group" title="Insira o seu nome">
+            <div class="form-group input-group my-2" title="Insira o seu nome">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-user"></i></span>
                 </div>
                 <input id="txtNome" name="nome" class="form-control rounded-right" type="text" runat="server" placeholder="Insira seu nome" required oninvalid="setCustomValidity('Insira o seu nome.')" oninput="setCustomValidity('')" maxlength="100" />
             </div>
-            <div class="form-group input-group" title="Defina um login de acesso">
+            <div class="form-group input-group my-2" title="Defina um login de acesso">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
                 </div>
                 <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Defina um login de acesso" required oninvalid="setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="15" onkeypress="validarLogin(this, event)" />
             </div>
-            <p id="msgLogin" class="text-danger" hidden><small>Digite apenas letras, números ou '_' (sublinhado)</small></p>
-            <div class="form-group input-group" title="Insira o seu e-mail">
+            <p id="msgLogin" class="alert alert-danger" hidden><small>Digite apenas letras, números ou '_' (sublinhado)</small></p>
+            <div class="form-group input-group my-2" title="Insira o seu e-mail">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 </div>
                 <input id="txtEmail" name="email" class="form-control rounded-right" type="email" runat="server" placeholder="Insira o seu e-mail" required oninvalid="setCustomValidity('Insira um endereço de e-mail.')" oninput="setCustomValidity('')" maxlength="100" />
             </div>
-            <div class="form-group input-group" title="Defina uma senha">
+            <div class="form-group input-group my-2" title="Defina uma senha">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
                 <input id="txtSenha" name="senha" class="form-control rounded-right" type="password" runat="server" placeholder="Defina uma senha" required oninvalid="setCustomValidity('Insira uma senha válida.')" oninput="setCustomValidity('')" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Verifique abaixo as regras para senha" maxlength="20" />
             </div>
-            <div class="form-group input-group" title="Confirme a senha">
+            <div class="form-group input-group my-2" title="Confirme a senha">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
@@ -94,7 +94,6 @@
                 <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
                 <asp:Button ID="btnCadastrar" CssClass="btn btn-primary btn-lg" runat="server" Text="Cadastrar" ToolTip="Realizar o cadastro" OnClientClick="return validarForm(this);" OnClick="BtnCadastrar_Click" />
             </div>
-            <br />
             <div class="text-center">
                 <asp:Label ID="lblCadastro" Text="Já possui uma conta? Faça o seu " runat="server" /><a href="Login" title="Ir para a página de Login">Login</a>
             </div>

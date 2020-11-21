@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Dominus.DataModel.Core
 {
-    class PlanejamentoManager
+    public class PlanejamentoManager
     {
         private static ConnectionManager connection = new ConnectionManager();
 
@@ -18,7 +18,7 @@ namespace Dominus.DataModel.Core
                 List<Planejamento> planejamentos = connection.context.Planejamentos.Where(x => x.IdUsuario == usuario.IdUsuario
                 && (categoria == null || x.IdCategoria == categoria.IdCategoria)
                 && (mes == null || x.Mes == mes)
-                && (ano == null || x.Ano == ano)).ToList();
+                && (ano == null || x.Ano == ano)).OrderBy(x => x.Categoria.Nome).OrderBy(x => x.Categoria.TipoFluxo).ToList();
                 connection.CloseConnection();
                 return planejamentos;
             }
@@ -59,6 +59,29 @@ namespace Dominus.DataModel.Core
             catch (Exception ex)
             {
                 connection.CloseConnection();
+                throw ex;
+            }
+        }
+
+        public static void SavePlanejamento(Planejamento planejamento)
+        {
+            try
+            {
+                // A aplicação salva o planejamento substituindo o anterior, caso exista:
+                Planejamento old = GetPlanejamentoCategoriaByMesEAno(UsuarioManager.GetUsuarioById(planejamento.IdUsuario), CategoriaManager.GetCategoriaById(planejamento.IdCategoria), planejamento.Mes, planejamento.Ano);
+                if (old == null)
+                {
+                    planejamento.IdPlanejamento = Guid.NewGuid();
+                    AddPlanejamento(planejamento);
+                }
+                else
+                {
+                    planejamento.IdPlanejamento = old.IdPlanejamento;
+                    EditPlanejamento(planejamento);
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
@@ -144,6 +167,57 @@ namespace Dominus.DataModel.Core
             if (planejamento.Valor <= 0)
                 throw new PlanejamentoValorException("O valor deve ser preenchido com um número decimal positivo.");
         }
+
+        public static List<GridRowPlanejamento> GetRowPlanejamentos(Usuario usuario, int mes, int ano)
+        {
+            try
+            {
+                List<GridRowPlanejamento> planejamentos = new List<GridRowPlanejamento>();
+                List<Transacao> transacoes = TransacaoManager.GetTransacoesEfetuadas(usuario, mes, ano);
+
+                foreach (Categoria categoria in CategoriaManager.GetCategorias().OrderByDescending(x => x.Nome).OrderBy(x => x.TipoFluxo))
+                {
+                    Decimal? valorEfetivo = transacoes.Where(x => x.IdCategoria == categoria.IdCategoria).Sum(x => x.Valor);
+                    Planejamento planejamento = GetPlanejamentoCategoriaByMesEAno(usuario, categoria, mes, ano);
+
+                    if (valorEfetivo > 0 || planejamento != null)
+                    {
+                        planejamentos.Add(new GridRowPlanejamento
+                        {
+                            IdPlanejamento = planejamento == null ? Guid.NewGuid() : planejamento.IdPlanejamento,
+                            IdCategoria = categoria.IdCategoria,
+                            Categoria = categoria.Nome,
+                            DescricaoCategoria = categoria.Descricao,
+                            IconeCategoria = "Images/Categorias/" + categoria.Icone,
+                            TipoFluxo = categoria.TipoFluxo,
+                            Mes = mes,
+                            Ano = ano,
+                            ValorRealizado = valorEfetivo != null ? (Decimal)valorEfetivo : 0,
+                            ValorPlanejado = planejamento != null ? planejamento.Valor : 0
+                        });
+                    }
+                }
+                return planejamentos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
+    public class GridRowPlanejamento
+    {
+        public Guid IdPlanejamento { get; set; }
+        public Guid IdCategoria { get; set; }
+        public String Categoria { get; set; }
+        public String DescricaoCategoria { get; set; }
+        public String IconeCategoria { get; set; }
+        public String TipoFluxo { get; set; }
+        public int Mes { get; set; }
+        public int Ano { get; set; }
+        public Decimal ValorRealizado { get; set; }
+        public Decimal ValorPlanejado { get; set; }
     }
 
     public class PlanejamentoUsuarioException : Exception

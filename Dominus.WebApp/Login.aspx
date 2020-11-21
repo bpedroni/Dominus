@@ -28,13 +28,13 @@
             <div class="text-center">
                 <img class="img-fluid mb-3" src="Contents/img/logo_160x120.png" alt="Dominus" title="Logotipo Dominus" width="160">
             </div>
-            <div class="form-group input-group" title="Digite o seu login ou e-mail">
+            <div class="form-group input-group my-2" title="Digite o seu login ou e-mail">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-user"></i></span>
                 </div>
                 <input id="txtLogin" name="login" class="form-control rounded-right" type="text" runat="server" placeholder="Digite o seu login ou e-mail" required oninvalid="setCustomValidity('Insira um nome de usuário.')" oninput="setCustomValidity('')" maxlength="100" />
             </div>
-            <div class="form-group input-group" title="Digite a sua senha">
+            <div class="form-group input-group my-2" title="Digite a sua senha">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
@@ -48,7 +48,6 @@
                 <span id="loading" class="mr-2 fa-2x text-primary" runat="server" clientidmode="static" hidden><i class="fas fa-spinner fa-spin"></i></span>
                 <asp:Button ID="btnLogin" CssClass="btn btn-primary btn-lg" runat="server" Text="Login" ToolTip="Realizar o login" OnClientClick="validarForm(this);" OnClick="BtnLogin_Click" />
             </div>
-            <br />
             <div class="text-center">
                 <asp:Label ID="lblCadastro" Text="Não possui conta? " runat="server" /><a href="Cadastro" title="Ir para a página de Cadastro">Cadastre-se</a>
             </div>

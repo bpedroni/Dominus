@@ -18,5 +18,13 @@ namespace Dominus.WebApp
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
         }
+
+        protected void Application_BeginRequest(Object sender, EventArgs e)
+        {
+            if (!HttpContext.Current.Request.IsSecureConnection && !HttpContext.Current.Request.IsLocal)
+            {
+                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+            }
+        }
     }
 }

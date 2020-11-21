@@ -118,6 +118,7 @@
     <Content Include="Contents\img\logo_250x50.png" />
     <Content Include="Contents\js\dominus-chart.js" />
     <Content Include="Contents\js\extrato.js" />
+    <Content Include="Contents\js\planejamento.js" />
     <Content Include="Contents\js\resumo.js" />
     <Content Include="Contents\js\site.js" />
     <Content Include="Contents\lib\bootstrap\css\bootstrap-grid.css" />
