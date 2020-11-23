@@ -71,6 +71,7 @@
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\EstatisticaManager.cs" />
     <Compile Include="Core\PlanejamentoManager.cs" />
+    <Compile Include="Core\RelatorioManager.cs" />
     <Compile Include="Core\TransacaoManager.cs" />
     <Compile Include="Core\UsuarioManager.cs" />
     <Compile Include="DominusModel.Context.cs">
@@ -93,6 +94,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relatorio.cs">
+      <DependentUpon>DominusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioTransacoes.cs">
       <DependentUpon>DominusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoRelatorio.cs">

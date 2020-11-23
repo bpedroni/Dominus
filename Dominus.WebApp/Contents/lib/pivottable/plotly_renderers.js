@@ -55,7 +55,7 @@
           for (j = 0, len = datumKeys.length; j < len; j++) {
             datumKey = datumKeys[j];
             val = parseFloat(pivotData.getAggregator(transpose ? datumKey : traceKey, transpose ? traceKey : datumKey).value());
-            values.push(isFinite(val) ? val : null);
+            values.push(isFinite(val) ? Math.abs(val) : null);
             labels.push(datumKey.join('-') || ' ');
           }
           trace = {
@@ -85,7 +85,7 @@
           titleText += " " + opts.localeStrings.by + " " + groupByTitle;
         }
         layout = {
-          title: titleText,
+          //title: titleText,
           hovermode: 'closest',
           width: window.innerWidth / 1.4,
           height: window.innerHeight / 1.4 - 50

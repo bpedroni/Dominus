@@ -60,10 +60,10 @@
                     </Columns>
                 </asp:GridView>
                 <div class="text-right mx-3 my-1">
-                    <a class="btn btn-info" href="Extrato" title="Extrato Financeiro">
+                    <a class="btn btn-info mb-1" href="Extrato" title="Extrato Financeiro">
                         <i class="fas fa-dollar-sign"></i>&nbsp;Ir Para Extrato Financeiro
                     </a>
-                    <a class="btn btn-info" href="Planejamento" title="Planejamento">
+                    <a class="btn btn-info mb-1" href="Planejamento" title="Planejamento">
                         <i class="fas fa-balance-scale"></i>&nbsp;Ir Para Planejamento
                     </a>
                 </div>

@@ -80,7 +80,7 @@ namespace Dominus.DataModel.Core
             {
                 // A aplicação gera uma nova categoria com as definições padrões:
                 ValidarDadosCategoria(categoria);
-                if (categoria.IdCategoria == Guid.Empty)
+                if (categoria.IdCategoria == Guid.Empty || GetCategoriaById(categoria.IdCategoria) != null)
                 {
                     categoria.IdCategoria = Guid.NewGuid();
                 }

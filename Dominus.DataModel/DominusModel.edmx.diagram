@@ -21,6 +21,7 @@
         <AssociationConnector Association="DominusModel.FK_Relatorio_IdTipoRelatorio" ManuallyRouted="false" />
         <AssociationConnector Association="DominusModel.FK_Relatorio_IdUsuario" ManuallyRouted="false" />
         <AssociationConnector Association="DominusModel.FK_Transacao_IdUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DominusModel.RelatorioTransacoes" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

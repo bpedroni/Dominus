@@ -12,8 +12,8 @@ $(document).ready(function () {
         $dominusChart.createColumnChart($('#chartDespesas')[0], 'Despesas no mês', $dominusChart.groupData(despesas, 'Categoria', 'Valor'), ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f", "#90be6d", "#277da1", "#03071e", "#370617", "#6a040f", "#9d0208", "#d00000", "#dc2f02", "#e85d04", "#43aa8b", "#4d908e", "#577590", "#f48c06", "#faa307", "#ffba08"], false);
     }
     else {
-        $('#chartFluxos').hide();
-        $('#chartReceitas').hide();
-        $('#chartDespesas').hide();
+        $('#chartFluxos').parent().hide();
+        $('#chartReceitas').parent().hide();
+        $('#chartDespesas').parent().hide();
     }
 });

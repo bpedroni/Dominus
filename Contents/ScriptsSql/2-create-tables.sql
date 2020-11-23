@@ -117,6 +117,33 @@ CREATE INDEX IX_Chamado_IdUsuarioSuporte ON Chamado (IdUsuarioSuporte);
 CREATE INDEX IX_Chamado_IdChamadoAssociado ON Chamado (IdChamadoAssociado);
 GO
 
+-- Criação de view com as transações dos usuários.
+CREATE OR ALTER VIEW RelatorioTransacoes
+AS
+	SELECT t.IdTransacao,
+	u.IdUsuario,
+	t.TipoFluxo Tipo,
+	CASE
+		WHEN t.Provisionado = 0 THEN 'Transação'
+		ELSE 'Provisão'
+	END Modo,
+	c.Nome Categoria,
+	t.Descricao Descrição,
+	CASE
+		WHEN t.Data IS NOT NULL THEN t.Data
+		ELSE t.DataProvisao
+	END Data,
+	CASE WHEN t.TipoFluxo = 'Receita' THEN 1 ELSE -1 END *
+	CASE
+		WHEN t.Valor IS NOT NULL THEN t.Valor
+		ELSE t.ValorProvisao
+	END Valor,
+	t.Comentario Comentário
+	FROM Transacao t
+	JOIN Usuario u ON t.IdUsuario = u.IdUsuario
+	JOIN Categoria c ON t.IdCategoria = c.IdCategoria
+GO
+
 -- Criação de trigger para inserção na tabela Usuario.
 CREATE OR ALTER TRIGGER trgInserirUsuario
 ON Usuario

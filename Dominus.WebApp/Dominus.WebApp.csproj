@@ -117,6 +117,7 @@
     <Content Include="Contents\img\logo_160x120.png" />
     <Content Include="Contents\img\logo_250x50.png" />
     <Content Include="Contents\js\dominus-chart.js" />
+    <Content Include="Contents\js\relatorios.js" />
     <Content Include="Contents\js\extrato.js" />
     <Content Include="Contents\js\planejamento.js" />
     <Content Include="Contents\js\resumo.js" />
@@ -1869,6 +1870,7 @@
     <Content Include="Contents\lib\pivottable\pivot.min.js" />
     <Content Include="Contents\lib\pivottable\pivot.pt.js" />
     <Content Include="Contents\lib\pivottable\pivot.pt.min.js" />
+    <Content Include="Contents\lib\pivottable\plotly-basic-latest.min.js" />
     <Content Include="Contents\lib\pivottable\plotly_renderers.js" />
     <Content Include="Contents\lib\pivottable\plotly_renderers.min.js" />
     <Content Include="Contents\lib\sweetalert\sweetalert.css" />
@@ -2102,6 +2104,12 @@
     <Content Include="Contents\lib\jquery\jquery-3.5.1.min.map" />
     <Content Include="Contents\lib\chartjs\LICENSE.md" />
     <Content Include="Contents\lib\jquery-ui\package.json" />
+    <Content Include="Contents\lib\pivottable\pivot.js.map" />
+    <Content Include="Contents\lib\pivottable\pivot.min.js.map" />
+    <Content Include="Contents\lib\pivottable\pivot.pt.js.map" />
+    <Content Include="Contents\lib\pivottable\pivot.pt.min.js.map" />
+    <Content Include="Contents\lib\pivottable\plotly_renderers.js.map" />
+    <Content Include="Contents\lib\pivottable\plotly_renderers.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Properties\PublishProfiles\FTPSomee.pubxml" />

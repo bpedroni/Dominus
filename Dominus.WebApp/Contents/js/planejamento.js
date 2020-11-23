@@ -32,7 +32,7 @@ desenharGraficoPlanejamento = function () {
         window._chartPlanejamento = $dominusChart.createBarChart($('#chartPlanejamentos')[0], 'Realizado X Planejado no mês', dados, ["#90be6d", "#f8961e"], true);
     }
     else {
-        $('#chartPlanejamentos').hide();
+        $('#chartPlanejamentos').parent().hide();
     }
 }
 

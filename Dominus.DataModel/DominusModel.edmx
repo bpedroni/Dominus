@@ -28,7 +28,7 @@
           <Property Name="Mensagem" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="DataCriacao" Type="datetime" Nullable="false" />
           <Property Name="IdUsuarioSuporte" Type="uniqueidentifier" />
-          <Property Name="MensagemResposta" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="MensagemResposta" Type="varchar" MaxLength="1000" />
           <Property Name="DataResposta" Type="datetime" />
           <Property Name="Validado" Type="int" Nullable="false" />
           <Property Name="IdChamadoAssociado" Type="uniqueidentifier" />
@@ -94,6 +94,27 @@
           <Property Name="DataCriacao" Type="datetime" Nullable="false" />
           <Property Name="DataExclusao" Type="datetime" />
           <Property Name="Ativo" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dominus.dbo.RelatorioTransacoes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RelatorioTransacoes">
+          <Key>
+            <PropertyRef Name="IdTransacao" />
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="Modo" />
+            <PropertyRef Name="Categoria" />
+            <PropertyRef Name="Descrição" />
+          </Key>
+          <Property Name="IdTransacao" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Modo" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Categoria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descrição" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Data" Type="date" />
+          <Property Name="Valor" Type="decimal" Precision="22" Scale="2" />
+          <Property Name="Comentário" Type="varchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_Chamado_IdChamadoAssociado">
           <End Role="Chamado" Type="Self.Chamado" Multiplicity="0..1" />
@@ -211,6 +232,19 @@
           <EntitySet Name="TipoRelatorio" EntityType="Self.TipoRelatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transacao" EntityType="Self.Transacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelatorioTransacoes" EntityType="Self.RelatorioTransacoes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RelatorioTransacoes].[IdTransacao] AS [IdTransacao], 
+    [RelatorioTransacoes].[IdUsuario] AS [IdUsuario], 
+    [RelatorioTransacoes].[Tipo] AS [Tipo], 
+    [RelatorioTransacoes].[Modo] AS [Modo], 
+    [RelatorioTransacoes].[Categoria] AS [Categoria], 
+    [RelatorioTransacoes].[Descrição] AS [Descrição], 
+    [RelatorioTransacoes].[Data] AS [Data], 
+    [RelatorioTransacoes].[Valor] AS [Valor], 
+    [RelatorioTransacoes].[Comentário] AS [Comentário]
+    FROM [dbo].[RelatorioTransacoes] AS [RelatorioTransacoes]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Chamado_IdChamadoAssociado" Association="Self.FK_Chamado_IdChamadoAssociado">
             <End Role="Chamado" EntitySet="Chamado" />
             <End Role="Chamado1" EntitySet="Chamado" />
@@ -277,7 +311,7 @@
           <Property Name="Mensagem" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IdUsuarioSuporte" Type="Guid" />
-          <Property Name="MensagemResposta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MensagemResposta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="DataResposta" Type="DateTime" Precision="3" />
           <Property Name="Validado" Type="Int32" Nullable="false" />
           <Property Name="IdChamadoAssociado" Type="Guid" />
@@ -470,38 +504,38 @@
         </Association>
         <EntityContainer Name="DominusContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categorias" EntityType="Self.Categoria" />
-          <EntitySet Name="Chamadoes" EntityType="Self.Chamado" />
-          <EntitySet Name="Planejamentoes" EntityType="Self.Planejamento" />
+          <EntitySet Name="Chamados" EntityType="Self.Chamado" />
+          <EntitySet Name="Planejamentos" EntityType="Self.Planejamento" />
           <EntitySet Name="Relatorios" EntityType="Self.Relatorio" />
-          <EntitySet Name="TipoRelatorios" EntityType="Self.TipoRelatorio" />
-          <EntitySet Name="Transacaos" EntityType="Self.Transacao" />
+          <EntitySet Name="TiposRelatorio" EntityType="Self.TipoRelatorio" />
+          <EntitySet Name="Transacoes" EntityType="Self.Transacao" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
           <AssociationSet Name="FK_Planejamento_IdCategoria" Association="Self.FK_Planejamento_IdCategoria">
             <End Role="Categoria" EntitySet="Categorias" />
-            <End Role="Planejamento" EntitySet="Planejamentoes" />
+            <End Role="Planejamento" EntitySet="Planejamentos" />
           </AssociationSet>
           <AssociationSet Name="FK_Transacao_IdCategoria" Association="Self.FK_Transacao_IdCategoria">
             <End Role="Categoria" EntitySet="Categorias" />
-            <End Role="Transacao" EntitySet="Transacaos" />
+            <End Role="Transacao" EntitySet="Transacoes" />
           </AssociationSet>
           <AssociationSet Name="FK_Chamado_IdChamadoAssociado" Association="Self.FK_Chamado_IdChamadoAssociado">
-            <End Role="Chamado" EntitySet="Chamadoes" />
-            <End Role="Chamado1" EntitySet="Chamadoes" />
+            <End Role="Chamado" EntitySet="Chamados" />
+            <End Role="Chamado1" EntitySet="Chamados" />
           </AssociationSet>
           <AssociationSet Name="FK_Chamado_IdUsuario" Association="Self.FK_Chamado_IdUsuario">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Chamado" EntitySet="Chamadoes" />
+            <End Role="Chamado" EntitySet="Chamados" />
           </AssociationSet>
           <AssociationSet Name="FK_Chamado_IdUsuarioSuporte" Association="Self.FK_Chamado_IdUsuarioSuporte">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Chamado" EntitySet="Chamadoes" />
+            <End Role="Chamado" EntitySet="Chamados" />
           </AssociationSet>
           <AssociationSet Name="FK_Planejamento_IdUsuario" Association="Self.FK_Planejamento_IdUsuario">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Planejamento" EntitySet="Planejamentoes" />
+            <End Role="Planejamento" EntitySet="Planejamentos" />
           </AssociationSet>
           <AssociationSet Name="FK_Relatorio_IdTipoRelatorio" Association="Self.FK_Relatorio_IdTipoRelatorio">
-            <End Role="TipoRelatorio" EntitySet="TipoRelatorios" />
+            <End Role="TipoRelatorio" EntitySet="TiposRelatorio" />
             <End Role="Relatorio" EntitySet="Relatorios" />
           </AssociationSet>
           <AssociationSet Name="FK_Relatorio_IdUsuario" Association="Self.FK_Relatorio_IdUsuario">
@@ -510,9 +544,29 @@
           </AssociationSet>
           <AssociationSet Name="FK_Transacao_IdUsuario" Association="Self.FK_Transacao_IdUsuario">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Transacao" EntitySet="Transacaos" />
+            <End Role="Transacao" EntitySet="Transacoes" />
           </AssociationSet>
+          <EntitySet Name="RelatoriosTransacoes" EntityType="DominusModel.RelatorioTransacoes" />
         </EntityContainer>
+        <EntityType Name="RelatorioTransacoes">
+          <Key>
+            <PropertyRef Name="IdTransacao" />
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="Modo" />
+            <PropertyRef Name="Categoria" />
+            <PropertyRef Name="Descrição" />
+          </Key>
+          <Property Name="IdTransacao" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="IdUsuario" Type="Guid" Nullable="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Modo" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descrição" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="Valor" Type="Decimal" Precision="22" Scale="2" Nullable="false" />
+          <Property Name="Comentário" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -533,7 +587,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Chamadoes">
+          <EntitySetMapping Name="Chamados">
             <EntityTypeMapping TypeName="DominusModel.Chamado">
               <MappingFragment StoreEntitySet="Chamado">
                 <ScalarProperty Name="IdChamado" ColumnName="IdChamado" />
@@ -549,7 +603,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Planejamentoes">
+          <EntitySetMapping Name="Planejamentos">
             <EntityTypeMapping TypeName="DominusModel.Planejamento">
               <MappingFragment StoreEntitySet="Planejamento">
                 <ScalarProperty Name="IdPlanejamento" ColumnName="IdPlanejamento" />
@@ -574,7 +628,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TipoRelatorios">
+          <EntitySetMapping Name="TiposRelatorio">
             <EntityTypeMapping TypeName="DominusModel.TipoRelatorio">
               <MappingFragment StoreEntitySet="TipoRelatorio">
                 <ScalarProperty Name="IdTipoRelatorio" ColumnName="IdTipoRelatorio" />
@@ -583,7 +637,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Transacaos">
+          <EntitySetMapping Name="Transacoes">
             <EntityTypeMapping TypeName="DominusModel.Transacao">
               <MappingFragment StoreEntitySet="Transacao">
                 <ScalarProperty Name="TipoFluxo" ColumnName="TipoFluxo" />
@@ -613,6 +667,21 @@
                 <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
                 <ScalarProperty Name="DataExclusao" ColumnName="DataExclusao" />
                 <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatoriosTransacoes">
+            <EntityTypeMapping TypeName="DominusModel.RelatorioTransacoes">
+              <MappingFragment StoreEntitySet="RelatorioTransacoes">
+                <ScalarProperty Name="Comentário" ColumnName="Comentário" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Descrição" ColumnName="Descrição" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Modo" ColumnName="Modo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdTransacao" ColumnName="IdTransacao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
