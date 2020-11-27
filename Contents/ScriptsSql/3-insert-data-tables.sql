@@ -257,6 +257,12 @@ GO
 ENABLE TRIGGER trgInserirCategoria ON Categoria;
 GO
 
+INSERT INTO TipoRelatorio (Tipo, Descricao)
+	VALUES ('1. Tabela','$.pivotUtilities.renderers.Table')
+		  ,('2. Gráfico de colunas','$.pivotUtilities.plotly_renderers["Bar Chart"]')
+		  ,('3. Gráfico de barras','$.pivotUtilities.plotly_renderers["Horizontal Bar Chart"]')
+		  ,('4. Gráfico de linhas','$.pivotUtilities.plotly_renderers["Line Chart"]')
+
 INSERT INTO Transacao (IdTransacao,IdUsuario,IdCategoria,Descricao,TipoFluxo,Valor,Data)
 	VALUES (newid(),'46096007-6749-42A0-9422-BD337B9A374A','E22B7310-C256-43DC-8F40-F1DE9F1A6DDF','Teste','Despesa',1843.88,CONVERT(date,'2020-1-1',23))
 		  ,(newid(),'3EDBE40E-3DEA-4921-9153-88826D9C5D30','07CFC565-CBA5-4D4D-B62D-67B5B3088752','Teste','Despesa',1479.16,CONVERT(date,'2020-1-1',23))

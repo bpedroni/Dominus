@@ -2,36 +2,43 @@
 $(document).ready(function () {
     $('#txtDataInicial').datepicker({ dateFormat: 'dd/mm/yy' });
     $('#txtDataFinal').datepicker({ dateFormat: 'dd/mm/yy' });
+
+    $dominusPivot.loadRenderers(_tiposRelatorio, 'Tipo', 'Descricao');
+
     carregarPivotTable($('#pnlPivot'));
 });
 
-// Limpa o formulário do filtro do relatório:
-carregarPivotTable = function (div) {
-    var frFormat = $.pivotUtilities.numberFormat({ thousandsSep: ".", decimalSep: ",", prefix: "R$ " });
+// Abre a janela para salvar um novo modelo de relatório:
+function abrirFormRelatorio() {
+    var pivotOptions = $dominusPivot.pivotOptions($('#pnlPivot'));
+    var tipo = _tiposRelatorio.find(element => element.Tipo == pivotOptions.rendererName);
 
-    div.pivotUI(
-        _relatorioUsuario, {
-        renderers: {
-            "Tabela": $.pivotUtilities.renderers.Table,
-            "Gráfico de colunas": $.pivotUtilities.plotly_renderers["Bar Chart"],
-            "Gráfico de barras": $.pivotUtilities.plotly_renderers["Horizontal Bar Chart"],
-            "Gráfico de linhas": $.pivotUtilities.plotly_renderers["Line Chart"]
-        },
-        sorters: {
-            "Mês": $.pivotUtilities.sortAs(["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]),
-            "Tipo": $.pivotUtilities.sortAs(["Receita", "Despesa"]),
-            "Modo": $.pivotUtilities.sortAs(["Transação", "Provisão"])
-        },
-        aggregators: {
-            "Total em reais": function () {
-                return $.pivotUtilities.aggregatorTemplates.sum(frFormat)(["Valor"]);
-            }
-        }
-    });
+    $('#txtTipoRelatorio').val(tipo.IdTipoRelatorio);
+    $('#txtInfoLinha').val(JSON.stringify(pivotOptions.rows));
+    $('#txtInfoColuna').val(JSON.stringify(pivotOptions.cols));
+}
+
+// Desabilita o botão até o retorno da resposta do servidor:
+function aguardarFiltro(loading, button) {
+    $('#txtNome')[0].required = false;
+    loading.hidden = false;
+    setTimeout(function () { button.disabled = true; }, 100);
+    return true;
 }
 
 // Limpa o formulário do filtro do relatório:
-limparFormFiltro = function () {
+function carregarPivotTable (div) {
+    if (Boolean(_relatorio)) {
+        $dominusPivot.createPivotUI($('#pnlPivot'), _relatorioUsuario, _relatorio.Rows, _relatorio.Cols, _relatorio.Renderer);
+    }
+    else {
+        var pivotOptions = $dominusPivot.pivotOptions($('#pnlPivot'));
+        $dominusPivot.createPivotUI(div, _relatorioUsuario, pivotOptions.rows, pivotOptions.cols, pivotOptions.rendererName);
+    }
+}
+
+// Limpa o formulário do filtro do relatório:
+function limparFormFiltro () {
     $('#txtDataInicial').val('');
     $('#txtDataFinal').val('');
     $('#txtDataInicial').datepicker({ dateFormat: 'dd/mm/yy' });

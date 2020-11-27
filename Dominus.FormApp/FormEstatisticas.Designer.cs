@@ -245,7 +245,7 @@
             this.dataFinal.Name = "dataFinal";
             this.dataFinal.Size = new System.Drawing.Size(115, 24);
             this.dataFinal.TabIndex = 6;
-            this.dataFinal.Value = new System.DateTime(2020, 9, 18, 22, 14, 5, 571);
+            this.dataFinal.Value = System.DateTime.UtcNow.AddHours(-3);
             this.dataFinal.ValueChanged += new System.EventHandler(this.DataFinal_ValueChanged);
             // 
             // labelDataFinal

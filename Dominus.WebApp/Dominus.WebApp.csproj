@@ -116,6 +116,7 @@
     <Content Include="Contents\img\icon_edit.png" />
     <Content Include="Contents\img\logo_160x120.png" />
     <Content Include="Contents\img\logo_250x50.png" />
+    <Content Include="Contents\js\dominus-pivot.js" />
     <Content Include="Contents\js\dominus-chart.js" />
     <Content Include="Contents\js\relatorios.js" />
     <Content Include="Contents\js\extrato.js" />

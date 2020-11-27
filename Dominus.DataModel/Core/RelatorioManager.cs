@@ -33,7 +33,7 @@ namespace Dominus.DataModel.Core
             {
                 // Retorna uma lista dos tipos de relatório:
                 connection.OpenConnection();
-                List<TipoRelatorio> tiposRelatorio = connection.context.TiposRelatorio.OrderBy(x => x.Descricao).ToList();
+                List<TipoRelatorio> tiposRelatorio = connection.context.TiposRelatorio.OrderBy(x => x.Tipo).ToList();
                 connection.CloseConnection();
                 return tiposRelatorio;
             }
@@ -213,6 +213,15 @@ namespace Dominus.DataModel.Core
         public int Ano { get; set; }
         public Decimal Valor { get; set; }
         public String Comentário { get; set; }
+    }
+
+    public class ItemRelatorio
+    {
+        public Guid IdRelatorio { get; set; }
+        public String Nome { get; set; }
+        public Object Rows { get; set; }
+        public Object Cols { get; set; }
+        public String Renderer { get; set; }
     }
 
     public class RelatorioUsuarioException : Exception
