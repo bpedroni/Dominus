@@ -2113,6 +2113,7 @@
     <Content Include="Contents\lib\pivottable\plotly_renderers.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
+    <None Include="Properties\PublishProfiles\FTPGearHost.pubxml" />
     <None Include="Properties\PublishProfiles\FTPSomee.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
